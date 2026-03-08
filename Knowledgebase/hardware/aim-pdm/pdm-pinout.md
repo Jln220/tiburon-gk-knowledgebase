@@ -249,6 +249,27 @@ Based on the pinout, the PDM 32 outputs fall into these categories:
 
 **Three CAN buses total:** CAN0, CAN1 (also configurable as RS232), CAN2
 
+### CAN Bus Assignments — White Tiburon
+
+| Bus | Pins | Device | Speed | Notes |
+|-----|------|--------|-------|-------|
+| CAN0 | A22 (H) / A11 (L) | Haltech Elite 2500 | 500 kbps | ECU stream — RPM, ECT, Oil P/T, Fuel P, TPS |
+| CAN1 | A30 (H) / A31 (L) | AIM device chain | 1 Mbps | Dash → GPS → SmartyCam → Podium |
+| CAN2 | A28 (H) / A29 (L) | AIM CAN Keypad 12 (KP26-M1M) | 125 kbps | Keypad only on this bus |
+
+### CAN Keypad 12 (KP26-M1M) Wiring — PDM Side
+
+Connect the 4-wire keypad harness to Connector A (BLACK):
+
+| Keypad Wire | Color (AIM std) | PDM Pin | Signal |
+|-------------|-----------------|---------|--------|
+| CAN H | White | **A28** | CAN2 High |
+| CAN L | Blue | **A29** | CAN2 Low |
+| +12V | Red | **A33** | +Vb out CAN |
+| GND | Black | **A10** | GND |
+
+> Wire labels are printed on the keypad pigtail sleeve. Enable CAN2 internal terminator in Race Studio 3 — only two devices on this bus (PDM + keypad).
+
 ### LIN Bus (Connector B)
 | Signal | Pin |
 |--------|-----|
