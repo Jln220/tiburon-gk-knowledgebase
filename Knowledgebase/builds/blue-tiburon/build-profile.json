@@ -1,0 +1,146 @@
+{
+  "build_id": "blue-tiburon",
+  "description": "2003 Hyundai Tiburon GT V6 — test car / Lemons race backup, OEM ECU with GKFlasher tuning",
+  "year": 2003,
+  "chassis": "GK",
+  "engine": "G6BA",
+  "displacement_cc": 2656,
+  "transmission": "Aisin AY6",
+  "final_drive": "4.050:1",
+  "car_color": "blue",
+  "use": "lemons_race_backup",
+
+  "ecu": {
+    "make": "Siemens",
+    "model": "SIMK43",
+    "variant": "5WY15 or 5WY17/18/1F — verify from ECU label",
+    "firmware": null,
+    "oem_ecu": true,
+    "oem_ecu_model": "SIMK43 (4MBit MAF variant)",
+    "tuning_tool": "GKFlasher",
+    "tuning_docs": "common/opengk/gkflasher.md",
+    "k_line_address": "0x11",
+    "k_line_baud": 10400,
+    "k_line_init": "Fast Init",
+
+    "avi_assignments": {
+      "_note": "OEM ECU — no aftermarket AVI inputs. Sensors use OEM signal paths.",
+      "AVI1":  null,
+      "AVI2":  null,
+      "AVI3":  null,
+      "AVI4":  null,
+      "AVI5":  null,
+      "AVI6":  null,
+      "AVI7":  null,
+      "AVI8":  null,
+      "AVI9":  null,
+      "AVI10": null
+    },
+
+    "digital_inputs": {
+      "_note": "OEM ECU uses factory sensor inputs only",
+      "SPI1": null,
+      "SPI2": null,
+      "SPI3": null,
+      "SPI4": null
+    },
+
+    "ignition": {
+      "type": "wasted_spark",
+      "coil_model": "OEM Hyundai (3× dual-output coil packs)",
+      "count": 3,
+      "dwell_ms": null,
+      "mode": "wasted_spark",
+      "notes": "3 coil packs, 2 cylinders each. NOT sequential COP."
+    },
+
+    "injection": {
+      "mode": "sequential",
+      "injector_model": "Kefico 9260930004",
+      "injector_flow_cc_min": 194,
+      "injector_deadtime_ms": null,
+      "fuel_pressure_kpa": 310
+    },
+
+    "can_buses": {
+      "_note": "OEM SIMK43 broadcasts DME1–DME5 on the OEM CAN bus at 500 kbps",
+      "CAN0": { "baud": 500000, "connects_to": "OEM BCM / body electronics" }
+    }
+  },
+
+  "immo": {
+    "type": "SMARTRA2",
+    "system": "BCM-based (V6) — BCM holds SMARTRA2, asks ECU for start permission",
+    "k_line_routing": "OBD2 pin 7 → BCM-IM pin 19 → ECU C133-1 pin 3",
+    "default_pin_4digit": "2345",
+    "dpn_source": "last 6 VIN chars → github.com/Dante383/smartra-vin-to-pin",
+    "neutralize_routine_1": "GKFlasher 0x25 (prerequisite)",
+    "neutralize_routine_2": "GKFlasher 0x26 param 0x01 (confirm)",
+    "docs": [
+      "common/opengk/smartra.md",
+      "common/opengk/smartra-protocol.md",
+      "common/opengk/gkflasher.md"
+    ]
+  },
+
+  "pdm": {
+    "_note": "No PDM installed. OEM fuse/relay box.",
+    "make": null,
+    "model": null,
+    "outputs": null
+  },
+
+  "sensors": {
+    "coolant_temp": { "type": "OEM NTC thermistor", "location": "coolant passage, engine block", "signal_to": "ECU (OEM)" },
+    "oil_pressure":  { "type": "OEM pressure switch / gauge sender", "location": "oil filter housing", "signal_to": "OEM gauge (AEM aftermarket gauge also installed)" },
+    "oil_temp":      { "type": "AEM aftermarket", "location": null, "signal_to": "AEM gauge" },
+    "fuel_pressure": { "type": "Amazon FPR, no dedicated sensor", "location": null, "signal_to": null },
+    "map":           { "type": "OEM MAP sensor", "location": "intake manifold", "signal_to": "ECU (OEM)" },
+    "tps":           { "type": "OEM TPS", "location": "throttle body", "signal_to": "ECU (OEM)" },
+    "lambda":        { "type": "OEM narrowband O2 (pre-cat)", "model": null, "location": "exhaust header" },
+    "wideband":      { "type": "AEM wideband", "model": null, "location": "ECCPP header collector", "signal_to": "AEM gauge / AEM display" }
+  },
+
+  "modifications": {
+    "fuel_system": ["Amazon FPR (cheap, no gauge)"],
+    "intake": ["Cold air intake with box bracket"],
+    "exhaust": ["ECCPP eBay headers with exhaust wrap (not equal length)"],
+    "suspension": [
+      "KSport Kontrol Pro coilovers (CHY050-KP) — 7.5 kg/mm front, 4 kg/mm rear",
+      "Moog OE-style front control arms + SuperPro SPF3133K-SPRO bushings",
+      "Strut-to-knuckle: Belmetric BFD14X1.5X70YLW + Nord-Lock WNORD14",
+      "SuperPro rear trailing arm bushings",
+      "25mm wheel spacers",
+      "Phantom Grip block LSD"
+    ],
+    "engine": [
+      "Port matched intake manifolds",
+      "170°F thermostat",
+      "Gates timing belt kit (recently installed)"
+    ],
+    "clutch": [
+      "ClutchMasters FX500 clutch",
+      "Fidanza aluminum flywheel",
+      "Torque Solutions shifter bushings"
+    ],
+    "safety": ["OMP 6-pole kill switch", "Battery relocated to rear right (2 AWG cable)", "Momo detachable steering wheel"],
+    "other": ["NGK spark plug wires"]
+  },
+
+  "oem_differences": {
+    "immo_status": "Active (SMARTRA2 — may need neutralize for start button setup)",
+    "oem_cluster_retained": true,
+    "ac_deleted": true,
+    "abs_retained": false,
+    "evap_deleted": true,
+    "ignition_switch_deleted": true,
+    "start_method": "Push button (OMP kill switch + start button)"
+  },
+
+  "instrumentation": {
+    "cluster": "OEM cluster retained",
+    "gauges": ["AEM oil temperature gauge", "AEM oil pressure gauge", "AEM air/fuel ratio (AFR) gauge"]
+  },
+
+  "note": "Blue car is the lower-tech test mule — simpler wiring, no PDM, OEM ECU tuned via GKFlasher. Most electrical/ECU questions should be answered using common/opengk/ files."
+}

@@ -1016,6 +1016,23 @@
       "coolant_capacity_liters": 7.0,
       "fuel_pressure_static_kpa": "330–350"
     },
+    "build_overlay_refs": [
+      {
+        "car": "white-tiburon",
+        "description": "Haltech Elite 2500 + AIM PDM 32 race build",
+        "session_start": "builds/white-tiburon/README.md",
+        "graph": "builds/white-tiburon/build-knowledge-graph.json",
+        "profile": "builds/white-tiburon/build-profile.json"
+      },
+      {
+        "car": "blue-tiburon",
+        "description": "Stock Siemens SIMK43, OEM wiring, GKFlasher tuning",
+        "session_start": "builds/blue-tiburon/README.md",
+        "graph": null,
+        "profile": "builds/blue-tiburon/build-profile.json"
+      }
+    ],
+    "llm_guide": "Knowledgebase/LLM-GUIDE.md",
     "common_component_ids": {
       "cam_sensor": "comp-cmp-sensor",
       "crank_sensor": "comp-ckp-sensor",

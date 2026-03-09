@@ -17,9 +17,13 @@
       "id": "build-white",
       "type": "build",
       "label": "White Tiburon — Primary Race Car",
+      "session_start": "builds/white-tiburon/README.md",
       "profile_file": "builds/white-tiburon/build-profile.md",
+      "profile_json": "builds/white-tiburon/build-profile.json",
       "signal_routing": "builds/white-tiburon/signal-routing.md",
-      "weekend_tasks": "builds/white-tiburon/weekend-tasks.md"
+      "weekend_tasks": "builds/white-tiburon/weekend-tasks.md",
+      "platform_ref": "common/tiburon-knowledge-graph.json",
+      "platform_vehicle_node": "gk-chassis"
     },
 
     {
@@ -44,7 +48,8 @@
       "docs": [
         "hardware/aim-pdm/pdm-pinout.md",
         "hardware/aim-pdm/pdm-configuration-guide.md",
-        "hardware/aim-pdm/race-studio-config-guide.md"
+        "builds/white-tiburon/pdm/config-guide.md",
+        "builds/white-tiburon/pdm/session-1.md"
       ]
     },
 
