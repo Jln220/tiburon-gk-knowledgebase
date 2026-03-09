@@ -42,6 +42,19 @@
 
 ## Key Confirmed Facts (Load These Into Context)
 
+> **LLM:** Modifications below override factory specs in `common/shop-manual/` and `common/opengk/`. Check this section first, then reference manuals for anything not listed here.
+
+### Modifications — OEM Values That Do NOT Apply
+| System | OEM Spec | **This Car** |
+|---|---|---|
+| Thermostat | 82°C (180°F) | **77°C (170°F) aftermarket unit installed** |
+| Ignition | Wasted spark, 3 coil packs | **Sequential COP — Toyota 90919-A2005 ×6** |
+| ECU | Siemens SIMK43 | **Haltech Elite 2500** |
+| Power dist. | OEM fuse/relay box | **AIM PDM 32** |
+| Fan control | OEM fan thermoswitch | **PDM PWM — 25/50/75/100% at 77/82/87/92°C** |
+
+---
+
 ### ECU — Haltech Elite 2500
 | Detail | Value |
 |---|---|

@@ -113,13 +113,28 @@
     "lambda":           { "type": null, "model": null, "location": null }
   },
 
+  "cooling_system": {
+    "_llm_note": "Check this section BEFORE referencing factory thermostat specs. OEM values in shop-manual/ do NOT apply where modified.",
+    "thermostat": {
+      "oem_opening_temp_c": 82,
+      "installed": "180→170°F aftermarket unit",
+      "installed_opening_temp_c": 77,
+      "installed_fully_open_temp_c": 92,
+      "effect": "Engine stabilizes 77–87°C vs OEM 82–92°C. Fan bands and coolant alarm thresholds adjusted accordingly in PDM config."
+    },
+    "fan_control": "AIM PDM 32 HP2 — 4-level PWM (25/50/75/100% at 77/82/87/92°C). See guides/pdm-config.md."
+  },
+
   "modifications": {
+    "_llm_note": "Read this section before referencing factory specs. Modifications override OEM behavior documented in common/shop-manual/ and common/opengk/.",
+    "cooling": ["170°F (77°C) thermostat — replaces OEM 82°C unit. Fan bands and HIGH_COOLANT_T alarm shifted down 5°C in PDM config."],
     "fuel_system": ["Radium FPR", "return-style fuel system"],
+    "ignition": ["COP conversion — Toyota 90919-A2005 ×6 sequential (replaces OEM wasted spark 3-coil system)"],
     "intake": [],
     "exhaust": [],
     "suspension": [],
     "safety": ["roll cage (Lemons spec)"],
-    "other": ["AIM 10-inch dash", "AIM keypad 12-button", "COP ignition conversion"]
+    "other": ["AIM 10-inch dash", "AIM CAN Keypad 12", "AIM PDM 32 replaces OEM fuse/relay box"]
   },
 
   "oem_differences": {
@@ -129,5 +144,5 @@
     "abs_retained": false
   },
 
-  "note": "Primary Lemons race car. Haltech Elite 2500 replaces OEM Siemens SIMK43. AIM PDM 32 handles all power distribution. All 10 AVI channels assigned to Lowdoller sensors. Sequential COP ignition with Toyota 90919-A2005 coils. Load this file at session start — use AVI assignments and PDM map to answer wiring questions without re-asking."
+  "note": "Primary Lemons race car. LLM: read cooling_system and modifications sections before referencing factory specs — modifications override OEM values in shop-manual/ and opengk/. Key overrides: thermostat is 170°F (77°C) not OEM 82°C; ignition is sequential COP not wasted spark; ECU is Haltech Elite 2500 not SIMK43. AVI assignments and PDM output map above are source of truth for wiring questions."
 }
