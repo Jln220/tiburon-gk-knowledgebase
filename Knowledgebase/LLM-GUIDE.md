@@ -113,9 +113,9 @@ Used in `signal-routing.md` and other active-build files:
 | Question | File(s) |
 |---|---|
 | What pin is AVI 3 on? | `builds/white-tiburon/build-profile.json` → ecu.avi_assignments.AVI3 |
-| How does the fuel pump trigger? | `builds/white-tiburon/pdm/config-guide.md` → HP3 section |
+| How does the fuel pump trigger? | `builds/white-tiburon/guides/pdm-config.md` → HP3 section |
 | What's the PDM connector A pin for the fan? | `hardware/aim-pdm/pdm-pinout.md` |
-| How do I configure fan PWM in Race Studio? | `builds/white-tiburon/pdm/session-1.md` → Step 6, HP2 |
+| How do I configure fan PWM in Race Studio? | `builds/white-tiburon/guides/pdm-session-1.md` → Step 6, HP2 |
 | What wire color is CAN H on the Haltech? | `hardware/haltech/main-connector-26-pin-elite2500.md` → pin 23 |
 | What is the OEM coolant temp sensor resistance? | `common/opengk/sensor-information.md` |
 | What torque for cam cap bolts? | `common/shop-manual/engine-mechanical.md` (grep "cam cap" or "camshaft cap") |

@@ -277,7 +277,7 @@
 | `builds/{car}/signal-routing.md` | End-to-end signal routing |
 | `builds/{car}/weekend-tasks.md` | Phased build procedure |
 | `hardware/aim-pdm/pdm-configuration-guide.md` | PDM logic setup |
-| `builds/{car}/pdm/config-guide.md` | Race Studio 3 config guide (car-specific) |
+| `builds/{car}/guides/pdm-config.md` | Race Studio 3 config guide (car-specific) |
 | `hardware/haltech/main-connector-26-pin-elite2500.md` | Haltech 26-pin pinout |
 | `hardware/haltech/main-connector-34-pin-elite2500.md` | Haltech 34-pin pinout |
 | `hardware/sensors/lowdoller-sensors.md` | Lowdoller sensor specs |

@@ -333,7 +333,7 @@ All Lowdoller sensors: 5-wire (Red=+5V, Black=pressure GND, Yellow=pressure sign
 
 ## 6. AIM PDM 32 — Finalized Output/Input Assignments
 
-> Full Race Studio 3 configuration (status variables, trigger logic, protection settings, LED colors) → `builds/white-tiburon/pdm/config-guide.md`; step-by-step walkthrough → `builds/white-tiburon/pdm/session-1.md`
+> Full Race Studio 3 configuration (status variables, trigger logic, protection settings, LED colors) → `builds/white-tiburon/guides/pdm-config.md`; step-by-step walkthrough → `builds/white-tiburon/guides/pdm-session-1.md`
 
 ### Physical Inputs to Wire
 - [ ] **Conn B pin 23** — Ignition latching toggle switch (master IGN / `SafeIgnition`) — also splice to Haltech 34-pin pin 13 (P)

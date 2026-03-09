@@ -30,12 +30,13 @@
 | 2 | `build-profile.json` | Machine-readable config: all 10 AVI pins, PDM output map, ignition type, CAN buses |
 | 3 | `signal-routing.md` | End-to-end wire traces for every signal (confidence: ✅ verified / ⚠️ forum / 🔲 planned) |
 | 4 | `weekend-tasks.md` | Phased build procedure with test gates — current active work |
-| 5 | `pdm/session-1.md` | Race Studio 3 step-by-step config walkthrough (from webinar starting point) |
-| 6 | `pdm/config-guide.md` | PDM control scheme overview (keypad map, status variables, output logic) |
-| 7 | `cluster-integration.md` | OEM cluster wiring into Haltech (tach, speedo, fuel, coolant) |
-| 8 | `build-profile.md` | Narrative build profile: parts list, mods, history |
-| 9 | `build-knowledge-graph.json` | Component/signal relationship graph for programmatic lookup |
-| 10 | `diagrams/fuel-pump.md` | Mermaid fuel pump power + control path diagram |
+| 5 | `guides/pdm-session-1.md` | Race Studio 3 step-by-step config walkthrough (from webinar starting point) |
+| 6 | `guides/pdm-config.md` | PDM control scheme overview (keypad map, status variables, output logic) |
+| 7 | `guides/bench-test.md` | Consolidated bench test procedure: fuel pump, fuse box tap, alt exciter, starter |
+| 8 | `cluster-integration.md` | OEM cluster wiring into Haltech (tach, speedo, fuel, coolant) |
+| 9 | `build-profile.md` | Narrative build profile: parts list, mods, history |
+| 10 | `build-knowledge-graph.json` | Component/signal relationship graph for programmatic lookup |
+| 11 | `diagrams/fuel-pump.md` | Mermaid fuel pump power + control path diagram |
 
 ---
 

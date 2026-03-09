@@ -48,8 +48,9 @@
       "docs": [
         "hardware/aim-pdm/pdm-pinout.md",
         "hardware/aim-pdm/pdm-configuration-guide.md",
-        "builds/white-tiburon/pdm/config-guide.md",
-        "builds/white-tiburon/pdm/session-1.md"
+        "builds/white-tiburon/guides/pdm-config.md",
+        "builds/white-tiburon/guides/pdm-session-1.md",
+        "builds/white-tiburon/guides/bench-test.md"
       ]
     },
 
