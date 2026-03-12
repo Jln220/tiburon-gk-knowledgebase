@@ -36,8 +36,8 @@ title: MFI Control System (2.7L V6)
 | Mass air flow sensor | C125 | pin 3 (signal) | -- | 0.50 |
 | Mass air flow sensor | C135 | -- | -- | -- |
 | Camshaft position sensor | C114 | pin 1 (power) | O | 0.5O |
-| Camshaft position sensor | C114 | pin 2 (ground) | -- | 0.5G/B |
-| Camshaft position sensor | C114 | pin 3 (signal) | -- | 0.5B |
+| Camshaft position sensor | C114 | pin 2 (signal) | -- | 0.5B |
+| Camshaft position sensor | C114 | pin 3 (ground) | -- | 0.5G/B |
 | Crankshaft position sensor | C113 | pin 1 (power) | O | 0.5O |
 | Crankshaft position sensor | C113 | pin 2 (signal) | Y | 0.5Y |
 | Crankshaft position sensor | C113 | pin 3 (ground) | -- | 0.5B |
@@ -397,16 +397,16 @@ Power steering switch (C144) → [0.5B] → GND (G22)
 
 | Pin | Function | Wire Color | Wire Size | Connects To |
 |-----|----------|------------|-----------|-------------|
-| 1 | 12V power supply | O | 0.5O | C142 joint connector (SNSR FUSE 10A) |
-| 2 | Sensor ground | -- | 0.5G/B | ECM C133-4 |
-| 3 | CMP signal | -- | 0.5B | ECM C133-4 pin 2 |
+| 1 | Power supply (battery voltage) | O | 0.5O | C142 joint connector (SNSR FUSE 10A) |
+| 2 | CMP signal | -- | 0.5B | ECM C133-4 pin 2 |
+| 3 | Sensor ground | -- | 0.5G/B | ECM C133-4 |
 
 ### Crankshaft Position Sensor (C113)
 
 | Pin | Function | Wire Color | Wire Size | Connects To |
 |-----|----------|------------|-----------|-------------|
-| 1 | 12V power supply | O | 0.5O | C142 joint connector (SNSR FUSE 10A) |
-| 2 | CKP signal | Y | 0.5Y | ECM C133-3 |
+| 1 | Power supply (battery voltage) | O | 0.5O | C142 joint connector (SNSR FUSE 10A) |
+| 2 | CKP signal | Y | 0.5Y | ECM C133-3 pin 8 |
 | 3 | Sensor ground | -- | 0.5B | ECM C133-3 |
 
 ### Mass Air Flow Sensor (C125/C135)

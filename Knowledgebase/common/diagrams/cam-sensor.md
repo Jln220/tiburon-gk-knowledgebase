@@ -39,9 +39,9 @@ flowchart TD
 flowchart LR
     CMP_CONN["CMP Sensor Connector<br/><i>3-pin, engine harness</i>"]
 
-    CMP_CONN -->|"Pin 1 — 12V supply (0.5O)"| FUSE["SNSR FUSE 10A<br/><i>via C142 joint connector</i>"]
-    CMP_CONN -->|"Pin 2 — GND (0.5G/B)"| ECM_GND["ECM Sensor Ground<br/><i>OEM: C133-4</i>"]
-    CMP_CONN -->|"Pin 3 — Signal (0.5B)"| ECU_PIN["ECU Signal Pin<br/><i>OEM: C133-4 pin 2<br/>Haltech: see 26-pin pinout</i>"]
+    CMP_CONN -->|"Pin 1 — Power supply (0.5O)"| FUSE["SNSR FUSE 10A<br/><i>via C142 joint connector</i>"]
+    CMP_CONN -->|"Pin 2 — Signal (0.5B)"| ECU_PIN["ECU Signal Pin<br/><i>OEM: C133-4 pin 2<br/>Haltech: see 26-pin pinout</i>"]
+    CMP_CONN -->|"Pin 3 — GND (0.5G/B)"| ECM_GND["ECM Sensor Ground<br/><i>OEM: C133-4</i>"]
 
     DTC_P0340["DTC P0340<br/>CMP Circuit Malfunction<br/><i>Open or short to battery<br/>Short between CMP wires</i>"]
 
