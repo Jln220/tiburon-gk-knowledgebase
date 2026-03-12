@@ -164,7 +164,7 @@ Use this table to cross-check extracted sensor pinout tables in `schematics/mfi-
 | Connector | Component | CC Pins | CC P/N | Extracted Pins | Status | Notes |
 |-----------|-----------|---------|--------|----------------|--------|-------|
 | C111 | ECT sensor & sender | 2 | CR02F071 | 2 | ✅ OK | Signal + ground |
-| C112 | Throttle position sensor | 3 | CR03F028 | 2 | ⚠️ INCOMPLETE | Missing: power supply pin (0.5O via C142). Fix from FLA-46. |
+| C112 | Throttle position sensor | 3 | CR03F028 | 3 | ✅ FIXED | 3-pin confirmed by FLA-46: Pin 1=GND, Pin 2=Signal (0.5G/W), Pin 3=+5V from ECM C133-3 pin 10 (internal regulator, NOT C142/SNSR FUSE). |
 | C113 | Crankshaft position sensor | 3 | CR03F038 | 3 | ✅ OK | User confirmed. Pin 1=Power, Pin 2=Signal, Pin 3=GND |
 | C114 | Camshaft position sensor | 3 | CR03F029 | 3 | ✅ OK | User confirmed 3-pin CR03F029. CC extraction misread as 2-pin CR02F028 — extraction error. |
 | C115 | Oil pressure switch | 1 | CR01F020 | — | — | Single-wire switch, not in sensor tables |
