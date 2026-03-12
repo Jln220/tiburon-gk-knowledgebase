@@ -384,14 +384,17 @@ Power steering switch (C144) → [0.5B] → GND (G22)
 
 ## Sensor Connector Pinouts
 
-> **Note:** TPS (C112) and MAF (C125/C135) connector tables below are incomplete — they only show ECM-connected pins. Both sensors have additional pins (power supply via C142 joint connector from SNSR FUSE 10A) that were not captured in the original extraction. CMP (C114) and CKP (C113) have been corrected to show all 3 pins. See SD-78 schematic for full wiring.
+> **Note:** CKP (C113), CMP (C114), TPS (C112), and MAF (C125) connector tables have been corrected to show all 3 pins each. TPS gets +5V from ECM internal regulator (C133-3 pin 10); CKP/CMP get battery voltage via C142 joint connector (SNSR FUSE 10A); MAF gets battery voltage via MFI control relay (E42). ISC (C126) and IAT (C127) tables may be incomplete — CC section shows 3-pin connectors but only 2 functional wires are captured. See connector-master-reference.md validation checklist.
 
 ### Throttle Position Sensor (C112)
 
-| Pin | Function | Wire Color | Wire Size | ECM Pin |
-|-----|----------|------------|-----------|---------|
-| 1 | Sensor ground | -- | 0.5B | C133-3 |
-| 2 | TPS signal output | -- | 0.5G/W | C133-3 pin 15 |
+| Pin | Function | Wire Color | Wire Size | Connects To |
+|-----|----------|------------|-----------|-------------|
+| 1 | Sensor ground | -- | 0.5B | ECM C133-3 |
+| 2 | TPS signal output | -- | 0.5G/W | ECM C133-3 pin 19 |
+| 3 | +5V reference supply | -- | 0.5O | ECM C133-3 pin 10 |
+
+> **Source:** FLA-46 circuit diagram (3-pin connector). Pin 3 (+5V) is supplied by the ECM's internal voltage regulator, NOT by C142/SNSR FUSE. ECM pin numbers from ecm-pinouts.md (C133-3 pin 10=TPS 5V supply, pin 19=TPS input).
 
 ### Camshaft Position Sensor (C114)
 
@@ -411,9 +414,13 @@ Power steering switch (C144) → [0.5B] → GND (G22)
 
 ### Mass Air Flow Sensor (C125/C135)
 
-| Pin | Function | Wire Color | Wire Size | ECM Pin |
-|-----|----------|------------|-----------|---------|
-| 3 | MAF signal | -- | 0.50 | C133-3 pin 5 |
+| Pin | Function | Wire Color | Wire Size | Connects To |
+|-----|----------|------------|-----------|-------------|
+| 1 | Power supply (battery voltage) | -- | -- | MFI control relay (E42) |
+| 2 | Sensor ground | -- | -- | Ground |
+| 3 | MAF signal output | -- | 0.50 | ECM C133-3 pin 1 |
+
+> **Source:** FLA-40 circuit diagram (3-pin connector). Power supply is battery voltage via MFI control relay, NOT +5V reference. ECM pin from ecm-pinouts.md (C133-3 pin 1=MAF sensor input). Pin order at connector face unverified — may differ from physical layout.
 
 ### Idle Speed Control Actuator (C126)
 

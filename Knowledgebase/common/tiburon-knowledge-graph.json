@@ -909,8 +909,8 @@
       "connector_code": "C125",
       "harness": "control",
       "pin_count": 3,
-      "connector_pn": "CR03F008",
-      "etm_page_ref": "CC-17"
+      "connector_pn": "CR02F048",
+      "etm_page_ref": "CC-18"
     },
     {
       "id": "conn-C127",
@@ -918,8 +918,9 @@
       "label": "IAT Sensor Connector C127",
       "connector_code": "C127",
       "harness": "control",
-      "pin_count": 2,
-      "etm_page_ref": "CC-17"
+      "pin_count": 3,
+      "connector_pn": "CR02F041",
+      "etm_page_ref": "CC-18"
     },
     {
       "id": "conn-C123-1",
@@ -1220,8 +1221,8 @@
     { "source": "comp-ckp-sensor",    "target": "conn-C113",   "rel": "connector_code", "context": "ETM connector C113, 3-pin, CR03F038, CC-17, Control Harness (4)" },
     { "source": "comp-cmp-sensor",    "target": "conn-C114",   "rel": "connector_code", "context": "ETM connector C114, 3-pin, CR03F029, CC-17, Control Harness (4)" },
     { "source": "comp-vss",           "target": "conn-C109",   "rel": "connector_code", "context": "ETM connector C109, 3-pin, CC-17, Control Harness (4)" },
-    { "source": "comp-maf-sensor",    "target": "conn-C125",   "rel": "connector_code", "context": "ETM connector C125, 5-pin, CC-17, Control Harness (4)" },
-    { "source": "comp-iat-sensor",    "target": "conn-C127",   "rel": "connector_code", "context": "ETM connector C127, 2-pin, CC-17, Control Harness (4)" },
+    { "source": "comp-maf-sensor",    "target": "conn-C125",   "rel": "connector_code", "context": "ETM connector C125, 3-pin, CC-18, Control Harness (4)" },
+    { "source": "comp-iat-sensor",    "target": "conn-C127",   "rel": "connector_code", "context": "ETM connector C127, 3-pin, CC-18, Control Harness (4)" },
     { "source": "comp-knock-sensor",  "target": "conn-C123-1", "rel": "connector_code", "context": "ETM connector C123-1, 1-pin, CC-17, Control Harness (4) — front bank" },
     { "source": "comp-knock-sensor",  "target": "conn-C123-2", "rel": "connector_code", "context": "ETM connector C123-2, 1-pin, CC-17, Control Harness (4) — rear bank" },
 

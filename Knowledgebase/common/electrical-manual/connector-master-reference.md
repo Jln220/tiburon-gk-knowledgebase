@@ -31,8 +31,8 @@ This file maps every V6 engine-management connector to ALL relevant manual secti
 | C122 | Rear oxygen sensor (non-EOBD) | 4 | CC-18 | CR04M004 | HL-15 | Control (4) | SD-80 | CL-23 | FLA-52 | FLA-73+ (P0136–P0161) | `comp-o2-sensor` |
 | C123-1 | Knock sensor #1 | 1–2 | CC-18 | CR02F030 | HL-15 | Control (4) | SD-82 | CL-23 | FLA-65 | FLA-73+ (P0325) | `comp-knock-sensor` |
 | C123-2 | Knock sensor #2 | 1–2 | CC-18 | CR03F028 | HL-15 | Control (4) | SD-82 | CL-23 | FLA-65 | FLA-73+ (P0330) | `comp-knock-sensor` |
-| C125 | Mass air flow sensor | 3 | CC-18 | CR03F008 | HL-15 | Control (4) | SD-82 | CL-23 | FLA-40 | FLA-73+ (P0100–P0103) | `comp-maf-sensor` |
-| C127 | Intake air temperature sensor | 2 | CC-18 | CR02F041 | HL-15 | Control (4) | SD-82 | CL-24 | FLA-43 | FLA-73+ (P0110/P0112/P0113) | `comp-iat-sensor` |
+| C125 | Mass air flow sensor | 3 | CC-18 | CR02F048 | HL-15 | Control (4) | SD-82 | CL-23 | FLA-40 | FLA-73+ (P0100–P0103) | `comp-maf-sensor` |
+| C127 | Intake air temperature sensor | 3 | CC-18 | CR02F041 | HL-15 | Control (4) | SD-82 | CL-24 | FLA-43 | FLA-73+ (P0110/P0112/P0113) | `comp-iat-sensor` |
 | C109 | Vehicle speed sensor | 3 | CC-17 | CR03F028 | HL-15 | Control (4) | SD-82 | — | — | — | `comp-vss` |
 | C144 | Power steering switch | 1 | CC-19 | CR01F008 | HL-15 | Control (4) | SD-82 | CL-25 | — | — | — |
 
@@ -57,7 +57,7 @@ This file maps every V6 engine-management connector to ALL relevant manual secti
 | C124-4 | Injector #4 | 2 | CC-17 | — | HL-15 | Control (4) | SD-81 | CL-23 | FLA-59 | FLA-73+ (P0204) | `comp-injector` |
 | C124-5 | Injector #5 | 2 | CC-17 | — | HL-15 | Injector | SD-81 | CL-23 | FLA-59 | FLA-73+ (P0205) | `comp-injector` |
 | C124-6 | Injector #6 | 2 | CC-17 | — | HL-15 | Control (4) | SD-81 | CL-23 | FLA-59 | FLA-73+ (P0206) | `comp-injector` |
-| C126 | Idle speed control actuator | 2 | CC-17 | — | HL-15 | Control (4) | SD-81 | CL-24 | FLA-49 | FLA-73+ (P0505) | — |
+| C126 | Idle speed control actuator | 3 | CC-18 | CR02F028 | HL-15 | Control (4) | SD-81 | CL-24 | FLA-49 | FLA-73+ (P0505) | — |
 | C128 | A/C compressor | 1 | CC-17 | — | HL-15 | Control (4) | SD-82 | — | — | — | — |
 
 ### ECM / TCM Connectors
@@ -172,9 +172,9 @@ Use this table to cross-check extracted sensor pinout tables in `schematics/mfi-
 | C122 | Rear oxygen sensor | 4 | CR04M004 | — | — | CC extraction read 2 pins but P/N prefix CR04 = 4 pins. Heated O2 = 4 wire. |
 | C123-1 | Knock sensor #1 | 1–2 | CR02F030 | 1 | ⚠️ VERIFY | CC shows 2-pin housing, but piezoelectric may ground through bolt. CR02 = 2 cavities. |
 | C123-2 | Knock sensor #2 | 1–2 | CR03F028 | 1 | ⚠️ VERIFY | CC P/N inconsistent with #1 (CR03F028 ≠ CR02F030). May be extraction OCR error. |
-| C125 | Mass air flow sensor | 3 | CR03F008 | 1 | ⚠️ INCOMPLETE | V6 has separate IAT (C127), so MAF may be 3-pin (power/signal/ground). Fix from FLA-40. |
-| C126 | ISC actuator | 2 | CR02F028 | 2 | ✅ OK | Power + control |
-| C127 | Intake air temp sensor | 2 | CR02F041 | 2 | ✅ OK | Signal + ground |
+| C125 | Mass air flow sensor | 3 | CR02F048 | 1 → 3 | ✅ FIXED | 3-pin confirmed by FLA-40 circuit diagram: power (battery V) / signal / ground. P/N CR02F048 from CC; CR03F008 from original extraction — verify physically. |
+| C126 | ISC actuator | 3 | CR02F028 | 2 | ⚠️ VERIFY | CC reads 3 pins but P/N prefix CR02 = 2 cavities. Functional analysis: power + control = 2 wires. Third pin may be unused cavity or feedback. Verify from CC face drawing. |
+| C127 | Intake air temp sensor | 3 | CR02F041 | 2 | ⚠️ VERIFY | CC reads 3 pins but P/N prefix CR02 = 2 cavities. IAT is a simple thermistor = 2 wires. Third pin may be shield or unused cavity. Verify from CC face drawing. |
 | C128 | A/C compressor clutch | 1 | CR01F028 | — | — | Single-wire |
 | C109 | Vehicle speed sensor | 3 | CR03F028 | — | — | Not in MFI sensor tables |
 
@@ -186,9 +186,12 @@ The CC section was extracted from scanned PDF pages at 300 DPI using visual OCR.
 - **C122 (Rear O2):** CC extraction read 2 pins, but part number prefix CR04 indicates 4 cavities. Heated O2 sensors require 4 wires.
 - **C123-1/C123-2 (Knock sensors):** Inconsistent part numbers between the two. Physical verification needed.
 - **Part numbers marked `[?]`** in the CC extraction have uncertain readings and should be verified against physical connectors.
-- **Part number prefix decoding:** `CR##` — the digits after CR indicate physical pin cavity count (e.g., CR03F = 3-pin female, CR02F = 2-pin female).
+- **C125 (MAF):** CC extraction reads CR02F048 (2-cavity housing) but MAF has 3 functional pins (power/signal/ground confirmed by FLA-40). Original extraction read CR03F008 (3-cavity). Physical verification needed to confirm P/N.
+- **C126 (ISC):** CC reads 3 pins / CR02F028 (2-cavity housing). Pin count vs cavity count inconsistency — CC face drawing may show 3 positions with one unused, or the pin count reading may be an OCR error.
+- **C127 (IAT):** CC reads 3 pins / CR02F041 (2-cavity housing). Same cavity/pin inconsistency as C126. IAT thermistor functionally requires only 2 wires.
+- **Part number prefix decoding:** `CR##` — the digits after CR indicate physical housing cavity count (e.g., CR03F = 3-cavity female, CR02F = 2-cavity female). Cavities ≥ populated pins; X-marks on face drawings = unpopulated cavities.
 
-> **Action items:** Fix C112 (TPS) and C125 (MAF) sensor pinout tables in `mfi-control-v6.md` using FLA circuit diagrams as the authoritative source. See FLA-46 (TPS) and FLA-40 (MAF).
+> **Action items (resolved):** ~~Fix C112 (TPS) and C125 (MAF) sensor pinout tables in `mfi-control-v6.md`.~~ Done — TPS 3-pin table added from FLA-46, MAF 3-pin table added from FLA-40. C126/C127 pin count discrepancies noted for physical verification.
 
 ---
 
