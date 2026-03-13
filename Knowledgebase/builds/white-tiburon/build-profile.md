@@ -38,18 +38,34 @@
 - **Coil-on-plug (COP) confirmed** — Toyota 90919-A2005 ×6, sequential, IGN1–6 all active. See `cars/cop-ignition.md`.
 - **No wheel speed sensors** — TC and ABS are not possible. Launch control not configured.
 
-### Sensors (Planned/In Progress)
-Full specs, wiring, and calibration tables: `Knowledgebase/cars/lowdoller-sensors.md`
+### Sensors — Haltech AVI Assignments (10 Channels + Built-in MAP)
+Full specs, wiring, and calibration tables: `hardware/sensors/lowdoller-sensors.md`
+Full signal routing: `builds/white-tiburon/signal-routing.md`
 
-- **Lowdoller Motorsports combo pressure/temp sensors:**
-  - **Fuel:** PN 899404 (150 PSI / 500°F, 1/8" NPT) — on return line via line tap w/ hose barbs
-  - **Oil:** PN 899404 (150 PSI / 500°F, 1/8" NPT) — direct mount to engine
-  - **Coolant:** LDM899TP100 (100 PSI / 500°F, M12x1.5 w/ sealing ring) — confirm thread fits manifold
-  - **Transmission:** PN 899404 (150 PSI / 500°F, 1/8" NPT) — maybe, depends on AVI channel availability
-- **Brake:** PN 899405 (1500 PSI / 500°F, 1/8" NPT) — later, fittings to Jak
-- All sensors output 0.5–4.5V pressure + PTC resistive temp (5-wire: red/black/yellow/white/green)
-- Each sensor uses 2 Haltech AVI channels (pressure + temp)
-- **5V supply:** Haltech 34-pin pin 9 (O, orange) = +5V DC, 100mA — already tested and configured in NSP
+**Combo pressure/temp sensors (Lowdoller, 2 AVI each):**
+- **Fuel:** PN 899404 (150 PSI / 500°F, 1/8" NPT) → AVI 1 + AVI 2 — on return line via line tap w/ hose barbs
+- **Oil:** PN 899404 (150 PSI / 500°F, 1/8" NPT) → AVI 3 + AVI 4 — direct mount to engine
+- **Coolant:** LDM899TP100 (100 PSI / 500°F, M12x1.5) → AVI 5 + AVI 6 — confirm thread fits manifold
+
+**Single-channel sensors:**
+- **IAT:** Intake air temp → AVI 7 (26-pin pin 3, Haltech default)
+- **Wideband O2:** Innovate LM2 analog output → AVI 8 (26-pin pin 4)
+- **Crankcase pressure:** 0–5V sensor on vacuum tee between valve covers → AVI 9 (34-pin pin 15)
+- **TPS:** OEM throttle position → AVI 10 (34-pin pin 14, Haltech default)
+- **MAP:** Elite 2500 built-in MAP — does NOT use an AVI channel. Connect vacuum line to ECU barb.
+
+**Lower priority (PDM, not AVI):**
+- **Narrowband O2** (×2) — PDM analog inputs, logging only
+- **Track/tire temp** — PDM analog input
+
+**Future expansion (leave harness room):**
+- **Brake:** PN 899405 (1500 PSI combo) — 2 AVI needed, fittings to Jak
+- **Transmission:** PN 899404 (150 PSI combo) — 2 AVI needed
+- **Haltech TPS module** — CAN-based, frees AVI 10
+- **EGT** — CAN-based module preferred to avoid AVI consumption
+
+All combo sensors: 0.5–4.5V pressure + PTC resistive temp (5-wire: red/black/yellow/white/green)
+**5V supply:** Haltech 34-pin pin 9 (O, orange) = +5V DC, 100mA — already tested and configured in NSP
 
 ---
 
@@ -144,7 +160,7 @@ Full specs, wiring, and calibration tables: `Knowledgebase/cars/lowdoller-sensor
 | In progress | Haltech Elite 2500 install | Bench testing underway — cam/crank confirmed, knock next |
 | In progress | AIM PDM 32 + 10" dash install | PDM on spade connectors in fuse box (pin 87) for bench logic testing |
 | Planned | Radium FPR + 6AN PTFE fuel lines | Parts ready |
-| Planned | Lowdoller combo temp/pressure sensors | Fuel, coolant, oil, possibly trans |
+| Planned | Lowdoller combo temp/pressure sensors | Fuel (AVI 1+2), oil (AVI 3+4), coolant (AVI 5+6). Brake + trans = future expansion |
 | Confirmed | Coil-on-plug conversion | Toyota 90919-A2005 ×6 — see `cars/cop-ignition.md` |
 
 ---

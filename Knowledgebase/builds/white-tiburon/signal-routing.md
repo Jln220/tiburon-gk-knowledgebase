@@ -35,10 +35,7 @@ All sensors: Red=+5V, Black=pressure GND, Yellow=pressure signal, White=temp GND
 | **Oil temp** | Engine (same body) | 899404 | — | AVI 4 | 34-pin pin 2 | O/Y | PTC custom table ✅ |
 | **Coolant pressure** | Coolant manifold | LDM899TP100 | M12×1.5 | AVI 5 | 26-pin pin 20 | O/G | PSI = (V−0.5)×25.0, range 0–100 PSI ✅ |
 | **Coolant temp** | Coolant manifold | LDM899TP100 | — (same body) | AVI 6 | 26-pin pin 12 | GY/O (shld) | PTC custom table ✅ |
-| **Brake pressure** | Brake line (later) | 899405 (LDM899TP) | 1/8" NPT | AVI 7 | 26-pin pin 3 | GY | PSI = (V−0.5)×375.0, range 0–1500 PSI 🔲 |
-| **Brake temp** | Brake line (later) | 899405 | — | AVI 8 | 26-pin pin 4 | V | PTC custom table 🔲 |
-
-**Note:** AVI 7 and AVI 8 physical pins default to "Air Temp" and "Coolant Temp" labels in Haltech — reassigned in NSP to brake sensors.
+**Brake combo (899405) moved to future expansion** — requires 2 additional AVI channels. See harness planning notes below.
 
 ---
 
@@ -46,18 +43,17 @@ All sensors: Red=+5V, Black=pressure GND, Yellow=pressure signal, White=temp GND
 
 | Signal | Sensor | Connector | Haltech Pin | Wire Color | Signal Type | Notes |
 |--------|--------|-----------|-------------|------------|-------------|-------|
-| **MAP sensor** | MAP in intake plenum (to install) | — | **34-pin pin 15** (AVI 9) | Y | 0–5V ratiometric | 🔲 Power: +8V from **34-pin pin 12** (O/W). Drill/tap plenum |
+| **MAP sensor** | Elite 2500 built-in MAP | — | Internal | — | — | ✅ Built-in to ECU — does NOT use an AVI channel. Connect vacuum line to ECU barb |
 | **Throttle position (TPS)** | OEM TPS on throttle body | — | **34-pin pin 14** (AVI 10) | W | 0–5V | ✅ |
-| **Intake air temp (IAT)** | IAT sensor | — | **26-pin pin 3** (AVI 7) | GY | Resistive, 1K pull-up | ⚠️ Reassigned if brake sensors use AVI 7 — check NSP config |
-| **Coolant temp (ECU)** | OEM CTS sensor (C111 ECM pin) | C111 | **26-pin pin 4** (AVI 8) | V | Resistive NTC, 1K pull-up | ⚠️ May be reassigned — OEM CTS ECU signal vs. Lowdoller coolant sensor on AVI 6 |
+| **Intake air temp (IAT)** | IAT sensor | — | **26-pin pin 3** (AVI 7) | GY | Resistive, 1K pull-up | ✅ Default Haltech label for this pin |
+| **Wideband O2 (AFR)** | Innovate LM2 Analog Out 1 (Lime Green +, Yellow −) | Cable 3811 | **26-pin pin 4** (AVI 8) | V | 0–5V (7.35–22.39 AFR) | 🔲 LM2 in footwell — cockpit run only. Haltech default label "Coolant Temp" — reassign in NSP |
+| **Crankcase pressure** | 0–5V sensor on vacuum tee between valve covers | — | **34-pin pin 15** (AVI 9) | Y | 0–5V ratiometric | 🔲 Built-in MAP frees AVI 9 for crankcase pressure |
 | **Crank position (+)** | CKP sensor (39180-37150 / NTK EH0220) | — | **26-pin pin 1** (Trig+) | Y (shielded) | Hall effect | ✅ |
 | **Crank position (−)** | CKP sensor | — | **26-pin pin 5** | G (shielded) | Signal ground ref | ✅ |
 | **Cam position (+)** | CMP sensor (39350-37100 / NTK EC0145) | — | **26-pin pin 2** (Home+) | Y (shielded) | Hall effect | ✅ |
 | **Cam position (−)** | CMP sensor | — | **26-pin pin 6** | G (shielded) | Signal ground ref | ✅ |
 | **Knock sensor 1** | OEM knock sensor | — | **26-pin pin 21** | GY/G | Piezoelectric | ✅ |
 | **Knock sensor 2** | OEM knock sensor | — | **26-pin pin 22** | GY/L | Piezoelectric | ✅ |
-| **Wideband O2 (AFR)** | Innovate LM2 Analog Out 1 (Lime Green +, Yellow −) | Cable 3811 | **26-pin pin 4** (AVI 8) | Lime Green / Yellow | 0–5V (7.35–22.39 AFR) | 🔲 AVI 8 reassigned from redundant OEM CTS (Lowdoller coolant on AVI 6). LM2 in footwell — cockpit run only |
-| **Crankcase pressure** | 0–5V sensor on vacuum tee between valve covers | — | LM2 Analog In 1 (Purple +, Black −) | — | 0–5V | 🔲 Logged through LM2, not Haltech — no spare AVI |
 
 ---
 
@@ -129,7 +125,7 @@ See `cars/cop-ignition.md` for full coil pinout (A/B/C/D), wiring diagram, and p
 | CAN H (PDM → Smartycam) | PDM CAN | AIM Smartycam | — | — | | 🔲 Smartycam overlays data on video |
 | CAN H (PDM → Podium) | PDM CAN | AIM Podium | — | — | | 🔲 Podium = telemetry uplink |
 
-**Haltech CAN data available to PDM:** Engine RPM, coolant temp, throttle position, vehicle speed, fuel pressure, oil pressure, all AVI values — eliminates need for duplicate analog wiring to PDM.
+**Haltech CAN data available to PDM:** Engine RPM, MAP (built-in), coolant temp, throttle position, vehicle speed, fuel pressure, oil pressure, all AVI values — eliminates need for duplicate analog wiring to PDM.
 
 ---
 
@@ -142,10 +138,36 @@ Haltech 34-pin pin 9 (+5V, O wire)
     ├── Fuel sensor (899404) — Red wire
     ├── Oil sensor (899404) — Red wire
     ├── Coolant sensor (LDM899TP100) — Red wire
-    └── [Brake sensor (899405)] — Red wire (future)
+    └── Crankcase pressure sensor — Red wire (if 5V supply type)
 ```
 
 **All pressure grounds** (Black wires) and **temp grounds** (White wires) → Haltech 26-pin pins 14/15/16 (B/W signal GND).
+
+---
+
+## Sensors on PDM (Lower Priority / Logging Only)
+
+| Sensor | PDM Input | Signal Type | Notes |
+|--------|-----------|-------------|-------|
+| **Narrowband O2** (×2) | PDM analog inputs | 0–1V | OEM-style for A/F logging — not used for closed-loop fuel control |
+| **Track/tire temp** | PDM analog input | Resistive / infrared | IR pyrometer or contact sensor for tire temps |
+
+**PDM analog inputs are 0–5V, 12-bit.** Lower sample rate than Haltech AVI but sufficient for logging-only sensors.
+
+---
+
+## Future Expansion — Leave Harness Room
+
+All sensors below require additional AVI channels. Plan harness connector capacity and wire runs now, but do not assign AVI pins until ready to install.
+
+| Sensor | Type | AVI Needed | Connector | Harness Notes |
+|--------|------|-----------|-----------|---------------|
+| **Brake pressure/temp** | Lowdoller 899405 (1500 PSI combo) | 2 | Deutsch DTM-4 | Run to brake line — fittings to Jak. 5-wire → DTM-4 (combine GNDs) |
+| **Transmission temp/pressure** | Lowdoller 899404 (150 PSI combo) | 2 | Deutsch DTM-4 | Run to trans — depends on AVI availability |
+| **Haltech TPS module** | Haltech dual TPS (CAN-based) | 0 (CAN) | Haltech connector | Replaces AVI 10 TPS — frees 1 AVI channel |
+| **EGT** (×1 or ×6) | K-type thermocouple | 1 per (or CAN EGT module) | Miniature K-type | CAN-based EGT module preferred to avoid consuming AVI channels |
+
+**Expansion strategy:** Haltech TPS module frees AVI 10. CAN-based EGT module avoids AVI consumption. Brake + trans combos need 4 AVI — possible with TPS module freeing 1 + REM harness AVI inputs (REM harness has AVI 1–10 wired back to ECU even without REM unit).
 
 ---
 
@@ -170,9 +192,9 @@ Transaxle VSS (C109) — Hall IC, 4 pulses/rev
 | AVI 4 | Oil temp | 34-pin pin 2 | O/Y | PTC table |
 | AVI 5 | Coolant pressure | 26-pin pin 20 | O/G | 0–100 PSI linear |
 | AVI 6 | Coolant temp | 26-pin pin 12 | GY/O (shld) | PTC table |
-| AVI 7 | Brake pressure (later) | 26-pin pin 3 | GY | 0–1500 PSI linear |
-| AVI 8 | Brake temp (later) | 26-pin pin 4 | V | PTC table |
-| AVI 9 | MAP sensor | 34-pin pin 15 | Y | Per MAP spec |
+| AVI 7 | IAT | 26-pin pin 3 | GY | Resistive, 1K pull-up |
+| AVI 8 | Wideband O2 (LM2) | 26-pin pin 4 | V | 0–5V (7.35–22.39 AFR) |
+| AVI 9 | Crankcase pressure | 34-pin pin 15 | Y | 0–5V ratiometric |
 | AVI 10 | TPS | 34-pin pin 14 | W | 0–5V |
 
 ---

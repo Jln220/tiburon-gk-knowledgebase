@@ -41,8 +41,8 @@
 |-----|------|------------|-------|
 | 1 | Y (shd) | Crank trigger + | G6BA CKP sensor (39180-37150 / NTK EH0220) |
 | 2 | Y (shd) | Cam home + | G6BA CMP sensor (39350-37100 / NTK EC0145) |
-| 3 | GY | AVI 7 — IAT | Intake air temp sensor |
-| 4 | V | AVI 8 — spare/CTS | May be reassigned if brake sensors use AVI 7 |
+| 3 | GY | AVI 7 — IAT | Intake air temp sensor (Haltech default) |
+| 4 | V | AVI 8 — Wideband O2 | Innovate LM2 Analog Out 1 (0–5V, 7.35–22.39 AFR) |
 | 5 | G (shd) | Crank trigger − | Signal ground ref |
 | 6 | G (shd) | Cam home − | Signal ground ref |
 | 11 | R/W | ECU power input | From PDM LP1 (A14) |
@@ -52,5 +52,5 @@
 | 20 | O/G | AVI 5 — Coolant pressure | Lowdoller LDM899TP100 yellow wire |
 | 21 | GY/G | Knock 1 | OEM knock sensor |
 | 22 | GY/L | Knock 2 | OEM knock sensor |
-| 23 | W | CAN H → PDM CAN0 | PDM Connector A pin 22 (A22) — 500 kbps |
-| 24 | L | CAN L → PDM CAN0 | PDM Connector A pin 11 (A11) — 500 kbps |
+| 23 | W | CAN H → PDM CAN ECU | PDM Connector A pin 30 (A30) — 500 kbps |
+| 24 | L | CAN L → PDM CAN ECU | PDM Connector A pin 31 (A31) — 500 kbps |

@@ -253,7 +253,7 @@
       "pin_number": 3,
       "wire_color": "GY",
       "function": "AVI 7",
-      "assigned_to": "Brake pressure (Lowdoller PN 899405)"
+      "assigned_to": "IAT (intake air temp, Haltech default)"
     },
     {
       "id": "ecu-26pin-4",
@@ -263,7 +263,7 @@
       "pin_number": 4,
       "wire_color": "V",
       "function": "AVI 8",
-      "assigned_to": "Brake temp (Lowdoller PN 899405)"
+      "assigned_to": "Wideband O2 (Innovate LM2 Analog Out 1)"
     },
     {
       "id": "ecu-34pin-15",
@@ -273,7 +273,7 @@
       "pin_number": 15,
       "wire_color": "Y",
       "function": "AVI 9",
-      "assigned_to": "MAP sensor"
+      "assigned_to": "Crankcase pressure (0–5V sensor)"
     },
     {
       "id": "ecu-34pin-14",
@@ -622,7 +622,40 @@
       "pressure_range_psi": 1500,
       "thread": "1/8\" NPT",
       "install_location": "Brake line — fittings to Jak",
-      "status": "planned"
+      "status": "future_expansion",
+      "notes": "Needs 2 AVI channels — currently all 10 used. Leave harness room for future install."
+    },
+    {
+      "id": "sensor-iat",
+      "type": "sensor_instance",
+      "label": "Intake Air Temp Sensor",
+      "sensor_type": "NTC thermistor",
+      "install_location": "Intake tract",
+      "avi_channel": 7,
+      "haltech_pin": "26-pin pin 3 (GY)"
+    },
+    {
+      "id": "sensor-wideband-lm2",
+      "type": "sensor_instance",
+      "label": "Innovate LM2 Wideband O2 (Analog Output)",
+      "device_type": "wideband_controller",
+      "install_location": "Footwell (controller) — sensor in exhaust",
+      "avi_channel": 8,
+      "haltech_pin": "26-pin pin 4 (V)",
+      "signal": "0–5V (7.35–22.39 AFR)",
+      "power_from": "pdm-LP5 (A18)",
+      "notes": "LM2 Analog Out 1: Lime Green (+), Yellow (−). Cable 3811. Cockpit run only."
+    },
+    {
+      "id": "sensor-crankcase-pressure",
+      "type": "sensor_instance",
+      "label": "Crankcase Pressure Sensor",
+      "sensor_type": "0–5V ratiometric",
+      "install_location": "Vacuum tee between valve covers",
+      "avi_channel": 9,
+      "haltech_pin": "34-pin pin 15 (Y)",
+      "status": "planned",
+      "notes": "Built-in MAP frees AVI 9 for crankcase pressure monitoring."
     },
     {
       "id": "sensor-cop-coil-1",
@@ -685,8 +718,9 @@
     { "source": "sensor-lowdoller-oil",     "target": "ecu-34pin-2",  "rel": "signals_to", "context": "Temp" },
     { "source": "sensor-lowdoller-coolant", "target": "ecu-26pin-20", "rel": "signals_to", "context": "Pressure" },
     { "source": "sensor-lowdoller-coolant", "target": "ecu-26pin-12", "rel": "signals_to", "context": "Temp" },
-    { "source": "sensor-lowdoller-brake",   "target": "ecu-26pin-3",  "rel": "signals_to", "context": "Pressure" },
-    { "source": "sensor-lowdoller-brake",   "target": "ecu-26pin-4",  "rel": "signals_to", "context": "Temp" },
+    { "source": "sensor-iat",                "target": "ecu-26pin-3",  "rel": "signals_to", "context": "IAT — resistive NTC, 1K pull-up" },
+    { "source": "sensor-wideband-lm2",      "target": "ecu-26pin-4",  "rel": "signals_to", "context": "Wideband O2 — LM2 Analog Out 1 (0–5V)" },
+    { "source": "sensor-crankcase-pressure", "target": "ecu-34pin-15", "rel": "signals_to", "context": "Crankcase pressure — 0–5V ratiometric" },
 
     { "source": "sensor-cop-coil-1", "target": "ecu-34pin-3", "rel": "triggered_by", "context": "Pin B of COP coil ← IGN1" },
 
@@ -729,9 +763,9 @@
       "AVI4":  "Oil temp         — 34-pin pin 2  (O/Y)",
       "AVI5":  "Coolant pressure — 26-pin pin 20 (O/G)",
       "AVI6":  "Coolant temp     — 26-pin pin 12 (GY/O shielded)",
-      "AVI7":  "Brake pressure   — 26-pin pin 3  (GY)",
-      "AVI8":  "Brake temp       — 26-pin pin 4  (V)",
-      "AVI9":  "MAP              — 34-pin pin 15 (Y)",
+      "AVI7":  "IAT              — 26-pin pin 3  (GY)",
+      "AVI8":  "Wideband O2 (LM2) — 26-pin pin 4  (V)",
+      "AVI9":  "Crankcase press  — 34-pin pin 15 (Y)",
       "AVI10": "TPS              — 34-pin pin 14 (W)"
     },
     "can_buses": {

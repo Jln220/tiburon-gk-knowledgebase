@@ -180,9 +180,9 @@ Compatible with Holley, FuelTech, Haltech, and similar ECUs.
 
 ---
 
-## Haltech AVI Channel Assignment Plan
+## Haltech AVI Channel Assignment Plan (White Tiburon)
 
-Each combo sensor uses 2 AVI channels. With 4 sensors that's 8 channels, plus MAP on AVI 9.
+Each combo sensor uses 2 AVI channels. 3 combo sensors = 6 AVI channels. Remaining 4 channels: IAT, wideband O2, crankcase pressure, TPS. Built-in MAP does NOT use an AVI channel.
 
 | AVI Channel | Assignment | Signal Type | Calibration |
 |-------------|-----------|-------------|-------------|
@@ -192,12 +192,9 @@ Each combo sensor uses 2 AVI channels. With 4 sensors that's 8 channels, plus MA
 | AVI 4 | Oil temp | Resistive | PTC custom table |
 | AVI 5 | Coolant pressure | 0.5–4.5V | 100 PSI linear |
 | AVI 6 | Coolant temp | Resistive | PTC custom table |
-| AVI 7 | Brake pressure | 0.5–4.5V | 1500 PSI linear (later) |
-| AVI 8 | Brake temp | Resistive | PTC custom table (later) |
-| AVI 9 | MAP sensor | 0.5–4.5V | Per MAP sensor spec |
-| AVI 10 | Spare | — | Trans temp/pressure? |
+| AVI 7 | IAT | Resistive | NTC, 1K pull-up (Haltech default) |
+| AVI 8 | Wideband O2 (Innovate LM2) | 0–5V | 7.35–22.39 AFR linear |
+| AVI 9 | Crankcase pressure | 0–5V | Per sensor spec |
+| AVI 10 | TPS | 0–5V | Haltech default |
 
-**This uses 9 of 10 AVI channels.** If you add trans fluid temp/pressure (another 899404), you'll need AVI 10 plus one more input. Options:
-- Use a REM AVI input (REM harness has AVI 1–10 available even without the REM unit — they wire back to the ECU)
-- Skip one of the brake channels initially
-- Use the Haltech dedicated temp inputs instead of AVI for temp signals
+**All 10 AVI channels used.** Brake combo (899405) and trans combo (899404) require expansion — see `builds/white-tiburon/signal-routing.md` for future expansion strategy. Options: Haltech TPS module (CAN-based, frees AVI 10), REM harness AVI inputs, CAN-based EGT module.
