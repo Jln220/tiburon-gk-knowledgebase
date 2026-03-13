@@ -10,14 +10,12 @@ Click any node to open the relevant knowledgebase file.
 ```mermaid
 flowchart TD
     IGN(["🔑 Ignition Toggle<br/>PDM Conn B Pin 23<br/><i>SafeIgnition variable</i>"])
-    KEY06(["⌨️ Key 06 — Fuel Override<br/>CAN Keypad 12 / CAN2<br/><i>manual override</i>"])
-    RPM(["📊 RPM &gt; 50<br/>Haltech → CAN0 → PDM<br/><i>engine-running condition</i>"])
+    RPM(["📊 RPM &gt; 50<br/>Haltech → CAN1 → PDM<br/><i>engine-running condition</i>"])
     PRIME(["⏱️ 3s Startup Prime<br/><i>on SafeIgnition rising edge</i>"])
 
     IGN -->|triggers| PRIME
     PRIME -->|3s then off| HP3
     RPM -->|engine running| HP3
-    KEY06 -->|manual hold-on| HP3
 
     HP3["PDM HP3<br/>Pins A24 + A25<br/>15A OVC Protected<br/><i>freewheeling diode</i>"]
 
@@ -57,7 +55,7 @@ flowchart TD
     SENSOR -->|"pressure 0.5–4.5V<br/><b>AVI 1</b><br/>26-pin Pin 13 — GY/Y shielded"| ECU["Haltech Elite 2500"]
     SENSOR -->|"temp PTC resistive<br/><b>AVI 2</b><br/>34-pin Pin 16 — O/B"| ECU
 
-    ECU -->|"Fuel P + Fuel T<br/>broadcast on CAN0<br/>500 kbps"| PDM["AIM PDM 32<br/>CAN0 — Pins A22/A11"]
+    ECU -->|"Fuel P + Fuel T<br/>broadcast on CAN1<br/>500 kbps"| PDM["AIM PDM 32<br/>CAN1 — Pins A30/A31"]
 
     PDM -->|"Fuel P low<br/>→ MULTI_WARNING"| LED["⚠️ Warning LED<br/>LP7 — Pin A20<br/>5A OVC"]
 

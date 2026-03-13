@@ -15,8 +15,8 @@
 | P0 | Haltech bench — Lowdoller sensor signals | ⬜ |
 | P0 | Haltech → PDM CAN data verified | ⬜ |
 | P1 | PDM connected to car (non-destructive) | ✅ Spade connectors on fuse box |
-| P1 | Race Studio base config loaded | ✅ |
-| P1 | CAN Keypad 12 connected | ✅ 125 kbps on PDM CAN2 |
+| P1 | Race Studio config loaded | ✅ Physical switch panel (no keypad) |
+| P1 | CAN Keypad 12 | ❌ Excluded — all controls via physical switches |
 | P2 | Mechanical installation | ⬜ |
 | P3 | Full Haltech integration (stock ECU out) | ⬜ |
 
@@ -31,7 +31,7 @@
 | 3 | `signal-routing.md` | End-to-end wire traces for every signal (confidence: ✅ verified / ⚠️ forum / 🔲 planned) |
 | 4 | `weekend-tasks.md` | Phased build procedure with test gates — current active work |
 | 5 | `guides/pdm-session-1.md` | Race Studio 3 step-by-step config walkthrough (from webinar starting point) |
-| 6 | `guides/pdm-config.md` | PDM control scheme overview (keypad map, status variables, output logic) |
+| 6 | `guides/pdm-config.md` | PDM control scheme overview (physical switch panel, status variables, output logic) |
 | 7 | `guides/bench-test.md` | Consolidated bench test procedure: fuel pump, fuse box tap, alt exciter, starter |
 | 8 | `cluster-integration.md` | OEM cluster wiring into Haltech (tach, speedo, fuel, coolant) |
 | 9 | `build-profile.md` | Narrative build profile: parts list, mods, history |
@@ -89,41 +89,36 @@
 ### PDM — AIM PDM 32
 | Output | Name | Trigger |
 |---|---|---|
-| HP1 (A1+A13) | Starter | STARTER_SAFE |
-| HP2 (A12+A23) | Fan | ECT temp bands + FanKYD override |
-| HP3 (A24+A25) | FuelPump | FUEL_PRIME OR ENGINE_RUNNING OR FuelOverride |
+| HP1 (A1+A13) | Starter | STARTER_SAFE (Ch09 AND IGN AND NOT RPM) |
+| HP2 (A12+A23) | Fan | ECT 4-band PWM (77–92°C) + Ch01 override |
+| HP3 (A24+A25) | FuelPump | FUEL_PRIME OR ENGINE_RUNNING |
 | MP1 (A2) | InjectorPwr | SafeIgnition |
 | MP2 (A3) | CoilPwr | SafeIgnition |
-| MP3 (A4) | Horn | HornKYD |
+| MP3 (A4) | WiperLow | Ch02 AND NOT Ch03 |
 | MP4 (A5) | BrakeLights | BRAKE_SWITCH (Ch11) |
-| MP5 (A6) | TailLights | LightsKYD |
-| MP6 (A7) | AltExciter | SafeIgnition |
-| MP7 (A8) | Coolsuit | CoolsuitKYD |
+| MP5 (A6) | TailLights | SafeIgnition (always on) |
+| MP6 (A7) | WiperHigh | Ch03 |
+| MP7 (A8) | Coolsuit | Ch04 AND SafeIgnition |
+| MP8 (A9) | Defogger | Ch05 AND SafeIgnition |
 | LP1–LP6 (A14–A19) | ECUPwr/Dash/SmartyCam/GPS/Wideband/Cluster | SafeIgnition |
 | LP7 (A20) | WarningLED | MULTI_WARNING |
-| LP8 (A21) | KeypadPwr | SafeIgnition |
+| LP8 (A21) | AltExciter | SafeIgnition (OEM D+ field wire) |
 
-### Physical Switches
+> **MP1/MP2 Phase 1 (stock ECU):** Wired to OE main relay pin 87. **Phase 2 (Haltech):** MP1 → injector rail; MP2 → COP coil bus. No config change.
+
+### Physical Switches (No CAN Keypad)
 | Input | PDM Connection | Function |
 |---|---|---|
-| IGN toggle | PDM B23 (built-in IGN input) | Master power / SafeIgnition |
-| Start backup button | Ch09 (B21) | Physical backup for keypad Start |
-| Brake switch | Ch11 (B28) | Brake lights (always active) |
+| IGN toggle | B23 (built-in IGN input) | Master power / SafeIgnition |
+| Fan override | Ch01 (B26) | Manual fan 98% override |
+| Wiper Low | Ch02 (B27) | Wiper motor low speed |
+| Wiper High | Ch03 (B28) | Wiper motor high speed (overrides low) |
+| Coolsuit | Ch04 (B29) | Coolsuit pump on/off |
+| Defogger | Ch05 (B30) | Rear window defogger |
+| Start button | Ch09 (B21) | Momentary — crank engine (RPM interlock) |
+| Brake switch | Ch11 (A26) | Brake lights (always active) |
 
-### CAN Keypad 12 (CAN2, 125 kbps) Button Map
-| Key | Function | Type |
-|---|---|---|
-| K01 | Start | Momentary |
-| K02 | Horn | Momentary |
-| K03 | Lights | Latching toggle |
-| K04 | Coolsuit | Latching toggle |
-| K05 | Fan override | Latching toggle |
-| K06 | Fuel override | Latching toggle |
-| K07 | Pit limiter (speed-gated <60 mph) | Latching toggle |
-| K08 | Wiper | Latching toggle |
-| K09 | Comms Yes/No (PodiumConnect) | Latching toggle |
-| K10 | Pit-in 1/2/3 laps (PodiumConnect) | Multi-position |
-| K11–12 | Spare | — |
+> **CAN2 unused** — keypad excluded from build. CAN2 pins A28/A29 available for future expansion.
 
 ---
 

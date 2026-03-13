@@ -239,61 +239,49 @@ Triggers:
 
 ## White Tiburon — Finalized PDM Configuration
 
-> Full Race Studio 3 setup (status variables, trigger logic, protection settings, LED assignments, step-by-step): `builds/white-tiburon/guides/pdm-config.md`
+> Full Race Studio 3 setup (status variables, trigger logic, protection settings, step-by-step): `builds/white-tiburon/guides/pdm-config.md`
+>
+> **CAN keypad excluded from this build.** All driver controls use a physical switch panel. CAN2 bus unused.
 
-### Physical Inputs (2 only)
+### Physical Inputs (8 inputs — physical switch panel)
 
 | Input | PDM Connection | Type | Purpose |
 |-------|----------------|------|---------|
-| **Ignition switch** | Conn B pin 23 (Ignition input) | Latching toggle | Master power state — keeps PDM + accessories live with engine off. Allows engine shutdown without cutting battery. Source for `SafeIgnition`. Also spliced to Haltech 34-pin pin 13 (P, purple) for ECU IGN enable. |
-| **Start button (backup)** | Ch09 — Conn B pin 21 | Momentary push | Physical redundancy if CAN keypad is unavailable |
-
-**Brake light switch:** wired to **Ch11 (Conn B pin 28)** — always active, bypasses keypad entirely.
-
-**No physical switches** for horn, lights, fan, wiper, coolsuit, or fuel override — all via CAN keypad.
-
-### CAN Keypad 12 — Button Map
-
-Connected to PDM **CAN2** at **125 kbps**. RGB LED feedback per button.
-
-| Key | Function | Mode | LED: Rest / Active |
-|-----|----------|------|-------------------|
-| 01 | Start | Momentary | Dim green / Bright green |
-| 02 | Horn | Momentary (hold) | Dim yellow / Bright yellow |
-| 03 | Tail/Running Lights | Latching toggle | Dim blue / Bright blue |
-| 04 | Coolsuit Pump | Latching toggle | Dim cyan / Bright cyan |
-| 05 | Fan Override (100%) | Latching toggle | Dim red / Bright red |
-| 06 | Fuel Pump Override | Latching toggle | Dim red / Bright red |
-| 07 | Pit Limiter | Latching toggle | Dim white / Bright white |
-| 08 | Wiper | Latching toggle | Dim white / Bright white |
-| 09 | Comms Yes/No | Latching toggle | Off / Bright green (Yes) |
-| 10 | Pit-In Request | Multi-position (0→1→2→3 laps) | Off / White dim / White / Bright white |
-| 11–12 | Spare | — | Off |
+| **Ignition switch** | Conn B pin 23 (Ignition input) | Latching toggle | Master power state (`SafeIgnition`). Also spliced to Haltech 34-pin pin 13 (ECU IGN enable). |
+| **Fan override** | Ch01 — B26 | Latching toggle, 12V | Manual fan 98% override |
+| **Wiper Low** | Ch02 — B27 | Latching toggle, 12V | Wiper motor low speed |
+| **Wiper High** | Ch03 — B28 | Latching toggle, 12V | Wiper motor high speed (overrides low) |
+| **Coolsuit** | Ch04 — B29 | Latching toggle, 12V | Coolsuit pump on/off |
+| **Defogger** | Ch05 — B30 | Latching toggle, 12V | Rear window defogger |
+| **Start button** | Ch09 — B21 | Momentary, active = GND | Crank engine — gated by ignition + RPM interlock |
+| **Brake switch** | Ch11 — A26 | Closed on press | Brake lights — always active, independent of ignition |
 
 ### Power Output Map (Finalized)
 
 | Output | Name | PDM Pins | Mode | Limit | Trigger |
 |--------|------|----------|------|-------|---------|
-| HP1 | Starter | A1 + A13 | OVC Protected | 20A | `STARTER_SAFE` = (Key 01 OR Ch09) AND IGN AND NOT RPM |
-| HP2 | Fan | A12 + A23 | Fused, PWM 100Hz | 35A | ECT 4-band curve (80–95°C) + Key 05 full override |
-| HP3 | Fuel Pump | A24 + A25 | OVC Protected | 15A | 3s IGN prime OR RPM > 50 OR Key 06 override |
+| HP1 | Starter | A1 + A13 | OVC Protected | 20A | `STARTER_SAFE` = Ch09 AND IGN AND NOT RPM |
+| HP2 | Fan | A12 + A23 | Fused, PWM 100Hz | 35A | ECT 4-band PWM (77–92°C) + Ch01 override |
+| HP3 | Fuel Pump | A24 + A25 | OVC Protected | 15A | 3s IGN prime OR RPM > 50 |
 | HP4 | Spare | A34 + A35 | — | — | — |
-| MP1 | Injector Power | A2 | OVC Protected | 15A | `SafeIgnition` |
-| MP2 | Coil Power | A3 | OVC Protected | 15A | `SafeIgnition` |
-| MP3 | Horn | A4 | OVC Protected | 15A | Key 02 momentary |
-| MP4 | Brake Lights | A5 | Fused | 10A | Ch11 brake switch (direct — no keypad) |
-| MP5 | Tail Lights | A6 | Fused | 10A | Key 03 toggle |
-| MP6 | Spare | A7 | — | — | — |
-| MP7 | Coolsuit | A8 | OVC Protected | 10A | Key 04 toggle |
-| MP8 | Spare | A9 | — | — | — |
+| MP1 | InjectorPwr | A2 | OVC Protected | 15A | `SafeIgnition` |
+| MP2 | CoilPwr | A3 | OVC Protected | 15A | `SafeIgnition` |
+| MP3 | WiperLow | A4 | OVC Protected | 10A | Ch02 AND NOT Ch03 |
+| MP4 | BrakeLights | A5 | Fused | 10A | Ch11 brake switch |
+| MP5 | TailLights | A6 | Fused | 10A | `SafeIgnition` (always on) |
+| MP6 | WiperHigh | A7 | OVC Protected | 10A | Ch03 |
+| MP7 | Coolsuit | A8 | OVC Protected | 10A | Ch04 AND SafeIgnition |
+| MP8 | Defogger | A9 | OVC Protected | 10A | Ch05 AND SafeIgnition |
 | LP1 | ECU Power | A14 | OVC Protected | 10A | `SafeIgnition` |
 | LP2 | Dash | A15 | OVC Protected | 10A | `SafeIgnition` |
 | LP3 | SmartyCam | A16 | OVC Protected | 10A | `SafeIgnition` |
 | LP4 | GPS | A17 | OVC Protected | 10A | `SafeIgnition` |
 | LP5 | Wideband | A18 | OVC Protected | 10A | `SafeIgnition` |
 | LP6 | Cluster | A19 | OVC Protected | 10A | `SafeIgnition` |
-| LP7 | Warning LED | A20 | OVC Protected | 5A | `MULTI_WARNING` (oil P low / ECT high / oil T high / fuel P low) |
-| LP8 | Keypad Pwr | A21 | OVC Protected | 5A | `SafeIgnition` — AIM CAN Keypad 12 Vbatt via Binder-to-Deutsch cable |
+| LP7 | WarningLED | A20 | OVC Protected | 5A | `MULTI_WARNING` |
+| LP8 | AltExciter | A21 | OVC Protected | 5A | `SafeIgnition` — OEM alternator D+ field wire |
+
+> **MP1/MP2 Phase 1 (stock ECU):** Wired to OE relay box main relay pin 87 (relay pulled). Provides switched 12V to stock ECU. **Phase 2 (Haltech):** MP1 → injector rail + Haltech pin 26; MP2 → COP Pin D bus. No Race Studio change.
 
 ### CAN Bus Configuration
 
@@ -303,7 +291,7 @@ AIM's official pin labels (from PDM32 tech sheet Ver. 1.17):
 |-----------|----------|--------|-------|---------|-------|
 | **CAN AiM** | A22 (H) / A11 (L) | AIM expansion bus | 1 Mbps | SmartyCam Stream / Channels | GPS-08, SmartyCam, Podium via 4-way Data Hub. Pre-wired expansion cable. Pins A10/A11/A22/A32/A33 reserved. |
 | **CAN ECU** | A30 (H) / A31 (L) | Haltech Elite 2500 | 500 kbps | ECU Stream | RPM, ECT, Oil P, Oil T, Fuel P → fuel pump, fan PWM, alarms. Shared with RS232 TX/RX — RS232 unavailable when CAN ECU active. |
-| **CAN2** | A28 (H) / A29 (L) | AIM CAN Keypad 12 | 125 kbps | CAN2 Keypad | Button inputs + RGB LED feedback. Also used by CAN2 Stream if a secondary ECU is ever added. |
+| **CAN2** | A28 (H) / A29 (L) | **Unused** | — | — | CAN keypad excluded. Available for future expansion. |
 
 > **Note on RS3 tab naming:** The RS3 "ECU Stream" tab controls the **CAN ECU** bus (A30/A31). The "CAN AiM" expansion bus (A22/A11) is configured through the SmartyCam Stream tab and is where the GPS-08 auto-broadcasts. There is no dedicated "CAN AiM" tab — the expansion bus is always-on at 1 Mbps.
 

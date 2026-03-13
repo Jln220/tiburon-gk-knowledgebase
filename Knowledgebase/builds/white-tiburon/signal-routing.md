@@ -232,10 +232,13 @@ All driver controls use a physical switch panel — no CAN keypad in this build.
 | LP5 | A18 | Wideband | `SafeIgnition` | Innovate LM2 power |
 | LP6 | A19 | Cluster | `SafeIgnition` | OEM instrument cluster |
 | LP7 | A20 | Warning LED | `MULTI_WARNING` | Low oil P / high ECT / high oil T / low fuel P |
+| LP8 | A21 | AltExciter | `SafeIgnition` | OEM alternator D+ field wire routed through LP8; kill switch drops field immediately; < 1A draw |
 
+> **MP1/MP2 temporary usage (Phase 1 — stock ECU):** While running on the stock ECU, MP1 and MP2 are wired to the OE main relay socket pin 87 (pull the relay). This provides switched 12V to the stock ECU and its loads whenever SafeIgnition is active. When switching to Haltech, reroute MP1 → injector rail and MP2 → COP coil power bus. No Race Studio config change needed — trigger is `SafeIgnition` in both phases.
+>
 > Full configuration details: `builds/white-tiburon/guides/pdm-config.md`
 
 ---
 
-*Last updated: 2026-03-07*
+*Last updated: 2026-03-13*
 *Sources: Haltech Elite 2500 pinout PDFs (verified), factory electrical manual BE section, OpenGK ECM pinouts, Lowdoller product specs, AIM PDM 32 pinout*

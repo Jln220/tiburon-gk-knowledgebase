@@ -15,7 +15,7 @@
 | System | Status |
 |--------|--------|
 | Haltech bench | Cam ✅ Crank ✅ COP fire ✅ — Knock: **next** |
-| PDM Race Studio config | Needs update — physical switch panel (no keypad) |
+| PDM Race Studio config | ✅ Updated — physical switch panel (no keypad) |
 | PDM car connection | Spade connectors → fuse box pin 87 (non-destructive) |
 | Physical switch panel | 6 toggles + 1 momentary starter — **not yet wired to PDM** |
 | Stock ECU | Connected and running |
@@ -82,18 +82,43 @@ Everything needed to run the car on PDM with stock ECU, plus AIM data/video/tele
 
 > **✓ TEST:** Simulate RPM > 50 in NSP → confirm ENGINE_RUNNING activates in Race Studio
 
-### 1.8 Install PDM in Car
+### 1.8 Install PDM + Electronics Plate (Passenger Footwell)
 
-- [ ] Mount PDM (vibration-isolated plate)
-- [ ] Route PDM harness to engine bay and cockpit
-- [ ] Connect Surlok power connector to battery
+All electronics mounted on a single plate in the passenger footwell: PDM, Haltech Elite 2500, Podium Micro (SN: 1QTV5KM), Innovate LM2.
+
+- [ ] Fabricate/source mounting plate for passenger footwell
+- [ ] Mount PDM on plate (vibration-isolated)
+- [ ] Mount Haltech Elite 2500 on plate
+- [ ] Mount Podium Micro on plate
+- [ ] Mount Innovate LM2 on plate
+- [ ] Route PDM engine bay harness through firewall grommet
+- [ ] Route cockpit harness (dash LVDS, switch panel, CAN buses — short runs)
+- [ ] Connect Surlok power: 4 AWG from kill switch → 120A breaker → PDM Surlok (+)
 - [ ] Connect PDM grounds (B13, B14, B18 to chassis)
 
-### 1.9 Kill Switch Mount
+### 1.9 Kill Switch Wiring (4-Pole, Already Mounted)
 
-- [ ] Mount OMP kill switch (accessible from outside per Lemons rules)
-- [ ] Wire kill switch in main battery circuit (cuts PDM + stock ECU + everything)
-- [ ] Verify kill switch cuts `SafeIgnition` → all outputs drop
+Kill switch is already mounted left of steering wheel. 2 AWG cable already run to it.
+
+```
+Battery (+) ─── 2 AWG ─── Kill Switch [Large Terminal A]
+                                │
+                          [Jumper] to [Small Terminal A]
+                                │
+                     Kill Switch [Large Terminal B] ───┬─── 2 AWG ─── 150A Breaker ─── Starter B+ / Alternator B+
+                                │                      │
+                                │                      └─── 4 AWG ─── 120A Breaker ─── PDM Surlok (+)
+                                │
+                     Kill Switch [Small Terminal B] ─── IGN toggle switch ─── PDM Conn B pin 23 (IGN input)
+                                                                         └─── Haltech 34-pin pin 13 (ECU IGN)
+```
+
+- [ ] Verify jumper from large terminal A to small terminal A
+- [ ] Wire large terminal B → 150A breaker → starter B+ / alternator B+ (2 AWG)
+- [ ] Wire large terminal B → 120A breaker → PDM Surlok (+) (4 AWG)
+- [ ] Wire small terminal B → IGN toggle switch → PDM B23 + Haltech 34-pin pin 13
+- [ ] Test: kill switch OFF → all power drops, `SafeIgnition` = 0, all outputs off
+- [ ] Test: kill switch ON, IGN toggle OFF → PDM has Surlok power but `SafeIgnition` = 0
 
 ### 1.10 Dash Screen Mount
 
@@ -130,16 +155,33 @@ Everything needed to run the car on PDM with stock ECU, plus AIM data/video/tele
 - [ ] Confirm fan temp bands react to live coolant temp on CAN
 - [ ] Confirm warning LED triggers when sensor thresholds crossed
 
-### 1.14 Alternator Exciter Kill Method
+### 1.14 Alternator Exciter via PDM LP8 (A21)
 
 - [ ] Locate OEM alternator D+ exciter wire (thin ~18 AWG at alternator Yazaki connector)
-- [ ] Cut exciter wire; route through PDM MP6 (A7) → trigger = SafeIgnition
-- [ ] Verify: IGN on → alternator charges (13.8–14.4V); IGN off → charging stops
-- [ ] Verify: kill switch cuts PDM → alternator D+ drops → charging stops immediately
+- [ ] Cut exciter wire at convenient point near fuse box (leave length on both ends)
+- [ ] Fuse box side → wire to PDM LP8 (A21, Connector A)
+- [ ] Alternator D+ side → remains connected to alternator (load side)
+- [ ] LP8 trigger = SafeIgnition, OVC Protected, 5A max (actual draw < 1A)
+- [ ] Bench test first: connect 12V indicator lamp to LP8, verify on/off with IGN toggle
+- [ ] Verify in car: IGN on + engine running → alternator charges (13.8–14.4V)
+- [ ] Verify: IGN off or kill switch → LP8 drops → charging stops immediately
 
 > See `guides/bench-test.md` Section 5 for detailed procedure
 
-### 1.15 Test Fuel Pump + Starter + Alternator with Stock ECU
+### 1.15 OE Main Relay → PDM MP1/MP2 (Phase 1)
+
+MP1 and MP2 temporarily power the stock ECU via the OE main relay socket. Same `SafeIgnition` trigger — no Race Studio change needed when switching to Haltech later.
+
+- [ ] Locate OE main relay in underhood fuse box
+- [ ] Pull the OE main relay
+- [ ] Insert PDM MP1 (A2) wire into relay socket pin 87 (power out)
+- [ ] Insert PDM MP2 (A3) wire into same pin 87 socket (parallel)
+- [ ] IGN on → verify stock ECU powers up via PDM
+- [ ] IGN off → verify stock ECU loses power
+
+> **Phase 2 switchover:** Disconnect MP1/MP2 from relay socket. Reroute MP1 → injector rail + Haltech 34-pin pin 26 (R/L). Reroute MP2 → COP coil Pin D common bus. No Race Studio config change.
+
+### 1.16 Test Fuel Pump + Starter + Alternator with Stock ECU
 
 - [ ] Wire HP3 (A24+A25) to fuel pump via fuse box pin 87 (pull OEM fuel pump relay)
 - [ ] IGN on → verify 3-second fuel prime, then off
@@ -150,7 +192,7 @@ Everything needed to run the car on PDM with stock ECU, plus AIM data/video/tele
 
 > **✓ TEST:** Engine starts and runs on stock ECU with PDM controlling starter, fuel pump, and alternator field
 
-### 1.16 Test OE Cluster with Haltech
+### 1.17 Test OE Cluster with Haltech
 
 - [ ] Confirm tach signal: Haltech DPO 1 (34-pin pin 18, V/B) → cluster TACHO
 - [ ] Confirm speedo: OEM VSS (C109) → cluster + Haltech SPI 1 (26-pin pin 8)
@@ -269,11 +311,11 @@ Build all harnesses and connectors now so switching from stock ECU → Haltech i
 | Starter | HP1 | A1 + A13 | Via solenoid; inductive; series diode |
 | Fan | HP2 | A12 + A23 | PWM 100Hz; freewheeling diode |
 | Fuel Pump | HP3 | A24 + A25 | Via fuse box pin 87; freewheeling diode |
-| Injector Power | MP1 | A2 | → injector rail + Haltech 34-pin pin 26 |
-| Coil Power | MP2 | A3 | → Pin D all 6 COPs |
+| Injector Power / OE Relay | MP1 | A2 | **Phase 1:** OE relay box pin 87 (pull relay). **Phase 2:** → injector rail + Haltech 34-pin pin 26 |
+| Coil Power / OE Relay | MP2 | A3 | **Phase 1:** OE relay box pin 87 (same socket). **Phase 2:** → Pin D all 6 COPs |
 | Wiper Low | MP3 | A4 | OEM wiper motor low speed wire |
 | Wiper High | MP6 | A7 | OEM wiper motor high speed wire |
-| Alternator exciter | *MP9 or spare* | *TBD* | D+ field wire; SafeIgnition trigger |
+| Alternator exciter | LP8 | A21 | D+ field wire cut and routed through LP8; SafeIgnition trigger; < 1A draw |
 
 ### Cockpit
 
@@ -296,6 +338,7 @@ Build all harnesses and connectors now so switching from stock ECU → Haltech i
 | Wideband | LP5 | A18 |
 | Cluster | LP6 | A19 |
 | Warning LED | LP7 | A20 |
+| AltExciter | LP8 | A21 |
 
 ### CAN Buses
 

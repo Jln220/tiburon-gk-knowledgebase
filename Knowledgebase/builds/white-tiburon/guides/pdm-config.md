@@ -125,7 +125,11 @@ These webinar status variables are directly reusable:
 | **LP5** | Wideband | OVC Protected | 10A | No | DC | SafeIgnition |
 | **LP6** | Cluster | OVC Protected | 10A | No | DC | SafeIgnition |
 | **LP7** | WarningLED | OVC Protected | 5A | No | DC | MULTI_WARNING |
-| LP8 | Spare | -- | 5A | -- | -- | -- (was Keypad power — freed up) |
+| **LP8** | AltExciter | OVC Protected | 5A | No | DC | SafeIgnition |
+
+> **MP1/MP2 temporary usage (Phase 1 — stock ECU):** While running on the stock ECU, MP1 and MP2 are wired to the OE main relay socket pin 87 (pull the relay). This provides switched 12V to the stock ECU and its loads whenever SafeIgnition is active. The trigger (`SafeIgnition`) and protection settings are identical to the final Haltech configuration. When switching to Haltech, simply reroute MP1 to the injector rail and MP2 to the COP coil power bus — no Race Studio config change needed.
+>
+> **LP8 — Alternator Exciter:** The OEM alternator D+ field wire is cut and routed through LP8 (A21, Connector A). When SafeIgnition drops (kill switch or IGN off), LP8 de-energizes and the alternator stops charging immediately. LP8 draws < 1A (field excitation only).
 
 ### Detailed Output Logic
 
@@ -300,6 +304,75 @@ Properties:
   Can optionally PWM the LED for blinking effect (PWM 2Hz, 50% duty)
 ```
 
+#### LP8: Alternator Exciter
+
+```
+Trigger: SafeIgnition
+
+OEM alternator D+ field wire cut and routed through LP8 (A21).
+When kill switch or IGN toggle cuts SafeIgnition, LP8 drops and
+the alternator immediately stops charging — no residual field.
+
+Properties:
+  Mode: OVC Protected
+  Max Load: 5A (field excitation draws < 1A)
+  Inductive: No
+```
+
+#### MP1/MP2: OE Main Relay Power (Phase 1 — Stock ECU)
+
+```
+Phase 1 (stock ECU running):
+  MP1 (A2) and MP2 (A3) → OE relay box main relay pin 87
+  Pull the OE main relay. Insert PDM wires into pin 87 socket.
+  This provides switched 12V to the stock ECU and associated
+  circuits whenever SafeIgnition is active.
+
+  Fan, headlights, horn, fuel pump, and starter have their own
+  dedicated PDM outputs and are NOT powered through the OE relay.
+  Only the stock ECU power/control circuits run through pin 87.
+
+Phase 2 (Haltech switchover):
+  MP1 rerouted → injector rail 12V + Haltech 34-pin pin 26 (R/L)
+  MP2 rerouted → COP coil Pin D common bus (all 6 Toyota coils)
+  No Race Studio config change needed — trigger is SafeIgnition
+  in both phases.
+```
+
+---
+
+## Power Distribution & Kill Switch
+
+### Kill Switch Wiring (4-Pole, Left of Steering Wheel)
+
+```
+Battery (+) ─── 2 AWG ─── Kill Switch [Large Terminal A]
+                                │
+                          [Jumper] to [Small Terminal A]
+                                │
+                     Kill Switch [Large Terminal B] ───┬─── 2 AWG ─── 150A Breaker ─── Starter B+ / Alternator B+
+                                │                      │
+                                │                      └─── 4 AWG ─── 120A Breaker ─── PDM Surlok (+)
+                                │
+                     Kill Switch [Small Terminal B] ─── IGN toggle switch ─── PDM Conn B pin 23 (IGN input)
+                                                                         └─── Haltech 34-pin pin 13 (ECU IGN)
+```
+
+**Kill switch ON:** All 4 poles connected. Battery power flows to starter/alt B+ (150A breaker), PDM Surlok (120A breaker), and through IGN toggle to PDM B23 + Haltech IGN enable.
+
+**Kill switch OFF:** All 4 poles disconnected instantly:
+- PDM loses Surlok power → all outputs drop
+- `SafeIgnition` drops → LP8 (alt exciter) off → alternator stops charging
+- Starter/alt B+ cut at 150A breaker feed
+- Haltech IGN enable drops → ECU shuts down
+
+**IGN toggle ON, kill switch ON:** `SafeIgnition` = 1, all ignition-gated outputs active.
+**IGN toggle OFF, kill switch ON:** `SafeIgnition` = 0, engine outputs off, but PDM still has Surlok power for Race Studio config/testing.
+
+### Mounting
+
+PDM, Haltech Elite 2500, Podium Micro (SN: 1QTV5KM), and Innovate LM2 are mounted on a plate in the **passenger footwell**. Short wire runs to dash (LVDS), switch panel, and CAN buses. Engine bay harness exits through firewall.
+
 ---
 
 ## CAN Bus Configuration
@@ -436,6 +509,7 @@ Enable LP7, set trigger to `MULTI_WARNING`, optionally set PWM for blinking.
 | MP8 Defogger | OVC Protected | 10A | No | 1 | 5s | No |
 | LP1-6 Accessories | OVC Protected | 10A | No | 1 | 5s | No |
 | LP7 WarningLED | OVC Protected | 5A | No | 1 | 5s | No |
+| LP8 AltExciter | OVC Protected | 5A | No | 1 | 5s | No |
 
 ---
 
