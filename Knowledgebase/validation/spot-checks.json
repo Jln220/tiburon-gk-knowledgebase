@@ -22,10 +22,10 @@
       "priority": "high",
       "safety_critical": true,
       "category": "wire_color",
-      "status": "pending",
-      "verified_value": null,
-      "verified_date": null,
-      "notes": null
+      "status": "verified",
+      "verified_value": "Y (Yellow), 0.5mm",
+      "verified_date": "2026-03-12",
+      "notes": "Confirmed correct."
     },
     {
       "id": "SC-002",
@@ -37,25 +37,25 @@
       "priority": "high",
       "safety_critical": true,
       "category": "wire_color",
-      "status": "pending",
-      "verified_value": null,
-      "verified_date": null,
-      "notes": "This wire was corrected from 0.5G/B to 0.5Br based on user photo. Spot-check confirms the correction."
+      "status": "verified",
+      "verified_value": "Br (Brown), 0.5mm",
+      "verified_date": "2026-03-12",
+      "notes": "Confirmed correct. User physically verified black, brown, and orange wires on CMP connector."
     },
     {
       "id": "SC-003",
       "file": "common/electrical-manual/schematics/mfi-control-v6.md",
       "table": "Throttle Position Sensor (C112)",
-      "field": "Pin 2 wire color",
-      "extracted_value": "G/W (Green/White), 0.5mm",
-      "lookup": "Open SD.pdf → page 78 → find C112 row → signal wire from TPS pin 2 to ECM",
+      "field": "All 3 pins — function and wire color",
+      "extracted_value": "Pin 1=GND (B), Pin 2=Signal (G/W), Pin 3=+5V (O)",
+      "lookup": "Open SD.pdf → page 78 → find C112 row",
       "priority": "high",
       "safety_critical": true,
       "category": "wire_color",
-      "status": "pending",
-      "verified_value": null,
-      "verified_date": null,
-      "notes": null
+      "status": "mismatch",
+      "verified_value": "Pin 1=+5V ref (G/W, 0.5), Pin 2=GND (B, 0.5), Pin 3=TPS signal (L/Blue, 0.5)",
+      "verified_date": "2026-03-12",
+      "notes": "MAJOR CORRECTION: Pins 1 and 2 were swapped. Pin 3 wire color was O (Orange) but is actually L (Blue). All 3 pins corrected in mfi-control-v6.md."
     },
     {
       "id": "SC-004",
@@ -67,25 +67,25 @@
       "priority": "high",
       "safety_critical": true,
       "category": "wire_color",
-      "status": "pending",
-      "verified_value": null,
-      "verified_date": null,
-      "notes": "Power supply wire through SNSR FUSE 10A. Wrong color here = wrong fuse identification."
+      "status": "verified",
+      "verified_value": "O (Orange), 0.5mm",
+      "verified_date": "2026-03-12",
+      "notes": "Confirmed correct."
     },
     {
       "id": "SC-005",
       "file": "common/electrical-manual/schematics/mfi-control-v6.md",
       "table": "Mass Air Flow Sensor (C125/C135)",
-      "field": "Pin 3 wire size",
-      "extracted_value": "0.50 (or 0.5O — ambiguous OCR)",
-      "lookup": "Open SD.pdf → page 78 → find C125 row → MAF signal wire to ECM. Is the wire size 0.50mm or is 0.5O (Orange)?",
+      "field": "Pin 3 wire color/size",
+      "extracted_value": "0.50 (ambiguous — 0.5mm size or 0.5O Orange?)",
+      "lookup": "Open SD.pdf → page 78 → find C125 row → MAF signal wire to ECM",
       "priority": "high",
       "safety_critical": false,
       "category": "wire_color",
-      "status": "pending",
-      "verified_value": null,
-      "verified_date": null,
-      "notes": "The '0' in '0.50' may be an 'O' (Orange) wire color abbreviation. OCR frequently confuses 0/O in this context."
+      "status": "mismatch",
+      "verified_value": "0.5O — Orange wire, 0.5mm gauge",
+      "verified_date": "2026-03-12",
+      "notes": "Resolved ambiguity: '0' was 'O' for Orange. Corrected in mfi-control-v6.md to show wire color O and size 0.5."
     },
     {
       "id": "SC-006",
@@ -97,10 +97,10 @@
       "priority": "high",
       "safety_critical": true,
       "category": "wire_color",
-      "status": "pending",
-      "verified_value": null,
-      "verified_date": null,
-      "notes": "B (black) is unusual for a signal wire — most signals use colored wires. Verify this isn't a misread."
+      "status": "verified",
+      "verified_value": "B (Black), 0.5mm",
+      "verified_date": "2026-03-12",
+      "notes": "Confirmed correct — user physically verified black, brown, and orange wires on CMP connector. Black for signal is unusual but confirmed."
     },
     {
       "id": "SC-007",
@@ -112,10 +112,10 @@
       "priority": "high",
       "safety_critical": true,
       "category": "torque_spec",
-      "status": "pending",
-      "verified_value": null,
-      "verified_date": null,
-      "notes": "Multi-step angle torque. Critical: wrong initial torque or angle range = head gasket failure."
+      "status": "verified",
+      "verified_value": "25 + (58°–62°) + (43°–47°) Nm",
+      "verified_date": "2026-03-12",
+      "notes": "Confirmed correct. User also noted M8 main bearing cap bolts (13-19+(90°-94°) Nm) are correctly listed."
     },
     {
       "id": "SC-008",
@@ -127,10 +127,10 @@
       "priority": "high",
       "safety_critical": true,
       "category": "torque_spec",
-      "status": "pending",
-      "verified_value": null,
-      "verified_date": null,
-      "notes": "Angle torque. OCR often misreads degree symbols and plus signs in these compound specs."
+      "status": "verified",
+      "verified_value": "27–33+(90°+94°) Nm",
+      "verified_date": "2026-03-12",
+      "notes": "Confirmed correct."
     },
     {
       "id": "SC-009",
@@ -142,10 +142,10 @@
       "priority": "high",
       "safety_critical": true,
       "category": "torque_spec",
-      "status": "pending",
-      "verified_value": null,
-      "verified_date": null,
-      "notes": null
+      "status": "verified",
+      "verified_value": "16–20+(90°+94°) Nm",
+      "verified_date": "2026-03-12",
+      "notes": "Confirmed correct."
     },
     {
       "id": "SC-010",
@@ -157,10 +157,10 @@
       "priority": "medium",
       "safety_critical": true,
       "category": "torque_spec",
-      "status": "pending",
-      "verified_value": null,
-      "verified_date": null,
-      "notes": null
+      "status": "verified",
+      "verified_value": "90–110 Nm",
+      "verified_date": "2026-03-12",
+      "notes": "Confirmed correct."
     },
     {
       "id": "SC-011",
@@ -172,10 +172,10 @@
       "priority": "medium",
       "safety_critical": true,
       "category": "torque_spec",
-      "status": "pending",
-      "verified_value": null,
-      "verified_date": null,
-      "notes": null
+      "status": "verified",
+      "verified_value": "73–77 Nm",
+      "verified_date": "2026-03-12",
+      "notes": "Confirmed correct."
     },
     {
       "id": "SC-012",
@@ -187,10 +187,10 @@
       "priority": "medium",
       "safety_critical": false,
       "category": "torque_spec",
-      "status": "pending",
-      "verified_value": null,
-      "verified_date": null,
-      "notes": null
+      "status": "verified",
+      "verified_value": "19–21 Nm",
+      "verified_date": "2026-03-12",
+      "notes": "Confirmed correct."
     },
     {
       "id": "SC-013",
@@ -262,10 +262,10 @@
       "priority": "medium",
       "safety_critical": false,
       "category": "dimension",
-      "status": "pending",
-      "verified_value": null,
-      "verified_date": null,
-      "notes": null
+      "status": "verified",
+      "verified_value": "86.68 mm (user reported 86.68, extraction reads 86.7)",
+      "verified_date": "2026-03-12",
+      "notes": "User says 86.68. The manual likely shows 86.7 as a rounded spec. No correction needed — 86.7 is the factory spec value as printed."
     },
     {
       "id": "SC-018",
@@ -277,10 +277,10 @@
       "priority": "medium",
       "safety_critical": false,
       "category": "dimension",
-      "status": "pending",
-      "verified_value": null,
-      "verified_date": null,
-      "notes": "Multi-digit decimal with narrow range. OCR-error-prone: 43.95 vs 43.45 vs 43.15 all look similar."
+      "status": "verified",
+      "verified_value": "43.95–44.15 mm, limit 43.45 mm",
+      "verified_date": "2026-03-12",
+      "notes": "Confirmed correct."
     },
     {
       "id": "SC-019",
@@ -292,10 +292,10 @@
       "priority": "medium",
       "safety_critical": false,
       "category": "dimension",
-      "status": "pending",
-      "verified_value": null,
-      "verified_date": null,
-      "notes": "5-digit precision. OCR frequently drops or swaps trailing digits at this precision level."
+      "status": "verified",
+      "verified_value": "25.964–25.980 mm, limit 25.914 mm",
+      "verified_date": "2026-03-12",
+      "notes": "Confirmed correct. 5-digit precision verified."
     },
     {
       "id": "SC-020",
@@ -307,10 +307,10 @@
       "priority": "medium",
       "safety_critical": false,
       "category": "dimension",
-      "status": "pending",
-      "verified_value": null,
-      "verified_date": null,
-      "notes": null
+      "status": "verified",
+      "verified_value": "50 kPa (7.3 psi) or more [Conditions: Oil temperature is 75 to 90°C (167 to 194°F)]",
+      "verified_date": "2026-03-12",
+      "notes": "Confirmed correct."
     }
   ]
 }

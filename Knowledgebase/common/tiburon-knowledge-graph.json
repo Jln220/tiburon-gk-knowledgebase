@@ -663,7 +663,7 @@
         "2": {"function": "signal", "wire": "B", "size": "0.5", "to": "ECM C133-4 pin 6"},
         "3": {"function": "ground", "wire": "Br", "size": "0.5", "to": "ECM C133-4"}
       },
-      "verification": "unverified"
+      "verification": "verified"
     },
     {
       "id": "comp-ckp-sensor",
@@ -681,7 +681,7 @@
         "2": {"function": "signal", "wire": "Y", "size": "0.5", "to": "ECM C133-3 pin 8"},
         "3": {"function": "ground", "wire": "B", "size": "0.5", "to": "ECM C133-3"}
       },
-      "verification": "unverified"
+      "verification": "verified"
     },
     {
       "id": "comp-ect-sensor",
@@ -730,11 +730,11 @@
       "connector_code": "C112",
       "pin_count": 3,
       "quick_pinout": {
-        "1": {"function": "ground", "wire": "B", "size": "0.5", "to": "ECM C133-3"},
-        "2": {"function": "signal", "wire": "G/W", "size": "0.5", "to": "ECM C133-3 pin 19"},
-        "3": {"function": "+5V ref", "wire": "O", "size": "0.5", "to": "ECM C133-3 pin 10"}
+        "1": {"function": "+5V ref", "wire": "G/W", "size": "0.5", "to": "ECM C133-3 pin 10"},
+        "2": {"function": "ground", "wire": "B", "size": "0.5", "to": "ECM C133-3"},
+        "3": {"function": "signal", "wire": "L", "size": "0.5", "to": "ECM C133-3 pin 19"}
       },
-      "verification": "unverified"
+      "verification": "verified"
     },
     {
       "id": "comp-maf-sensor",
@@ -750,9 +750,9 @@
       "quick_pinout": {
         "1": {"function": "power", "wire": "bat_V", "size": null, "to": "MFI control relay (E42)"},
         "2": {"function": "ground", "wire": null, "size": null, "to": "Ground"},
-        "3": {"function": "signal", "wire": null, "size": "0.5", "to": "ECM C133-3 pin 1"}
+        "3": {"function": "signal", "wire": "O", "size": "0.5", "to": "ECM C133-3 pin 1"}
       },
-      "verification": "unverified"
+      "verification": "spot_checked"
     },
     {
       "id": "comp-isc-actuator",
@@ -1300,7 +1300,7 @@
 
     { "source": "comp-ckp-sensor",    "target": "section-SD-78", "rel": "schematic_page", "context": "SD-78: MFI Control System (2.7L) — ECM pinout, CKP circuit" },
     { "source": "comp-cmp-sensor",    "target": "section-SD-78", "rel": "schematic_page", "context": "SD-78: MFI Control System (2.7L) — CMP circuit, power via C142" },
-    { "source": "comp-tps",           "target": "section-SD-78", "rel": "schematic_page", "context": "SD-78: TPS circuit — signal to C133-3 pin 15" },
+    { "source": "comp-tps",           "target": "section-SD-78", "rel": "schematic_page", "context": "SD-78: TPS circuit — signal (L, 0.5) to C133-3 pin 19" },
     { "source": "comp-ect-sensor",    "target": "section-SD-81", "rel": "schematic_page", "context": "SD-81: ECT circuit — signal to C133-4" },
     { "source": "comp-injector",      "target": "section-SD-81", "rel": "schematic_page", "context": "SD-81: Injector circuits — C124-1 through C124-6" },
     { "source": "comp-maf-sensor",    "target": "section-SD-82", "rel": "schematic_page", "context": "SD-82: MAF circuit — signal to C133-3 pin 5" },

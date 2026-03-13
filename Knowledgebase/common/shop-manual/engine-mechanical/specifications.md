@@ -7,24 +7,24 @@ engine: V6
 title: Specifications, Torque, Special Tools
 extraction_method: claude_vision
 extraction_date: 2026-03-07
-verification_status: unverified
-verified_fields: 0
+verification_status: spot_checked
+verified_fields: 18
 total_fields: 178
-last_verified: null
+last_verified: 2026-03-12
 ---
 
 ## Quick Reference — Critical Torque Specs
 
 | Fastener | Nm | Notes | V |
 |----------|----|-------|---|
-| Cylinder head bolt | 25 + (58°-62°) + (43°-47°) | Cold engine, angle torque | ⬜ |
-| Main bearing cap M10 | 27-33 + (90°+94°) | Angle torque | ⬜ |
-| Main bearing cap M8 | 13-19 + (90°+94°) | Angle torque | ⬜ |
-| Connecting rod | 16-20 + (90°+94°) | Angle torque | ⬜ |
-| Cam sprocket | 90-110 | Standard torque | ⬜ |
-| Flywheel | 73-77 | Standard torque | ⬜ |
+| Cylinder head bolt | 25 + (58°-62°) + (43°-47°) | Cold engine, angle torque | ✅ |
+| Main bearing cap M10 | 27-33 + (90°+94°) | Angle torque | ✅ |
+| Main bearing cap M8 | 13-19 + (90°+94°) | Angle torque | ✅ |
+| Connecting rod | 16-20 + (90°+94°) | Angle torque | ✅ |
+| Cam sprocket | 90-110 | Standard torque | ✅ |
+| Flywheel | 73-77 | Standard torque | ✅ |
 | Crankshaft pulley | 180-190 | Standard torque | ⬜ |
-| Intake manifold | 19-21 | Standard torque | ⬜ |
+| Intake manifold | 19-21 | Standard torque | ✅ |
 | Exhaust manifold | 25-30 | Self-locking nut | ⬜ |
 | Oil drain plug | 35-45 | Standard torque | ⬜ |
 | Spark plug | 20-30 | Standard torque | ⬜ |
@@ -42,7 +42,7 @@ last_verified: null
 | **General** | | |
 | Type | V-type, DOHC | | ⬜ |
 | Number of cylinders | 6 | | ⬜ |
-| Bore | 86.7 mm (3.4133 in.) | | ⬜ |
+| Bore | 86.7 mm (3.4133 in.) | | ✅ |
 | Stroke | 75 mm (2.9528 in.) | | ⬜ |
 | Total displacement | 2,656 cc | | ⬜ |
 | Compression ratio | 10 : 1 | | ⬜ |
@@ -54,9 +54,9 @@ last_verified: null
 | Exhaust valve — Closes (ATDC) | 8° | | ⬜ |
 | **Camshaft** | | |
 | Drive mechanism | Cogged type belt | | ⬜ |
-| Cam height — Intake | 43.95–44.15 mm (1.7303–1.7382 in.) | 43.45 mm (1.7106 in.) | ⬜ |
+| Cam height — Intake | 43.95–44.15 mm (1.7303–1.7382 in.) | 43.45 mm (1.7106 in.) | ✅ |
 | Cam height — Exhaust | 43.95–44.15 mm (1.7303–1.7382 in.) | 43.45 mm (1.7106 in.) | ⬜ |
-| Journal diameter | 25.964–25.980 mm (1.0222–1.0228 in.) | 25.914 mm (1.0202 in.) | ⬜ |
+| Journal diameter | 25.964–25.980 mm (1.0222–1.0228 in.) | 25.914 mm (1.0202 in.) | ✅ |
 | Bearing oil clearance | 0.02–0.061 mm (0.0007–0.0024 in.) | 0.1 mm (0.0039 in.) | ⬜ |
 | End play | 0.1–0.15 mm (0.0039–0.0059 in.) | | ⬜ |
 | **Cylinder head** | | |
@@ -136,7 +136,7 @@ last_verified: null
 | Load | 4.6 kg / 39.3 mm (10.1 lb / 1.547 in.) | | ⬜ |
 | **Oil filter** | | |
 | Type | Cartridge, full flow | | ⬜ |
-| Engine oil pressure | 50 kPa (7.3 psi) or more [Conditions: Oil temperature is 75 to 90°C (167 to 194°F)] | | ⬜ |
+| Engine oil pressure | 50 kPa (7.3 psi) or more [Conditions: Oil temperature is 75 to 90°C (167 to 194°F)] | | ✅ |
 | **Cooling system** | | |
 | Cooling method | Engine coolant cooling, forced circulation with electric fan | | ⬜ |
 | Cooling system quantity | 7.0 L (7.4 U.S.qts., 6.1 Imp.qts.) [For V6] | | ⬜ |
@@ -184,12 +184,12 @@ last_verified: null
 
 | Item | Nm | kg.cm | Lb.ft | V |
 |------|-----|-------|-------|---|
-| Camshaft sprocket bolt | 90–110 | 900–1,100 | 65–80 | ⬜ |
+| Camshaft sprocket bolt | 90–110 | 900–1,100 | 65–80 | ✅ |
 | Cylinder head cover bolt | 5–6 | 50–60 | 3.6–4.3 | ⬜ |
-| Main bearing cap bolt — M10 | 27–33+(90°+94°) | 270–330+(90°+94°) | 19.5–24+(90°+94°) | ⬜ |
-| Main bearing cap bolt — M8 | 13–19+(90°+94°) | 130–190+(90°+94°) | 10–14+(90°+94°) | ⬜ |
-| Connecting rod bolt | 16–20+(90°+94°) | 160–200+(90°+94°) | 12–15+(90°+94°) | ⬜ |
-| Cylinder head bolt (Cold engine) | 25 + (58°–62°) + (43°–47°) | 250 + (58°–62°) + (43°–47°) | 18 + (58°–62°) + (43°–47°) | ⬜ |
+| Main bearing cap bolt — M10 | 27–33+(90°+94°) | 270–330+(90°+94°) | 19.5–24+(90°+94°) | ✅ |
+| Main bearing cap bolt — M8 | 13–19+(90°+94°) | 130–190+(90°+94°) | 10–14+(90°+94°) | ✅ |
+| Connecting rod bolt | 16–20+(90°+94°) | 160–200+(90°+94°) | 12–15+(90°+94°) | ✅ |
+| Cylinder head bolt (Cold engine) | 25 + (58°–62°) + (43°–47°) | 250 + (58°–62°) + (43°–47°) | 18 + (58°–62°) + (43°–47°) | ✅ |
 | Oil pan drain plug | 35–45 | 350–450 | 25–33 | ⬜ |
 | Lower oil pan bolt | 10–12 | 100–120 | 7–9 | ⬜ |
 | Upper oil pan bolt | | | | ⬜ |
@@ -203,13 +203,13 @@ last_verified: null
 | Oil pressure switch | 15–22 | 150–220 | 11–16 | ⬜ |
 | Oil pump cover screw | 8–12 | 80–120 | 6–9 | ⬜ |
 | Oil filter | 12–16 | 120–160 | 9–12 | ⬜ |
-| Fly wheel bolt | 73–77 | 730–770 | 53–56 | ⬜ |
+| Fly wheel bolt | 73–77 | 730–770 | 53–56 | ✅ |
 | Drive plate and adaptor plate bolt | 73–77 | 730–770 | 53–56 | ⬜ |
 | Air cleaner body installation bolt | 8–12 | 80–120 | 6–9 | ⬜ |
 | Surge tank stay | 15–20 | 150–200 | 11–14 | ⬜ |
 | Air intake surge tank to intake manifold (bolt) | 15–20 | 150–200 | 11–14 | ⬜ |
 | Air intake surge tank to intake manifold (nut) | 15–20 | 150–200 | 11–14 | ⬜ |
-| Intake manifold to cylinder head | 19–21 | 190–210 | 14–15 | ⬜ |
+| Intake manifold to cylinder head | 19–21 | 190–210 | 14–15 | ✅ |
 | Heat protector to exhaust manifold | 12–15 | 120–150 | 9–11 | ⬜ |
 | Exhaust manifold to cylinder head (Self-locking nut) | 25–30 | 250–300 | 18–22 | ⬜ |
 | Oil level gauge guide to engine | 12–15 | 120–150 | 9–11 | ⬜ |
