@@ -37,6 +37,7 @@
 | 9 | `build-profile.md` | Narrative build profile: parts list, mods, history |
 | 10 | `build-knowledge-graph.json` | Component/signal relationship graph for programmatic lookup |
 | 11 | `diagrams/fuel-pump.md` | Mermaid fuel pump power + control path diagram |
+| 12 | `guides/harness-design.md` | Deutsch connector architecture for engine-swap serviceability — D1–D4 pin maps, routing, LM2 wiring |
 
 ---
 

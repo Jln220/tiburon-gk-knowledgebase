@@ -254,13 +254,18 @@ Battery (+) ─── 2 AWG ─── Kill Switch [Large Terminal A]
 
 > **✓ TEST:** Start car → RPM > 50 → `ENGINE_RUNNING` activates → fuel pump stays on → all CAN sensor data flowing
 
-### SU.7 Wideband AFR
+### SU.7 Wideband AFR (Innovate LM2)
 
 - [ ] Wire LM2 power → PDM LP5 (A18) — already mounted on plate Saturday
-- [ ] Wire LM2 analog output → available Haltech AVI
-- [ ] Install wideband O2 sensor bung in exhaust (weld if not already in place)
-- [ ] Install O2 sensor
+- [ ] Wire LM2 Analog Out 1: Lime Green (+) → Haltech AVI 8 (26-pin pin 4); Yellow (−) → signal GND (26-pin pin 14/15/16)
+- [ ] Install wideband O2 sensor bung in exhaust post-collector (weld if not already in place)
+- [ ] Install O2 sensor, route proprietary cable through firewall → RIGHT trunk → footwell → LM2
+- [ ] Configure Haltech NSP: AVI 8 = "Wideband Lambda", cal 0V = 7.35 AFR / 5V = 22.39 AFR
 - [ ] Verify AFR reading in Haltech NSP and on AIM dash
+- [ ] Disconnect / remove stock narrowband O2 sensors (no value with wideband installed)
+- [ ] Optional: wire crankcase pressure sensor to LM2 Analog In 1 (Purple +, Black −)
+
+> See `guides/harness-design.md` for LM2 cable 3811 full pinout
 
 ### SU.8 OE Cluster Verification
 
@@ -271,29 +276,25 @@ Battery (+) ─── 2 AWG ─── Kill Switch [Large Terminal A]
 
 ### SU.9 Harness Fabrication (Prep for Haltech Switchover)
 
-Build all harnesses now so switching from stock ECU → Haltech is just plugging in.
+> **Full harness design with Deutsch connector pin maps:** `guides/harness-design.md`
 
-**Knock + cam/crank harness (shielded):**
-- [ ] Knock 1 → 26-pin pin 21 (GY/G)
-- [ ] Knock 2 → 26-pin pin 22 (GY/L)
-- [ ] Crank trigger +/− → 26-pin pins 1/5 (Y shielded / G shielded)
-- [ ] Cam home +/− → 26-pin pins 2/6 (Y shielded / G shielded)
+Build all harnesses with Deutsch connectors now. Switching from stock ECU → Haltech = plug in D2 + D3, reroute MP1/MP2.
 
-**Coil harness (Toyota 90919-A2005 ×6):**
-- [ ] Pin B (trigger) → Haltech IGN1–6 (34-pin pins 3–8: Y/B, Y/R, Y/O, Y/G, Y/BR, Y/L)
-- [ ] Pin D (power) → common bus from PDM MP2 (A3)
-- [ ] Pin A (ground) → common bus to engine block
-- [ ] Pin C → leave open
+**Deutsch connectors to build:**
 
-**Injector harness:**
-- [ ] Injectors 1–6 → Haltech INJ1–6 (34-pin pins 19–22, 27–28: L, L/B, L/BR, L/R, L/O, L/Y)
-- [ ] Injector rail 12V → PDM MP1 (A2) + Haltech 34-pin pin 26 (R/L, ECU injector power input)
+| Connector | Pins | What It Carries |
+|-----------|------|-----------------|
+| **D1** | 12-pin | Engine sensors: cam, crank, knock, IAT, MAP, TPS |
+| **D2** | 8-pin | Coil harness: IGN 1–6 triggers + MP2 power + ground |
+| **D3** | 8-pin | Injector harness: INJ 1–6 signals + MP1 power |
+| **D4** | 8-pin | Lowdoller sensors: all 3 sensors (6 signals + +5V + GND) |
 
-**Inline disconnects:**
-- [ ] Make coil/injector power connectors — inline disconnects so these unplug from stock ECU and plug to Haltech harness
-
-**Sensor harness:**
-- [ ] Make sensor harness + 8-pin connector — consolidates all Lowdoller sensor wires to single connector at Haltech end
+**Build order:**
+- [ ] **D4 sensor connector** — crimp Deutsch DT pins onto all 3 Lowdoller sensor bare wires. Tie reds → pin 7, tie blacks+whites → pin 8. Build chassis-side cable (8 wires from Haltech through firewall).
+- [ ] **D1 engine sensor harness** — 12 wires from Haltech 26-pin/34-pin through firewall. Engine-side pigtails to cam, crank, knock, IAT, MAP, TPS.
+- [ ] **D2 coil harness** — 6× IGN trigger wires + MP2 power + ground through firewall. Engine-side branches to 6× Toyota 90919-A2005 coil pigtails.
+- [ ] **D3 injector harness** — 6× INJ signal wires + MP1 power through firewall. Engine-side branches to 6× new injector pigtails. Splice MP1 to both injector rail and Haltech pin 26 on chassis side.
+- [ ] **LM2 cockpit cable** — Lime Green → AVI 8, Yellow → signal GND (short run, no firewall)
 
 ---
 

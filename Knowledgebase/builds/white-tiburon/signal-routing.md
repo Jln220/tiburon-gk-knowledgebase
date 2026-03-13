@@ -56,7 +56,8 @@ All sensors: Red=+5V, Black=pressure GND, Yellow=pressure signal, White=temp GND
 | **Cam position (−)** | CMP sensor | — | **26-pin pin 6** | G (shielded) | Signal ground ref | ✅ |
 | **Knock sensor 1** | OEM knock sensor | — | **26-pin pin 21** | GY/G | Piezoelectric | ✅ |
 | **Knock sensor 2** | OEM knock sensor | — | **26-pin pin 22** | GY/L | Piezoelectric | ✅ |
-| **Wideband O2 (AFR)** | Innovate LM2 analog output | — | TBD AVI input | — | 0–5V | 🔲 Most AVIs used by Lowdoller sensors — check channel availability |
+| **Wideband O2 (AFR)** | Innovate LM2 Analog Out 1 (Lime Green +, Yellow −) | Cable 3811 | **26-pin pin 4** (AVI 8) | Lime Green / Yellow | 0–5V (7.35–22.39 AFR) | 🔲 AVI 8 reassigned from redundant OEM CTS (Lowdoller coolant on AVI 6). LM2 in footwell — cockpit run only |
+| **Crankcase pressure** | 0–5V sensor on vacuum tee between valve covers | — | LM2 Analog In 1 (Purple +, Black −) | — | 0–5V | 🔲 Logged through LM2, not Haltech — no spare AVI |
 
 ---
 
