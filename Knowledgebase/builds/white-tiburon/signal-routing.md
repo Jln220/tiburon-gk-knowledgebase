@@ -193,13 +193,20 @@ Transaxle VSS (C109) — Hall IC, 4 pulses/rev
 
 ## PDM Physical Inputs
 
+All driver controls use a physical switch panel — no CAN keypad in this build.
+
 | PDM Pin | Function | Type | Notes |
 |---------|----------|------|-------|
 | **Conn B pin 23** (Ignition) | Ignition toggle switch | Latching, 12V when ON | Master PDM power state; source for `SafeIgnition`. Also spliced to Haltech 34-pin pin 13 (P, purple) — ECU IGN enable. Engine off without cutting battery. ✅ |
-| **Ch09 — B21** | Backup start button | Momentary, active = GND | Physical redundancy for CAN keypad Key 01 🔲 |
-| **Ch11 — B28** | Brake light switch | Momentary, closed on press | Always active, no keypad dependency 🔲 |
+| **Ch01 — B26** | Fan override toggle | Latching, 12V when ON | Manual fan 98% override 🔲 |
+| **Ch02 — B27** | Wiper Low toggle | Latching, 12V when ON | Wiper motor low speed 🔲 |
+| **Ch03 — B28** | Wiper High toggle | Latching, 12V when ON | Wiper motor high speed (overrides low) 🔲 |
+| **Ch04 — B29** | Coolsuit toggle | Latching, 12V when ON | Coolsuit pump on/off 🔲 |
+| **Ch05 — B30** | Defogger toggle | Latching, 12V when ON | Rear window defogger 🔲 |
+| **Ch09 — B21** | Start button | Momentary, active = GND | Crank engine — gated by ignition and RPM interlock 🔲 |
+| **Ch11 — A26** | Brake light switch | Momentary, closed on press | Always active, independent of ignition 🔲 |
 
-**All other inputs via AIM CAN Keypad 12 (CAN2, 125 kbps).** No physical switches for horn, lights, fan, wiper, coolsuit, or fuel override.
+**CAN2 bus unused** — available for future CAN keypad or other device. Ch06–Ch08, Ch10, Ch12 available for future inputs.
 
 ---
 
@@ -207,15 +214,17 @@ Transaxle VSS (C109) — Hall IC, 4 pulses/rev
 
 | Output | PDM Pins | Name | Trigger | Load Notes |
 |--------|----------|------|---------|------------|
-| HP1 | A1 + A13 | Starter | `STARTER_SAFE` (Key 01 OR Ch09) AND IGN AND NOT RPM | Inductive; HP1 has internal series diode |
-| HP2 | A12 + A23 | Fan | ECT 4-band PWM 80–95°C + Key 05 override | 100Hz; freewheeling diode |
-| HP3 | A24 + A25 | Fuel Pump | 3s prime OR RPM > 50 OR Key 06 | Inductive; freewheeling diode |
+| HP1 | A1 + A13 | Starter | `STARTER_SAFE` = Ch09 AND IGN AND NOT RPM | Inductive; HP1 has internal series diode |
+| HP2 | A12 + A23 | Fan | ECT 4-band PWM 77–92°C + Ch01 override | 100Hz; freewheeling diode |
+| HP3 | A24 + A25 | Fuel Pump | 3s prime OR RPM > 50 | Inductive; freewheeling diode |
 | MP1 | A2 | Injector Power | `SafeIgnition` | → Injector rail + Haltech 34-pin pin 26 (R/L) |
 | MP2 | A3 | Coil Power | `SafeIgnition` | → Pin D, all 6 Toyota 90919-A2005 COPs |
-| MP3 | A4 | Horn | Key 02 momentary | — |
+| MP3 | A4 | Wiper Low | Ch02 AND NOT Ch03 | Inductive (wiper motor) |
 | MP4 | A5 | Brake Lights | Ch11 direct (brake switch) | — |
-| MP5 | A6 | Tail Lights | Key 03 toggle | — |
-| MP7 | A8 | Coolsuit | Key 04 toggle | Inductive |
+| MP5 | A6 | Tail Lights | `SafeIgnition` (always on when car is on) | — |
+| MP6 | A7 | Wiper High | Ch03 (overrides low speed) | Inductive (wiper motor) |
+| MP7 | A8 | Coolsuit | Ch04 AND SafeIgnition | Inductive |
+| MP8 | A9 | Defogger | Ch05 AND SafeIgnition | Resistive heating element |
 | LP1 | A14 | ECU Power | `SafeIgnition` | → Haltech 26-pin pin 11 (R/W, 13.8V) |
 | LP2 | A15 | Dash | `SafeIgnition` | AIM 10" dash |
 | LP3 | A16 | SmartyCam | `SafeIgnition` | — |
@@ -224,7 +233,7 @@ Transaxle VSS (C109) — Hall IC, 4 pulses/rev
 | LP6 | A19 | Cluster | `SafeIgnition` | OEM instrument cluster |
 | LP7 | A20 | Warning LED | `MULTI_WARNING` | Low oil P / high ECT / high oil T / low fuel P |
 
-> Full configuration details: `aim-pdm/race-studio-config-guide.md`
+> Full configuration details: `builds/white-tiburon/guides/pdm-config.md`
 
 ---
 

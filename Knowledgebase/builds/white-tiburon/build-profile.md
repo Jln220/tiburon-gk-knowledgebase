@@ -65,9 +65,15 @@ Full specs, wiring, and calibration tables: `Knowledgebase/cars/lowdoller-sensor
 - *(Details TBD — document battery location, cable gauges, grounding strategy as install progresses)*
 
 ### Ignition & Switches
+- **Physical switch panel** with 6 latching toggles + 1 momentary starter + warning LED
 - **Ignition switch:** Dedicated latching toggle — goes to PDM Conn B pin 23 (Ignition input) AND Haltech 34-pin pin 13 (ECU IGN enable). Turns engine off without cutting PDM/battery power.
-- **Start switch:** Momentary push button — PDM Ch09 (B21). Physical backup for CAN keypad Key 01.
-- **No other physical switches** — horn, lights, fan, wiper, coolsuit all on AIM CAN Keypad 12.
+- **Start switch:** Momentary push button — PDM Ch09 (B21). Gated by ignition and RPM interlock.
+- **Fan override:** Latching toggle — PDM Ch01 (B26). Forces fan to 98% duty.
+- **Wiper Low:** Latching toggle — PDM Ch02 (B27). Wiper motor low speed.
+- **Wiper High:** Latching toggle — PDM Ch03 (B28). Wiper motor high speed (overrides low).
+- **Coolsuit:** Latching toggle — PDM Ch04 (B29). Coolsuit pump on/off.
+- **Defogger:** Latching toggle — PDM Ch05 (B30). Rear window defogger.
+- **CAN keypad excluded** from this build — all controls are physical switches.
 - OEM ignition cylinder **removed** from loop.
 
 ---

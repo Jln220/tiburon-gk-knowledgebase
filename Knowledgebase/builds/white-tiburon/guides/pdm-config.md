@@ -1,8 +1,10 @@
-﻿# AIM PDM32 Race Studio 3 Configuration Guide — White Tiburon
+# AIM PDM32 Race Studio 3 Configuration Guide — White Tiburon
 
 ## Overview
 
-Complete Race Studio 3 configuration for the AIM PDM32 + AIM CAN Keypad 12 in the white 2003 Tiburon GK race car. Based on analysis of the AIM "I Have a PDM Now What" webinar config (`Webinar complete.zconfig`), adapted for the Tiburon's Haltech Elite 2500 + COP ignition + CAN keypad control scheme.
+Complete Race Studio 3 configuration for the AIM PDM32 with physical switch panel in the white 2003 Tiburon GK race car. Based on analysis of the AIM "I Have a PDM Now What" webinar config (`Webinar complete.zconfig`), adapted for the Tiburon's Haltech Elite 2500 + COP ignition + physical toggle switch control scheme.
+
+> **CAN keypad excluded from this build.** All driver controls use a physical switch panel with 6 toggle switches and 1 momentary starter button. CAN2 bus is unused and available for future expansion.
 
 > **`.zconfig` files** use proprietary internal UIDs and cross-referenced channel indices managed by Race Studio 3. The starting-point file `Tiburon_White_v1_base.zconfig` has output names and settings pre-configured but trigger logic must be finalized in Race Studio 3.
 >
@@ -12,74 +14,72 @@ Complete Race Studio 3 configuration for the AIM PDM32 + AIM CAN Keypad 12 in th
 
 ## Control Scheme
 
-### Physical Inputs (2 only)
+### Physical Switch Panel
 
-| Input | Type | PDM Connection | Purpose |
+All driver controls are physical switches wired directly to PDM channel inputs. No CAN keypad.
+
+```
+Switch Panel Layout
+====================
+
+Toggle switches (latching):
+  [IGN]  [FAN]  [WPR LO]  [WPR HI]  [COOL]  [DEFOG]
+
+Momentary:
+  [START]                                       (RED multi-warning LED)
+```
+
+### Switch Assignments
+
+| Switch | Type | PDM Connection | Purpose |
 |---|---|---|---|
-| **Ignition switch** | Toggle (latching) | PDM Ignition Input (Conn B pin 23) | Master power — keeps PDM powered with engine off (for config, testing, accessories) |
-| **Start button (backup)** | Momentary push | PDM Channel Input Ch09 | Physical backup for CAN keypad start button |
-
-### CAN Keypad 12 (Primary Controls)
-
-Connected to **PDM CAN2** bus at **125 kbps** (standard AIM keypad baud rate).
-
-```
-AIM CAN Keypad 12 — Tiburon Button Layout
-==========================================
-
-  [01 START]  [02 HORN ]  [03 LIGHT]  [04 COOL ]
-  [05 FAN+ ]  [06 FUEL+]  [07 PIT  ]  [08 WIPER]
-  [09 YES  ]  [10 PIT# ]  [11 spare]  [12 spare]
-
-Physical switch panel:
-  [IGN toggle]  [START backup pushbutton]  (RED multi-warning LED)
-
-Key 09: Comms Yes/No toggle — sends affirmative/negative to PodiumConnect
-Key 10: Pit-in timer — each press cycles: off → 1 lap → 2 laps → 3 laps → off
-```
+| **Ignition** | Toggle (latching) | PDM Ignition Input (Conn B pin 23) | Master power — keeps PDM powered with engine off (for config, testing, accessories) |
+| **Start** | Momentary push | PDM Channel Input Ch09 (B21) | Crank engine — gated by ignition and RPM interlock |
+| **Fan** | Toggle (latching) | PDM Channel Input Ch01 (B26) | Manual fan override — forces fan to 98% regardless of coolant temp |
+| **Wiper Low** | Toggle (latching) | PDM Channel Input Ch02 (B27) | Wiper motor low speed |
+| **Wiper High** | Toggle (latching) | PDM Channel Input Ch03 (B28) | Wiper motor high speed (overrides low) |
+| **Coolsuit** | Toggle (latching) | PDM Channel Input Ch04 (B29) | Coolsuit pump on/off |
+| **Defogger** | Toggle (latching) | PDM Channel Input Ch05 (B30) | Rear window defogger on/off |
 
 ### Warning Light
 
 | Output | Type | Connection | Trigger |
 |---|---|---|---|
-| **Red LED** | PDM low-power output (LP7 or spare) | Wire to switch panel LED | Multi-warning: Low oil P OR High coolant T OR High oil T OR Low fuel P |
+| **Red LED** | PDM low-power output (LP7) | Wire to switch panel LED | Multi-warning: Low oil P OR High coolant T OR High oil T OR Low fuel P |
 
 ---
 
-## Webinar Config Mapping
+## PDM Channel Input Wiring
 
-The webinar config already implements keypad-driven control with a physical backup starter. Here's how the webinar maps to the Tiburon:
+7 physical switches + 1 brake switch use 7 channel inputs plus the dedicated ignition input:
 
-| Webinar Key | Webinar Function | Webinar Status Var | Tiburon Key | Tiburon Function | Changes Needed |
-|---|---|---|---|---|---|
-| Key 01 | Fan override | FanKYD | **Key 05** | Fan manual 100% | Remap key number |
-| Key 02 | Lights | LightsKYD | **Key 03** | Tail/running lights | Remap key number |
-| Key 03 | Siren/Horn | SirenKYD | **Key 02** | Horn | Rename siren → horn |
-| Key 04 | Starter | StarterKYD | **Key 01** | Start (primary) | Remap key number |
-| Key 05 | Ignition relay | IgnitionKYD | *removed* | **Physical switch** | Replace keypad with Conn B pin 23 |
-| Key 06 | Spare | K06 | **Key 06** | Fuel pump override | New logic |
-| Key 07 | Previous page | PreviousKYD | **Key 07** | Pit limiter (safety-gated) | New logic |
-| Key 08 | Next page | NextKYD | **Key 08** | Wiper | New logic |
-| *New* | — | — | **Key 09** | Comms Yes/No (PodiumConnect) | New — add COMMS_YN latching toggle |
-| *New* | — | — | **Key 10** | Pit-In X Laps (PodiumConnect) | New — add PITIN_LAPS multi-position (4 pos) |
-| Ch09 | Backup start button | momentary SW | **Ch09** | Backup start button | **No change** |
+| PDM Input | Pin | Assignment | Type | Wiring |
+|---|---|---|---|---|
+| **Ignition Input** | B23 | Ignition switch | Built-in IGN input | Latching toggle. 12V when ON. |
+| **Ch01** | B26 | Fan override | Digital, latching toggle | 12V when ON |
+| **Ch02** | B27 | Wiper Low | Digital, latching toggle | 12V when ON |
+| **Ch03** | B28 | Wiper High | Digital, latching toggle | 12V when ON |
+| **Ch04** | B29 | Coolsuit | Digital, latching toggle | 12V when ON |
+| **Ch05** | B30 | Defogger | Digital, latching toggle | 12V when ON |
+| **Ch09** | B21 | Start button | Digital, momentary | Momentary, active = grounded |
+| **Ch11** | A26 | Brake light switch | Digital | Brake pedal switch, closed on press |
 
-### Status Variables Carried Forward
+Ch06, Ch07, Ch08, Ch10, Ch12 are **available** for future inputs.
+
+---
+
+## Status Variables
+
+### Carried Forward from Webinar Config
 
 These webinar status variables are directly reusable:
 
 | Variable | Logic | Used By |
 |---|---|---|
-| `StarterKYD` | Latched toggle from keypad start button | Starter trigger |
-| `SirenKYD` | Momentary from keypad horn button | Horn trigger |
-| `LightsKYD` | Latched toggle from keypad lights button | Lights trigger |
-| `FanKYD` | Latched toggle from keypad fan button | Fan manual override |
+| `SafeIgnition` | Ignition input is ON and stable (built-in) | Master permissive for engine outputs |
 | `FuelSV` | Composite: SafeIgnition AND RPM conditions | Fuel pump run logic |
-| `SafeIgnition` | Ignition input is ON and stable | Master permissive for engine outputs |
-| `FlashSV` | Momentary flash state | High beam flash (if applicable) |
-| `FANOFFSV` | Fan override off state | Fan manual disable |
 
-### Status Variables to Add
+### Status Variables — Full List
 
 | Variable | Logic | Used By |
 |---|---|---|
@@ -90,19 +90,12 @@ These webinar status variables are directly reusable:
 | `FAN_TEMP_75` | CAN Coolant_T > 87°C (hysteresis -5°C) | Fan 75% band |
 | `FAN_TEMP_100` | CAN Coolant_T > 92°C | Fan 98% band — thermostat est. fully open at ~92°C |
 | `FAN_FAILSAFE` | CAN coolant_T signal timeout > 5s | Fan 98% failsafe |
-| `STARTER_SAFE` | (StarterKYD OR Ch09) AND SafeIgnition AND NOT ENGINE_RUNNING | Safe to crank |
+| `STARTER_SAFE` | Ch09 AND SafeIgnition AND NOT ENGINE_RUNNING | Safe to crank |
 | `LOW_OIL_P` | CAN Oil_P < 15 PSI AND ENGINE_RUNNING AND RPM > 500 | Warning light |
 | `HIGH_COOLANT_T` | CAN Coolant_T > 95°C | Warning light — thermostat fully open at 92°C; >95°C = problem |
 | `HIGH_OIL_T` | CAN Oil_T > 130°C | Warning light |
 | `LOW_FUEL_P` | CAN Fuel_P < 40 PSI AND ENGINE_RUNNING AND RPM > 500 | Warning light — factory idle spec 46–49 PSI |
 | `MULTI_WARNING` | LOW_OIL_P OR HIGH_COOLANT_T OR HIGH_OIL_T OR LOW_FUEL_P | Red LED trigger |
-| `CoolsuitKYD` | Latched toggle from keypad Key 04 | Coolsuit pump |
-| `FuelOverride` | Latched toggle from keypad Key 06 | Manual fuel pump on |
-| `PitLimiter_KYD` | Latched toggle from keypad Key 07 | Raw keypad state |
-| `PITLIMITER_SAFE` | PitLimiter_KYD AND CAN Speed < 60 mph | Safe to engage — blocks accidental on-track activation |
-| `PITLIMITER_ACTIVE` | PITLIMITER_SAFE AND NOT (TPS > 60%) | Active limiter state sent to Haltech; TPS override always available |
-| `COMMS_YN` | Latched toggle from keypad Key 09 | PodiumConnect affirmative/negative signal |
-| `PITIN_LAPS` | Multi-position from keypad Key 10 (0/1/2/3) | PodiumConnect pit-in request with lap count |
 
 ---
 
@@ -113,17 +106,18 @@ These webinar status variables are directly reusable:
 | Output | Name | Mode | MaxLoad | Inductive | PWM | Trigger |
 |---|---|---|---|---|---|---|
 | **HP1** | Starter | OVC Protected | 20A | **Yes** | DC | STARTER_SAFE |
-| **HP2** | Fan | Fused | 35A | No | 100Hz | ECT PWM curve + FanKYD override |
-| **HP3** | FuelPump | OVC Protected | 15A | **Yes** | DC | FUEL_PRIME OR ENGINE_RUNNING OR FuelOverride |
+| **HP2** | Fan | Fused | 35A | No | 100Hz | ECT PWM curve + Ch01 override |
+| **HP3** | FuelPump | OVC Protected | 15A | **Yes** | DC | FUEL_PRIME OR ENGINE_RUNNING |
 | HP4 | Spare | -- | 20A | -- | -- | -- |
 | **MP1** | InjectorPwr | OVC Protected | 15A | **Yes** | DC | SafeIgnition |
 | **MP2** | CoilPwr | OVC Protected | 15A | No | DC | SafeIgnition |
-| **MP3** | Horn | OVC Protected | 15A | No | DC | SirenKYD (Key 02, momentary) |
-| **MP4** | BrakeLights | Fused | 10A | No | DC | BRAKE_SWITCH (physical, always active) |
-| **MP5** | TailLights | Fused | 10A | No | DC | LightsKYD (Key 03, toggle) |
-| MP6 | Spare | -- | 15A | -- | -- | -- |
-| **MP7** | Coolsuit | OVC Protected | 10A | **Yes** | DC | CoolsuitKYD (Key 04, toggle) |
-| MP8 | Spare | -- | 15A | -- | -- | -- |
+| **MP3** | WiperLow | OVC Protected | 10A | **Yes** | DC | Ch02 AND NOT Ch03 |
+| **MP4** | BrakeLights | Fused | 10A | No | DC | BRAKE_SWITCH (Ch11, physical, always active) |
+| **MP5** | TailLights | Fused | 10A | No | DC | SafeIgnition (always on when car is on) |
+| **MP6** | WiperHigh | OVC Protected | 10A | **Yes** | DC | Ch03 |
+| **MP7** | Coolsuit | OVC Protected | 10A | **Yes** | DC | Ch04 AND SafeIgnition |
+| **MP8** | Defogger | OVC Protected | 10A | No | DC | Ch05 AND SafeIgnition |
+| MP9–MP12 | Spare | -- | -- | -- | -- | -- |
 | **LP1** | ECU_Power | OVC Protected | 10A | No | DC | SafeIgnition |
 | **LP2** | Dash | OVC Protected | 10A | No | DC | SafeIgnition |
 | **LP3** | SmartyCam | OVC Protected | 10A | No | DC | SafeIgnition |
@@ -131,7 +125,7 @@ These webinar status variables are directly reusable:
 | **LP5** | Wideband | OVC Protected | 10A | No | DC | SafeIgnition |
 | **LP6** | Cluster | OVC Protected | 10A | No | DC | SafeIgnition |
 | **LP7** | WarningLED | OVC Protected | 5A | No | DC | MULTI_WARNING |
-| **LP8** | Keypad | OVC Protected | 5A | No | DC | `SafeIgnition` — AIM CAN Keypad 12 Vbatt via Binder-to-Deutsch cable (A21) |
+| LP8 | Spare | -- | 5A | -- | -- | -- (was Keypad power — freed up) |
 
 ### Detailed Output Logic
 
@@ -139,7 +133,7 @@ These webinar status variables are directly reusable:
 
 ```
 Trigger: STARTER_SAFE
-  = (StarterKYD [Key 01 press] OR Ch09 [physical backup button])
+  = Ch09 [physical start button press]
     AND SafeIgnition [IGN switch ON]
     AND NOT ENGINE_RUNNING [CAN RPM < 50]
 
@@ -153,20 +147,19 @@ Safety:
   - RPM interlock prevents cranking into running engine
   - HP1 series diode prevents back-EMF to PDM
   - Add 10s timeout: if HP1 ON > 10s → force off (motor protection)
-  - Physical backup button on Ch09 works independently of keypad
 ```
 
-#### HP2: Fan (4-Level Priority PWM)
+#### HP2: Fan (4-Level Priority PWM + Manual Override)
 
 ```
-Fan speed is driven by CAN coolant temp from Haltech, with manual override.
+Fan speed is driven by CAN coolant temp from Haltech, with manual toggle override.
 
 Action 1: ON @ 25% duty  | Priority 1 | Trigger: FAN_TEMP_25 (>77°C — 170°F thermostat opens here)
 Action 2: ON @ 50% duty  | Priority 2 | Trigger: FAN_TEMP_50 (>82°C)
 Action 3: ON @ 75% duty  | Priority 3 | Trigger: FAN_TEMP_75 (>87°C)
 Action 4: ON @ 98% duty  | Priority 4 | Trigger: FAN_TEMP_100 (>92°C est. fully open) OR FAN_FAILSAFE
 
-Manual override: FanKYD (Key 05) → 98% duty, Priority 5 (highest)
+Manual override: Ch01 (Fan toggle switch) → 98% duty, Priority 5 (highest)
 
 Properties:
   Mode: Fused (auto-disable on overcurrent)
@@ -181,11 +174,10 @@ Failsafe: If CAN coolant temp signal lost > 5s → 98% duty
 #### HP3: Fuel Pump
 
 ```
-Trigger: FUEL_PRIME OR ENGINE_RUNNING OR FuelOverride
+Trigger: FUEL_PRIME OR ENGINE_RUNNING
 
-  FUEL_PRIME:   3s one-shot timer on SafeIgnition rising edge
+  FUEL_PRIME:    3s one-shot timer on SafeIgnition rising edge
   ENGINE_RUNNING: CAN RPM > 50 (with 2s off-delay for stall protection)
-  FuelOverride:  Key 06 toggle (manual override, e.g., for priming/testing)
 
 Properties:
   Mode: OVC Protected
@@ -194,8 +186,27 @@ Properties:
   OVC Retries: 3 (pump may spike on initial prime)
   Latch Off: 5s
 
+Note: No manual fuel override switch in this build. If manual priming is
+needed, cycle the ignition switch off/on to trigger the 3s FUEL_PRIME timer.
+
 Haltech DPO 5 (34-pin pin 24, B/Y) can also be wired to a PDM channel input
 as an additional permissive or alternative trigger from the ECU side.
+```
+
+#### MP3: Wiper Low Speed
+
+```
+Trigger: Ch02 AND NOT Ch03
+  = Wiper Low toggle ON AND Wiper High toggle OFF
+
+If both Wiper Low and Wiper High switches are on, the high speed
+output takes priority and low speed is disabled (prevents driving
+both motor windings simultaneously).
+
+Properties:
+  Mode: OVC Protected
+  Max Load: 10A
+  Inductive: YES (wiper motor)
 ```
 
 #### MP4: Brake Lights
@@ -203,13 +214,71 @@ as an additional permissive or alternative trigger from the ECU side.
 ```
 Trigger: BRAKE_SWITCH (physical brake switch, always active)
 
-NOTE: Brake lights MUST work even if keypad is disconnected.
+NOTE: Brake lights MUST work regardless of ignition state.
 Wire brake switch directly to PDM Channel Input Ch11.
-Do NOT route through keypad.
 
 Properties:
   Mode: Fused
   Max Load: 10A
+```
+
+#### MP5: Tail Lights
+
+```
+Trigger: SafeIgnition
+
+Tail lights are always on when the car is running. No dedicated switch —
+they activate automatically with the ignition switch.
+
+Properties:
+  Mode: Fused
+  Max Load: 10A
+```
+
+#### MP6: Wiper High Speed
+
+```
+Trigger: Ch03
+  = Wiper High toggle ON
+
+When Wiper High is on, MP3 (Wiper Low) is forced off via the
+AND NOT Ch03 condition in its trigger. High speed always wins.
+
+Properties:
+  Mode: OVC Protected
+  Max Load: 10A
+  Inductive: YES (wiper motor)
+```
+
+#### MP7: Coolsuit
+
+```
+Trigger: Ch04 AND SafeIgnition
+  = Coolsuit toggle ON AND ignition ON
+
+Coolsuit pump only runs with ignition on to prevent accidental
+battery drain if the switch is left on.
+
+Properties:
+  Mode: OVC Protected
+  Max Load: 10A
+  Inductive: YES (pump motor)
+```
+
+#### MP8: Defogger
+
+```
+Trigger: Ch05 AND SafeIgnition
+  = Defogger toggle ON AND ignition ON
+
+Rear window defogger element. Consider adding a 15-minute auto-off
+timer in Race Studio 3 to prevent excessive battery draw during
+long sessions.
+
+Properties:
+  Mode: OVC Protected
+  Max Load: 10A
+  Inductive: No (resistive heating element)
 ```
 
 #### LP7: Multi-Warning Red LED
@@ -218,10 +287,10 @@ Properties:
 Trigger: MULTI_WARNING
   = LOW_OIL_P OR HIGH_COOLANT_T OR HIGH_OIL_T OR LOW_FUEL_P
 
-LOW_OIL_P:     CAN Oil_Pressure < 15 PSI AND RPM > 500
-HIGH_COOLANT_T: CAN Coolant_Temp > 105°C
-HIGH_OIL_T:    CAN Oil_Temp > 130°C
-LOW_FUEL_P:    CAN Fuel_Pressure < 30 PSI AND RPM > 500
+LOW_OIL_P:      CAN Oil_Pressure < 15 PSI AND RPM > 500
+HIGH_COOLANT_T:  CAN Coolant_Temp > 95°C
+HIGH_OIL_T:     CAN Oil_Temp > 130°C
+LOW_FUEL_P:     CAN Fuel_Pressure < 40 PSI AND RPM > 500
 
 RPM > 500 guard prevents false alarms at idle/cranking.
 
@@ -229,75 +298,6 @@ Properties:
   Mode: OVC Protected
   Max Load: 5A (LED draws < 0.5A)
   Can optionally PWM the LED for blinking effect (PWM 2Hz, 50% duty)
-```
-
----
-
-#### Key 07: Pit Limiter — Safety Implementation
-
-```
-PITLIMITER_SAFE conditions (PDM side):
-  PitLimiter_KYD = ON    (Key 07 latched)
-  AND CAN Speed < 60 mph  (speed gate — prevents on-track accidental engage)
-
-If Key 07 pressed while speed > 60 mph:
-  → PitLimiter_KYD = ON (latched) but PITLIMITER_ACTIVE = OFF
-  → Key 07 LED turns RED (indicates keypad requested, but not safe to engage)
-  → When speed drops below 60 mph → automatically activates
-
-PITLIMITER_ACTIVE = PITLIMITER_SAFE AND NOT (TPS > 60%)
-  TPS override: any instant with TPS > 60% temporarily releases the limiter
-  Useful for: short burst to clear traffic then re-engages if still toggled on
-
-To exit: press Key 07 again (toggle off) — immediate full release
-
-Haltech side (NSP Speed Limiter configuration):
-  Target speed: 35 mph (adjust per track pit lane limit)
-  Enable signal option A: PDM CAN0 transmit message → Haltech custom CAN receive
-    - Configure PDM to broadcast PITLIMITER_ACTIVE state on CAN0
-    - Configure Haltech NSP to receive that CAN byte and enable speed limiter
-  Enable signal option B: Wire spare PDM LP output → Haltech SPI 2/3/4 pin
-    - Configure Haltech SPI pin as digital input in NSP
-    - 12V = limiter on, 0V = off
-  Recommended: Option A (CAN) — zero extra wire
-```
-
----
-
-#### Keys 09 & 10: PodiumConnect Pit Communication
-
-```
-Key 09 — COMMS YES/NO (latching toggle):
-  Position 0 (rest/off): No pending message
-  Position 1 (on):       Affirmative / "Yes" / "Understood"
-
-  LED behavior:
-    COMMS_YN = off → dim (no color)
-    COMMS_YN = on  → BRIGHT GREEN
-
-  To say "no": toggle off (treat off state as "no response" or configure
-  a second press to cycle to a RED "no" state if Race Studio allows 3-pos)
-
-Key 10 — PIT-IN REQUEST (multi-position, 4 states):
-  Position 0 → OFF (no pit request) — LED off
-  Position 1 → Pit in 1 lap       — LED dim white
-  Position 2 → Pit in 2 laps      — LED medium white
-  Position 3 → Pit in 3 laps      — LED bright white
-  Each press of Key 10 advances one position; wraps back to 0 after 3.
-
-PodiumConnect CAN integration:
-  Both COMMS_YN and PITIN_LAPS values are transmitted to the AIM Podium
-  module via the AIM device CAN bus (CAN1). The Podium forwards these to
-  PodiumConnect where the team engineer sees the flag/request.
-
-  CAN message configuration: Set up in Race Studio 3 under CAN Outputs
-  pointing to the Podium's CAN address. Exact message IDs and byte mapping
-  depend on the Podium firmware version — confirm in Race Studio 3 when
-  Podium module is connected and recognized.
-
-  Expected display on PodiumConnect:
-    COMMS_YN = 1  → "Driver: YES" flag
-    PITIN_LAPS = 1/2/3 → "Pit In: X laps" flag
 ```
 
 ---
@@ -328,52 +328,12 @@ PodiumConnect CAN integration:
 
 > **"Silent on CAN Bus"** (RS3 ECU config option): By default PDM sends an ACK to every ECU message. Some ECUs misbehave when another device sends ACK on their bus. If Haltech logs CAN errors after PDM is connected, enable this flag. *(Source: PDM32 User Guide §12)*
 
-### CAN2 (PDM Conn A pins A28 H / A29 L) — AIM CAN Keypad 12
+### CAN2 (PDM Conn A pins A28 H / A29 L) — Unused
 
 | Setting | Value |
 |---|---|
-| Device | AIM CAN Keypad 12 |
-| Speed | 125 kbps (AIM keypad standard) |
-| Buttons | 12 buttons with RGB LED feedback |
-| Keypad power | LP8 (A21) → Keypad Deutsch pin 4 (Red), trigger = SafeIgnition |
-| Keypad GND | B18 (grey connector) → Keypad Deutsch pin 3 (Black) |
-| Cable | Custom Binder-to-Deutsch adapter — see pdm-pinout.md CAN Keypad Cable section |
-
----
-
-## Keypad LED Color Assignments
-
-Configure in Race Studio 3 → CAN Output 2 (Keypad):
-
-| Key | Function | LED Off | LED Active | Notes |
-|---|---|---|---|---|
-| 01 | Start | Dim green | Bright green | Momentary press |
-| 02 | Horn | Dim yellow | Bright yellow | Momentary (hold to honk) |
-| 03 | Lights | Dim blue | Bright blue | Toggle on/off |
-| 04 | Coolsuit | Dim cyan | Bright cyan | Toggle on/off |
-| 05 | Fan Override | Dim red | Bright red | Toggle — RED = manual override active |
-| 06 | Fuel Override | Dim red | Bright red | Toggle — for priming/testing |
-| 07 | Pit Limiter | Dim white | Bright white = active; RED if engaged above 60 mph (PITLIMITER_SAFE = false) | Toggle; safety-gated |
-| 08 | Wiper | Dim white | Bright white | Toggle |
-| 09 | Comms Yes/No | Off | Green = Yes / Red = No | Toggle cycles between states; for PodiumConnect quick ACK |
-| 10 | Pit-In Laps | Off | White dim=1 lap / White=2 laps / Bright white=3 laps | Multi-position cycles 0→1→2→3→0 |
-| 11-12 | Spare | Off | -- | Available |
-
-The webinar config includes LED color control channels (`ColorsConditionK01` through `ClK08`, plus `BitRedX15`, `BitGreenX15`, `BitBlueX15`). These drive the RGB LEDs based on status variable states.
-
----
-
-## PDM Channel Input Wiring
-
-With keypad handling most controls, only 3 physical inputs are needed:
-
-| PDM Input | Assignment | Type | Wiring |
-|---|---|---|---|
-| **Conn B pin 23** | Ignition switch | Built-in IGN input | Latching toggle switch. 12V when ON. |
-| **Ch09** | Start backup button | Digital (momentary) | Push button → channel input, active = grounded |
-| **Ch11** | Brake light switch | Digital | Brake pedal switch → channel input, closed on press |
-
-Ch10, Ch12, and others are **available** for future physical inputs.
+| Status | **Not connected** — CAN keypad excluded from this build |
+| Pins A28/A29 | Available for future CAN device (keypad, additional ECU, data logger, etc.) |
 
 ---
 
@@ -392,27 +352,22 @@ Open `Tiburon_White_v1_base.zconfig` in Race Studio 3. Output names and basic se
 5. Verify these channels appear: RPM, Coolant Temp (ECT), Oil Pressure, Oil Temp, Fuel Pressure, TPS
 6. If Haltech is not in the preset list: manually add CAN messages per `opengk/can-bus-messages.md`
 
-### 3. Configure CAN2 Keypad
+### 3. Disable CAN2 Keypad
 
-1. Go to Configuration → CAN2 Keypad
-2. Select **AIM CAN Keypad 12**
-3. The webinar config already has 8 keypad definitions — remap button numbers:
-   - Rename StarterKYD button assignment from Key 04 → **Key 01**
-   - Rename SirenKYD (horn) from Key 03 → **Key 02**
-   - Rename LightsKYD from Key 02 → **Key 03**
-   - Add CoolsuitKYD on **Key 04** (new latching toggle)
-   - Rename FanKYD from Key 01 → **Key 05**
-   - Add FuelOverride on **Key 06** (new latching toggle)
-   - Set Key 07 for Pit Limiter (safety-gated — see Pit Limiter section)
-   - Set Key 08 for Wiper (latching toggle)
-   - Add COMMS_YN on **Key 09** (latching toggle — PodiumConnect Yes/No)
-   - Add PITIN_LAPS on **Key 10** (multi-position 0/1/2/3 — PodiumConnect pit request)
+1. Go to Configuration → CAN2
+2. **Remove** or **disable** the AIM CAN Keypad 12 configuration
+3. Remove all keypad-related status variables (StarterKYD, SirenKYD, LightsKYD, FanKYD, CoolsuitKYD, FuelOverride, PitLimiter_KYD, COMMS_YN, PITIN_LAPS)
+4. Remove all keypad LED color assignments
 
 ### 4. Configure Channel Inputs
 
-1. **Ch09** → "START_BACKUP" — Digital status, momentary, active = ground
-2. **Ch11** → "BRAKE_SWITCH" — Digital status, closed when pedal pressed
-3. All other channel inputs → leave at defaults (available for future)
+1. **Ch01** → "FAN_OVERRIDE" — Digital status, latching toggle, active = 12V
+2. **Ch02** → "WIPER_LOW" — Digital status, latching toggle, active = 12V
+3. **Ch03** → "WIPER_HIGH" — Digital status, latching toggle, active = 12V
+4. **Ch04** → "COOLSUIT" — Digital status, latching toggle, active = 12V
+5. **Ch05** → "DEFOGGER" — Digital status, latching toggle, active = 12V
+6. **Ch09** → "START" — Digital status, momentary, active = grounded
+7. **Ch11** → "BRAKE_SWITCH" — Digital status, closed when pedal pressed
 
 ### 5. Create Status Variables
 
@@ -422,26 +377,22 @@ In Configuration → Math Channels:
 2. `FUEL_PRIME` = Timer(SafeIgnition rising edge, 3000ms, one-shot)
 3. `FAN_TEMP_25` through `FAN_TEMP_100` = CAN ECT band comparisons
 4. `FAN_FAILSAFE` = CAN ECT timeout > 5s
-5. `STARTER_SAFE` = (StarterKYD OR Ch09) AND SafeIgnition AND NOT ENGINE_RUNNING
+5. `STARTER_SAFE` = Ch09 AND SafeIgnition AND NOT ENGINE_RUNNING
 6. `LOW_OIL_P` = CAN Oil_P < 15 AND ENGINE_RUNNING AND CAN RPM > 500
-7. `HIGH_COOLANT_T` = CAN ECT > 105
+7. `HIGH_COOLANT_T` = CAN ECT > 95
 8. `HIGH_OIL_T` = CAN Oil_T > 130
-9. `LOW_FUEL_P` = CAN Fuel_P < 30 AND ENGINE_RUNNING AND CAN RPM > 500
+9. `LOW_FUEL_P` = CAN Fuel_P < 40 AND ENGINE_RUNNING AND CAN RPM > 500
 10. `MULTI_WARNING` = LOW_OIL_P OR HIGH_COOLANT_T OR HIGH_OIL_T OR LOW_FUEL_P
 
 ### 6. Assign Triggers to Power Outputs
 
-Wire each status variable to its power output per the Output Map table above.
+Wire each status variable / channel input to its power output per the Output Map table above.
 
-### 7. Configure LED Colors
-
-In CAN Output 2 (Keypad), set RGB values for each key state per the LED Color table.
-
-### 8. Configure Warning LED Output
+### 7. Configure Warning LED Output
 
 Enable LP7, set trigger to `MULTI_WARNING`, optionally set PWM for blinking.
 
-### 9. Configure SmartyCam Stream
+### 8. Configure SmartyCam Stream
 
 1. Go to **SmartyCam Stream** tab *(rightmost tab in PDM RS3 config)*
 2. Enable SmartyCam, select **CAN AiM** bus (expansion bus, A22/A11)
@@ -451,14 +402,20 @@ Enable LP7, set trigger to `MULTI_WARNING`, optionally set PWM for blinking.
 4. Choose **AiM Default** protocol (or create Advanced protocol for custom channel set)
 5. See `hardware/aim/aim-smartycam/aim-smartycam.md` for full channel map and SmartyCam-side RS3 config
 
-### 10. Transmit and Test
+### 9. Transmit and Test
 
 1. Save configuration
 2. Transmit to PDM via USB
 3. Force-test each output in Race Studio 3 (Device window → Live Measures → force channel values)
-4. Verify keypad button presses activate correct outputs
-5. Verify brake lights work with physical switch only (no keypad required)
-6. Verify backup start button on Ch09 cranks the starter
+4. Verify each toggle switch activates its assigned output:
+   - Fan toggle → HP2 runs at 98%
+   - Wiper Low toggle → MP3 on (verify MP6 off)
+   - Wiper High toggle → MP6 on (verify MP3 off)
+   - Coolsuit toggle → MP7 on
+   - Defogger toggle → MP8 on
+5. Verify brake lights work with physical switch only (Ch11)
+6. Verify start button on Ch09 cranks the starter (with ignition on, engine not running)
+7. Verify tail lights come on automatically with ignition switch
 
 ---
 
@@ -471,13 +428,14 @@ Enable LP7, set trigger to `MULTI_WARNING`, optionally set PWM for blinking.
 | HP3 FuelPump | OVC Protected | 15A | Yes | 3 | 5s | No |
 | MP1 InjectorPwr | OVC Protected | 15A | Yes | 1 | 5s | No |
 | MP2 CoilPwr | OVC Protected | 15A | No | 1 | 5s | No |
-| MP3 Horn | OVC Protected | 15A | No | 1 | 5s | No |
+| MP3 WiperLow | OVC Protected | 10A | Yes | 1 | 5s | No |
 | MP4 BrakeLights | Fused | 10A | No | -- | -- | No |
 | MP5 TailLights | Fused | 10A | No | -- | -- | No |
+| MP6 WiperHigh | OVC Protected | 10A | Yes | 1 | 5s | No |
 | MP7 Coolsuit | OVC Protected | 10A | Yes | 1 | 5s | No |
+| MP8 Defogger | OVC Protected | 10A | No | 1 | 5s | No |
 | LP1-6 Accessories | OVC Protected | 10A | No | 1 | 5s | No |
 | LP7 WarningLED | OVC Protected | 5A | No | 1 | 5s | No |
-| LP8 Keypad | OVC Protected | 5A | No | 1 | 5s | No |
 
 ---
 
@@ -495,6 +453,49 @@ These are starting values — adjust based on engine behavior:
 | Fan 100% | > 92°C | Always active | Thermostat est. fully open |
 | Fan failsafe | CAN timeout 5s | Always active | Full speed if CAN lost |
 | Starter timeout | > 10s continuous | Always active | Motor protection |
+
+---
+
+## What Changed — CAN Keypad → Physical Switch Panel
+
+This section documents what was removed or changed when the CAN keypad was excluded from the build.
+
+### Removed
+
+| Item | Was | Notes |
+|---|---|---|
+| CAN Keypad 12 | CAN2 device, 12 buttons | Hardware excluded from build |
+| LP8 Keypad Power | OVC Protected, 5A, SafeIgnition trigger | Output freed — now spare |
+| CAN2 bus config | 125 kbps, keypad protocol | Bus unused — available for future |
+| Horn (MP3) | Key 02 momentary → MP3 | No horn switch in panel; MP3 reassigned to Wiper Low |
+| Fuel Override | Key 06 toggle | No switch; cycle ignition off/on for fuel prime instead |
+| Pit Limiter | Key 07 toggle + speed/TPS safety gating | No switch; feature removed |
+| PodiumConnect Comms | Key 09 toggle (Yes/No) | No switch; feature removed |
+| PodiumConnect Pit-In | Key 10 multi-position (0-3 laps) | No switch; feature removed |
+| Keypad LED colors | 12 RGB LED assignments | No keypad |
+| All `*KYD` status vars | StarterKYD, SirenKYD, LightsKYD, FanKYD, CoolsuitKYD | Replaced by direct channel input reads |
+| PitLimiter vars | PitLimiter_KYD, PITLIMITER_SAFE, PITLIMITER_ACTIVE | Feature removed |
+| FuelOverride var | Latched toggle from Key 06 | Feature removed |
+| COMMS_YN, PITIN_LAPS | PodiumConnect integration vars | Feature removed |
+
+### Changed
+
+| Item | Was | Now |
+|---|---|---|
+| Starter trigger | StarterKYD (Key 01) OR Ch09 backup | Ch09 only (physical momentary button) |
+| Fan override | FanKYD (Key 05) toggle | Ch01 physical toggle switch |
+| Coolsuit trigger | CoolsuitKYD (Key 04) toggle | Ch04 AND SafeIgnition |
+| Tail lights trigger | LightsKYD (Key 03) toggle | SafeIgnition (always on when car is on) |
+| Wiper | Key 08 single toggle | Two switches: Wiper Low (Ch02) + Wiper High (Ch03) with priority logic |
+| Fuel pump trigger | FUEL_PRIME OR ENGINE_RUNNING OR FuelOverride | FUEL_PRIME OR ENGINE_RUNNING (no manual override) |
+
+### Added
+
+| Item | Details |
+|---|---|
+| Defogger (MP8) | New output — Ch05 toggle AND SafeIgnition |
+| Wiper High (MP6) | Separate high-speed wiper output — Ch03 toggle |
+| 5 new channel inputs | Ch01–Ch05 for physical toggle switches |
 
 ---
 
