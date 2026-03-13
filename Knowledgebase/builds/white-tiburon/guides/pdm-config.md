@@ -90,12 +90,19 @@ These webinar status variables are directly reusable:
 | `FAN_TEMP_75` | CAN Coolant_T > 87°C (hysteresis -5°C) | Fan 75% band |
 | `FAN_TEMP_100` | CAN Coolant_T > 92°C | Fan 98% band — thermostat est. fully open at ~92°C |
 | `FAN_FAILSAFE` | CAN coolant_T signal timeout > 5s | Fan 98% failsafe |
-| `STARTER_SAFE` | Ch09 AND SafeIgnition AND NOT ENGINE_RUNNING | Safe to crank |
+| `STARTER_SAFE` | (StarterKYD OR Ch09_START_BACKUP) AND SafeIgnition AND NOT ENGINE_RUNNING | Safe to crank |
 | `LOW_OIL_P` | CAN Oil_P < 15 PSI AND ENGINE_RUNNING AND RPM > 500 | Warning light |
 | `HIGH_COOLANT_T` | CAN Coolant_T > 95°C | Warning light — thermostat fully open at 92°C; >95°C = problem |
 | `HIGH_OIL_T` | CAN Oil_T > 130°C | Warning light |
 | `LOW_FUEL_P` | CAN Fuel_P < 40 PSI AND ENGINE_RUNNING AND RPM > 500 | Warning light — factory idle spec 46–49 PSI |
 | `MULTI_WARNING` | LOW_OIL_P OR HIGH_COOLANT_T OR HIGH_OIL_T OR LOW_FUEL_P | Red LED trigger |
+| `CoolsuitKYD` | Latched toggle from keypad Key 04 | Coolsuit pump |
+| `FuelOverrideKYD` | Latched toggle from keypad Key 06 | Manual fuel pump on |
+| `PitLimiterKYD` | Latched toggle from keypad Key 07 | Raw keypad state |
+| `PITLIMITER_SAFE` | PitLimiterKYD AND CAN Speed < 60 mph | Safe to engage — blocks accidental on-track activation |
+| `PITLIMITER_ACTIVE` | PITLIMITER_SAFE AND NOT (TPS > 60%) | Active limiter state sent to Haltech; TPS override always available |
+| `CommsKYD` | Latched toggle from keypad Key 08 | PodiumConnect affirmative/negative signal |
+| `PitInKYD` | Multi-position from keypad Key 09 (0/1/2/3) | PodiumConnect pit-in request with lap count |
 
 ---
 

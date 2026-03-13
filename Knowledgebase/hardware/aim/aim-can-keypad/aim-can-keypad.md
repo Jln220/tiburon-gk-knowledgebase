@@ -59,12 +59,13 @@ Binder end plugs into PDM Connector A (black). Deutsch end plugs into keypad.
 | PDM Pin | Connector | Signal | Binder Pin | Cable Color | Deutsch Pin | Keypad Color |
 |---|---|---|---|---|---|---|
 | **A21** | Black | LP8 (keypad power) | 1 | Red | 4 | Red (Vbatt) |
-| **A28** | Black | CAN2 High | 2 | White | 2 | White (CAN H) |
+| **A28** | Black | CAN2 High (White) | 2 | White | 2 | White (CAN H) |
 | — | — | Spare | 3 | Yellow | — | — |
-| **A29** | Black | CAN2 Low | 4 | Green | 1 | Blue (CAN L) |
+| **A29** | Black | CAN2 Low (Black) | 4 | Green | 1 | Blue (CAN L) |
 | **B18** | **Grey** | GND | 5 | Black | 3 | Black (GND) |
 
-> **Color mismatch:** Green (cable) → Blue (keypad) for CAN L. Label the loom.
+> **CAN H:** White all the way — PDM harness White (A28) → Binder White → Keypad White. No color change.
+> **CAN L:** Color changes twice — PDM harness Black (A29) → Binder Green → Keypad Blue. Label all three junctions.
 > **GND note:** A10 is committed to the CAN0 expansion cable. Keypad GND uses B18 (grey connector) — same ground plane, different physical pin.
 > **Do NOT use CAN0 (A11/A22)** — that bus is AIM expansion at 1 Mbps. Keypad requires CAN2 at 125 kbps.
 
@@ -90,31 +91,35 @@ Binder end plugs into PDM Connector A (black). Deutsch end plugs into keypad.
 
 ### Key Numbering (physical, face-on view)
 
+Race Studio 3 numbers left-to-right, top-to-bottom — confirmed in RS3 CAN2 Keypad tab:
+
 ```
-[ 6 ][ 5 ][ 4 ][ 3 ][ 2 ][ 1 ]   ← top row
-[12 ][11 ][10 ][ 9 ][ 8 ][ 7 ]   ← bottom row
+[ 1 ][ 2 ][ 3 ][ 4 ][ 5 ][ 6 ]   ← top row
+[ 7 ][ 8 ][ 9 ][10 ][11 ][12 ]   ← bottom row
 ```
 
-Key 1 = top-right, Key 12 = bottom-left.
+Key 1 = top-left, Key 12 = bottom-right.
 
-### Race Studio 3 Button Assignment (White Tiburon)
+### Race Studio 3 Button Assignment (White Tiburon) — CONFIRMED
 
-| Physical Key | RS3 ID | Function | Type | LED Rest | LED Active |
-|---|---|---|---|---|---|
-| 1 | K01 | Start | Momentary | White | Green |
-| 2 | K02 | Horn | Momentary | White | Amber |
-| 3 | K03 | Lights | Multistatus (3-pos) | White | Blue / Cyan |
-| 4 | K04 | Coolsuit | Toggle | White | Cyan |
-| 5 | K05 | Fan Override | Toggle | White | Red |
-| 6 | K06 | Fuel Override | Toggle | White | Red |
-| 7 | K07 | Pit Limiter | Toggle + timing | White | Green (armed) / Red (active) |
-| 8 | K08 | Wiper | Multistatus (3-pos) | White | Blue / Cyan |
-| 9 | K09 | Comms Yes/No | Toggle | White | Green |
-| 10 | K10 | Pit-In Laps | Multistatus (4-pos) | White | White/Amber/Red |
-| 11 | K11 | Spare | — | — | — |
-| 12 | K12 | Spare | — | — | — |
+**CAN ID: 0x19**
 
-> **Note:** The mapping of physical key numbers to Race Studio 3 K-numbers depends on how RS3 enumerates the keypad. Confirm physical layout after first connection with the PDM by pressing each key and observing which K-number lights up in Live Measures.
+| Key N. | Variable Name | Work As | LED Colors (rest → active states) |
+|---|---|---|---|
+| 1 | `StarterKYD` | Momentary | White → Green |
+| 2 | `HornKYD` | Momentary | White → Orange |
+| 3 | `LightsKYD` | Multistatus (3-pos) | White → Cyan → Blue |
+| 4 | `CoolsuitKYD` | Toggle | White → (confirm color) |
+| 5 | `FanKYD` | Toggle | White → Red |
+| 6 | `FuelOverrideKYD` | Toggle | White → Red |
+| 7 | `PitLimiterKYD` | Toggle | White → Green (armed) → Red (active) |
+| 8 | `CommsKYD` | Toggle | White → Green |
+| 9 | `PitInKYD` | Multistatus (4-pos) | White → Red → … (confirm remaining) |
+| 10 | `WiperKYD` | Multistatus (3-pos) | White → Cyan → Blue |
+| 11 | K43 (spare) | Momentary | White |
+| 12 | K44 (spare) | Momentary | White |
+
+> **Variable name changes from draft:** `FuelOverrideKYD` (not `FuelOverride`), `PitLimiterKYD` (not `PitLimiter_KYD`), `CommsKYD` (not `COMMS_YN`), `PitInKYD` (not `PITIN_LAPS`). These names must match exactly in Math Channels.
 
 ---
 

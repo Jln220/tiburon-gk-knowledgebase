@@ -236,18 +236,23 @@ Based on the pinout, the PDM 32 outputs fall into these categories:
 ## Communication Buses
 
 ### CAN Bus (Connector A)
-| Signal | Pin |
-|--------|-----|
-| CAN0 High    | A22 |
-| CAN0 Low     | A11 |
-| CAN1 High / RS232 TX | A30 |
-| CAN1 Low  / RS232 RX | A31 |
-| CAN2 High    | A28 |
-| CAN2 Low     | A29 |
-| +Vb ext CAN  | A32 |
-| +Vb out CAN  | A33 |
+
+| Signal | Pin | Harness Wire Color | Twisted With | Device |
+|--------|-----|--------------------|--------------|--------|
+| CAN0 High    | A22 | (expansion cable) | A11 | AIM DataHub / GPS / SmartyCam |
+| CAN0 Low     | A11 | (expansion cable) | A22 | AIM DataHub / GPS / SmartyCam |
+| CAN1 High / RS232 TX | A30 | **White** | A31 | Haltech Elite 2500 |
+| CAN1 Low  / RS232 RX | A31 | **Blue**  | A30 | Haltech Elite 2500 |
+| CAN2 High    | A28 | **White** | A29 | AIM CAN Keypad 12 |
+| CAN2 Low     | A29 | **Black** | A28 | AIM CAN Keypad 12 |
+| +Vb ext CAN  | A32 | (expansion cable) | — | — |
+| +Vb out CAN  | A33 | (expansion cable) | — | — |
 
 **Three CAN buses total:** CAN0, CAN1 (also configurable as RS232), CAN2
+
+> **CAN1 pair:** A30 White (H) + A31 Blue (L) — twisted, → Haltech 26-pin pin 23/24
+> **CAN2 pair:** A28 White (H) + A29 Black (L) — twisted, → Keypad Deutsch
+> **A28 and A30 are both White** — different twisted pairs, adjacent pins. Label both ends clearly before routing.
 
 ### CAN Expansion Cable (AIM Device Bus — CAN0)
 
@@ -279,7 +284,40 @@ CAN2 pins (A28 H / A29 L) are available for a future CAN device such as the AIM 
 
 > **⚠️ Do not wire CAN2 devices to CAN0 (A11/A22).** CAN0 runs AIM expansion devices at 1 Mbps. Mixing bus speeds = both buses fail.
 
-> **CAN Keypad cable pinout and wiring details:** See `builds/white-tiburon/guides/keypad-config-future.md` for the custom Binder-to-Deutsch cable mapping (preserved for when a keypad is connected).
+#### CAN Keypad 12 Cable Pinout (for future keypad connection)
+
+| Deutsch Pin | Colour | Function |
+|------------|--------|----------|
+| 1 | Blue | CAN L |
+| 2 | White | CAN H |
+| 3 | Black | GND |
+| 4 | Red | Vbatt (12–24V) |
+
+**Binder pin layout (front/mating face view):**
+
+```
+  5  1
+ 4    2
+   3
+```
+
+**Full color map — PDM harness → Binder cable → Deutsch (keypad side):**
+
+| PDM Harness Color | PDM Pin | Connector | Binder Pin | Binder Cable Color | Deutsch Pin | Keypad Color | Signal |
+|------------------|---------|-----------|------------|-------------------|------------|-------------|--------|
+| — | A21 (LP8) | Black | 1 | Red | 4 | Red | Vbatt |
+| **White** | A28 (CAN2 H) | Black | 2 | White | 2 | White | CAN H |
+| — | — | — | 3 | Yellow | — | — | Spare — not connected |
+| **Black** | A29 (CAN2 L) | Black | 4 | Green | 1 | Blue | CAN L |
+| — | **B18 (GND)** | **Grey** | 5 | Black | 3 | Black | GND |
+
+> **CAN H path:** PDM harness White (A28) → Binder White → Keypad White (Deutsch pin 2) — White throughout
+> **CAN L path:** PDM harness Black (A29) → Binder Green → Keypad Blue (Deutsch pin 1) — three different colors, label all junctions
+> **A10 (GND) is committed** to the CAN0 expansion cable — keypad GND uses B18 (grey connector), same ground plane
+
+> **⚠️ Do not wire keypad to CAN0 (A11/A22).** CAN0 runs AIM expansion devices at 1 Mbps. Keypad runs at 125 kbps on CAN2 only. Mixed bus = both buses fail.
+
+> **LP8 (A21) — "Keypad" power output:** OVC Protected, 5A max, trigger = `SafeIgnition`. Keypad draws <1A.
 
 ### LIN Bus (Connector B)
 | Signal | Pin |

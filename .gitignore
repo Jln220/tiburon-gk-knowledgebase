@@ -2,6 +2,14 @@
 # Content extracted to Knowledgebase/common/shop-manual/ and /electrical-manual/
 LARGEFILE Searchable_Manuals/
 
+# Source PDFs and datasheets — reference material, not tracked in git
+# Extracted content lives in Knowledgebase/ as structured markdown
+Sources/
+
+# Extraction working directories (intermediate PNG images, manifests)
+.work/
+scripts/.work/
+
 # Claude Code session files
 .claude/
 

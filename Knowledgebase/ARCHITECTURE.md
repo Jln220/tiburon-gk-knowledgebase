@@ -17,6 +17,7 @@ This document describes the full design of the knowledgebase: how information is
 9. [Mermaid Diagrams](#9-mermaid-diagrams)
 10. [MCP Access for Community Models](#10-mcp-access-for-community-models)
 11. [File Structure Summary](#11-file-structure-summary)
+12. [Source Credibility and Weighting](#12-source-credibility-and-weighting)
 
 ---
 
@@ -564,7 +565,78 @@ Knowledgebase/
 │   ├── README.md                      ← Scraping methodology, ethics
 │   ├── thread-index.json              ← Index of scraped threads
 │   └── threads/{id}/                  ← Per-thread data
+├── credibility/
+│   ├── README.md                      ← Credibility system overview
+│   ├── sources.json                   ← Source registry (sites, wikis, manuals)
+│   ├── contributors.json              ← Known contributor weights
+│   ├── forum-sections.json            ← Forum section → KB topic mapping
+│   ├── scoring-algorithm.md           ← Composite credibility formula
+│   └── post-classification.md         ← Post type definitions + modifiers
+├── validation/
+│   ├── README.md                      ← Test framework methodology
+│   ├── test-cases.json                ← Forum questions as test cases
+│   ├── test-results.json              ← Run results (model, scores, gaps)
+│   └── coverage-gaps.md               ← Gap analysis organized by system
+├── extraction/
+│   ├── README.md                      ← Extraction status + entry point
+│   ├── pdf-extraction-guide.md        ← Shop manual / schematic / hardware SOP
+│   └── forum-extraction-guide.md      ← Forum + OpenGK ingestion pipeline
 └── mcp/
     ├── README.md                      ← MCP setup for community
     └── claude_desktop_config.example.json
 ```
+
+---
+
+## 12. Source Credibility and Weighting
+
+The `credibility/` directory extends the T1-T4 authority tiers (Section 1) with a numeric composite scoring system. It provides granularity *within* each tier — two T3 claims can now be compared by their credibility score.
+
+**Key principle:** The credibility score does NOT replace tier promotion. Tier changes still follow the GitHub Issues workflow (Section 7). The score helps maintainers prioritize which claims to review first and helps LLMs weight conflicting same-tier sources.
+
+### Components
+
+| File | What it tracks |
+|------|---------------|
+| `credibility/sources.json` | External sources (OpenGK 9/10, NewTiburon 3/10 base, RockAuto 4/10, etc.) |
+| `credibility/contributors.json` | Known forum experts with credibility weights (Charlie-III, chase206, eagleprime, The_Evenger at 5/10; unknown users default 2/10) |
+| `credibility/forum-sections.json` | NewTiburon sections mapped to KB systems with per-section modifiers (Engine Management +1, Exterior -1) |
+| `credibility/scoring-algorithm.md` | The composite formula: 30% source + 40% contributor + 30% post context, plus engagement, corroboration, and trust ladder bonuses |
+| `credibility/post-classification.md` | Post types: stickied_guide (+2), build_log (+1), technical_reply (+1), question_post (-1), etc. |
+
+### Knowledge Graph Integration
+
+Forum-derived nodes gain two optional fields alongside the existing `authority_tier`, `trust_level`, and `corroboration_count`:
+
+```json
+{
+  "credibility_score": 5.6,
+  "credibility_breakdown": {
+    "source": "newtiburon",
+    "contributor": "Charlie-III",
+    "post_type": "stickied_guide",
+    "computed": "2026-03-12"
+  }
+}
+```
+
+### Validation Framework
+
+The `validation/` directory uses real forum questions as test cases to measure KB coverage:
+
+1. Questions from NewTiburon are extracted as test cases
+2. Expert responses (from priority contributors) define expected answer components
+3. The KB is queried and scored against those components
+4. Gaps are tracked in `validation/coverage-gaps.md` and drive content development
+
+### Scheduled Agent Entry Points
+
+Three agent workflows use this system:
+
+| Agent | Entry Point | Schedule |
+|-------|-------------|----------|
+| Forum Ingestion | `credibility/scoring-algorithm.md` Section 6 | On new thread ingestion |
+| KB Validation | `validation/README.md` | Weekly or after KB additions |
+| Data Quality Audit | `credibility/scoring-algorithm.md` Section 6 | Monthly |
+
+See `credibility/README.md` for full documentation.

@@ -177,7 +177,86 @@ The webinar config includes a CAN2 keypad with buttons K01–K12. This build use
 4. **Delete all keypad LED color assignments** (`ColorsConditionK01–K12`, `BitRed/Green/BlueX15–X1C`)
 5. CAN2 bus remains available for future expansion
 
-> **Keypad config preserved:** All button assignments, LED colors, and variable names are documented in `guides/keypad-config-future.md`. When a keypad is added later, re-import those settings and update trigger logic to OR keypad + physical switch inputs.
+> **Keypad temporarily excluded.** Config below is preserved for future use. When a keypad is added, re-import these settings and update trigger logic to OR keypad + physical switch inputs.
+
+### K33 — Starter
+- **Name:** `StarterKYD`
+- **Type: Momentary** — crank only while held; releasing stops the starter
+- Rest: label `RDY`, value `0`
+- Active: label `CRNK`, value `1`
+- Use timing: NO
+- Variable name: `StarterKYD`
+
+### K34 — Horn
+- **Name:** `HornKYD`
+- **Type: Momentary**
+- Rest: label `OFF`, value `0`
+- Active: label `HORN`, value `1`
+- Use timing: NO
+- Variable name: `HornKYD`
+
+### K35 — Lights
+- **Name:** `LightsKYD`
+- **Type: Multistatus** — 3 positions, cycles on each press
+- Position 0: label `OFF`, value `0`
+- Position 1: label `LOW`, value `1`
+- Position 2: label `HIGH`, value `2`
+- Variable name: `LightsKYD`
+
+### K36 — Coolsuit
+- **Name:** `CoolsuitKYD`
+- **Type: Toggle**
+- Rest: label `OFF`, value `0`
+- Active: label `ON`, value `1`
+- Variable name: `CoolsuitKYD`
+
+### K37 — Fan Override
+- **Name:** `FanKYD`
+- **Type: Toggle**
+- Rest: label `OFF`, value `0`
+- Active: label `ON`, value `1`
+- Variable name: `FanKYD`
+
+### K38 — Fuel Override
+- **Name / Variable:** `FuelOverrideKYD`
+- **Type: Toggle**
+- Rest: label `OFF`, value `0`
+- Active: label `ON`, value `1`
+
+### K39 — Pit Limiter
+- **Name / Variable:** `PitLimiterKYD`
+- **Type: Toggle + timing**
+- Rest: label `OFF`, value `0`
+- Active: label `PIT`, value `1`
+- Use timing: YES
+  - Short press: toggles state (normal arm/disarm)
+  - Long press: label `CLR`, value `0` — forces OFF regardless of current state
+  - Time threshold: **2000 ms**
+
+### K40 — Comms
+- **Name / Variable:** `CommsKYD`
+- **Type: Toggle**
+- Rest: label `NO`, value `0`
+- Active: label `YES`, value `1`
+
+### K41 — Pit-In Laps
+- **Name / Variable:** `PitInKYD`
+- **Type: Multistatus** — 4 positions, cycles on each press
+- Position 0: label `---`, value `0` (not pitting)
+- Position 1: label `L+1`, value `1` (1 lap out)
+- Position 2: label `L+2`, value `2`
+- Position 3: label `L+3`, value `3`
+
+### K42 — Wiper
+- **Name:** `WiperKYD`
+- **Type: Multistatus** — 3 positions, cycles on each press
+- Position 0: label `OFF`, value `0`
+- Position 1: label `SLOW`, value `1`
+- Position 2: label `FAST`, value `2`
+- Variable name: `WiperKYD`
+
+### K43–K44 — Spare
+- Leave unconfigured
 
 ---
 
