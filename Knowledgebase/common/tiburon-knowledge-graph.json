@@ -1,17 +1,20 @@
 {
   "_meta": {
-    "description": "Tiburon GK common knowledge graph — manual hierarchy, standard values, OEM components",
+    "description": "Tiburon GK common knowledge graph â€” manual hierarchy, standard values, OEM components",
     "schema": "common/knowledge-graph-schema.md",
     "version": "1.0",
-    "last_updated": "2026-03-07",
-    "vehicles": ["2003 Hyundai Tiburon GK"],
-    "engines": ["2.7L V6 Delta (G6BA)", "2.0L I4 Beta"],
+    "last_updated": "2026-03-13",
+    "vehicles": [
+      "2003 Hyundai Tiburon GK"
+    ],
+    "engines": [
+      "2.7L V6 Delta (G6BA)",
+      "2.0L I4 Beta"
+    ],
     "primary_engine": "V6",
-    "notes": "Seed data from OCR-extracted shop manual and electrical manual. Expand progressively. See schema for full node/edge type definitions."
+    "notes": "Seed data from OCR-extracted shop manual and electrical manual. Expand progressively. See schema for full node/edge type definitions. OEM part numbers enriched from parts catalog PDFs 2026-03-13."
   },
-
   "nodes": [
-
     {
       "id": "manual-ema",
       "type": "manual",
@@ -75,7 +78,7 @@
     {
       "id": "manual-etm-cc",
       "type": "manual",
-      "label": "Electrical Manual — Connector Configurations",
+      "label": "Electrical Manual â€” Connector Configurations",
       "chapter_code": "CC",
       "engine": "both",
       "source_pdf": "LARGEFILE Searchable_Manuals/Tiburon-Electrical-Manual/02. Connector Configurations-OCR.pdf",
@@ -85,7 +88,7 @@
     {
       "id": "manual-etm-cl",
       "type": "manual",
-      "label": "Electrical Manual — Component Locations",
+      "label": "Electrical Manual â€” Component Locations",
       "chapter_code": "CL",
       "engine": "both",
       "source_pdf": "LARGEFILE Searchable_Manuals/Tiburon-Electrical-Manual/03. Component Locations-OCR.pdf",
@@ -95,12 +98,11 @@
     {
       "id": "manual-etm-sd",
       "type": "manual",
-      "label": "Electrical Manual — Schematic Diagrams",
+      "label": "Electrical Manual â€” Schematic Diagrams",
       "chapter_code": "SD",
       "engine": "both",
       "md_file": "common/electrical-manual/schematic-diagrams.md"
     },
-
     {
       "id": "EMA-index",
       "type": "section",
@@ -129,7 +131,7 @@
     {
       "id": "EMA-3",
       "type": "section",
-      "label": "Specifications Table — Valve Train, Pistons, Crankshaft",
+      "label": "Specifications Table â€” Valve Train, Pistons, Crankshaft",
       "page_ref": "EMA-3",
       "section_type": "spec",
       "notes": "Master standard values table. Cross-reference to specific section procedures."
@@ -137,7 +139,7 @@
     {
       "id": "EMA-4",
       "type": "section",
-      "label": "Specifications Table — Oil Pump, Cooling",
+      "label": "Specifications Table â€” Oil Pump, Cooling",
       "page_ref": "EMA-4",
       "section_type": "spec"
     },
@@ -182,7 +184,7 @@
     {
       "id": "EMA-72",
       "type": "section",
-      "label": "Valve Spring — Diagram",
+      "label": "Valve Spring â€” Diagram",
       "page_ref": "EMA-72",
       "section_type": "diagram",
       "parent_id": "EMA-69"
@@ -190,12 +192,11 @@
     {
       "id": "EMA-73",
       "type": "section",
-      "label": "Valve Spring — Installation",
+      "label": "Valve Spring â€” Installation",
       "page_ref": "EMA-73",
       "section_type": "procedure",
       "parent_id": "EMA-69"
     },
-
     {
       "id": "EE-index",
       "type": "section",
@@ -214,7 +215,7 @@
     {
       "id": "EE-2",
       "type": "section",
-      "label": "General Specifications — Ignition, Starter, Alternator, Battery",
+      "label": "General Specifications â€” Ignition, Starter, Alternator, Battery",
       "page_ref": "EE-2",
       "section_code": "EBOO5O10",
       "section_type": "spec"
@@ -227,7 +228,6 @@
       "section_type": "procedure",
       "engine": "V6"
     },
-
     {
       "id": "FLA-index",
       "type": "section",
@@ -243,7 +243,7 @@
     {
       "id": "FLA-2",
       "type": "section",
-      "label": "General Specifications — Sensors, Actuators, Fuel Pressure",
+      "label": "General Specifications â€” Sensors, Actuators, Fuel Pressure",
       "page_ref": "FLA-2",
       "section_code": "EFOC3010",
       "section_type": "spec",
@@ -264,7 +264,6 @@
       "section_code": "EFJBO",
       "section_type": "torque"
     },
-
     {
       "id": "sv-cylinder-bore",
       "type": "standard_value",
@@ -300,8 +299,8 @@
       "id": "sv-valve-spring-squareness",
       "type": "standard_value",
       "label": "Valve Spring Out of Squareness",
-      "value": "Max 1.5°",
-      "limit": "Max 3°",
+      "value": "Max 1.5Â°",
+      "limit": "Max 3Â°",
       "unit": "degrees",
       "engine": "V6",
       "table_page_ref": "EMA-3"
@@ -309,8 +308,8 @@
     {
       "id": "sv-cam-height-intake",
       "type": "standard_value",
-      "label": "Cam Height — Intake",
-      "value": "43.95–44.15 mm (1.7303–1.7382 in.)",
+      "label": "Cam Height â€” Intake",
+      "value": "43.95â€“44.15 mm (1.7303â€“1.7382 in.)",
       "limit": "43.45 mm (1.7106 in.)",
       "unit": "mm",
       "engine": "V6",
@@ -319,8 +318,8 @@
     {
       "id": "sv-cam-height-exhaust",
       "type": "standard_value",
-      "label": "Cam Height — Exhaust",
-      "value": "43.95–44.15 mm (1.7303–1.7382 in.)",
+      "label": "Cam Height â€” Exhaust",
+      "value": "43.95â€“44.15 mm (1.7303â€“1.7382 in.)",
       "limit": "43.45 mm (1.7106 in.)",
       "unit": "mm",
       "engine": "V6",
@@ -330,7 +329,7 @@
       "id": "sv-cam-journal-diameter",
       "type": "standard_value",
       "label": "Camshaft Journal Diameter",
-      "value": "25.964–25.980 mm (1.0222–1.0228 in.)",
+      "value": "25.964â€“25.980 mm (1.0222â€“1.0228 in.)",
       "limit": "25.914 mm (1.0202 in.)",
       "unit": "mm",
       "engine": "V6",
@@ -340,7 +339,7 @@
       "id": "sv-cam-bearing-clearance",
       "type": "standard_value",
       "label": "Camshaft Bearing Oil Clearance",
-      "value": "0.02–0.061 mm (0.0007–0.0024 in.)",
+      "value": "0.02â€“0.061 mm (0.0007â€“0.0024 in.)",
       "limit": "0.1 mm (0.0039 in.)",
       "unit": "mm",
       "engine": "V6",
@@ -393,8 +392,8 @@
       "id": "sv-thermostat-open",
       "type": "standard_value",
       "label": "Thermostat Opening Temperature",
-      "value": "82 ± 2.0°C (179.6 ± 3.6°F)",
-      "unit": "°C",
+      "value": "82 Â± 2.0Â°C (179.6 Â± 3.6Â°F)",
+      "unit": "Â°C",
       "engine": "both",
       "table_page_ref": "EMA-4"
     },
@@ -402,8 +401,8 @@
       "id": "sv-thermostat-wide-open",
       "type": "standard_value",
       "label": "Thermostat Wide Open Temperature",
-      "value": "95°C (203°F)",
-      "unit": "°C",
+      "value": "95Â°C (203Â°F)",
+      "unit": "Â°C",
       "engine": "both",
       "table_page_ref": "EMA-4"
     },
@@ -411,7 +410,7 @@
       "id": "sv-crankshaft-journal-od",
       "type": "standard_value",
       "label": "Crankshaft Journal O.D.",
-      "value": "61.982–62.000 mm (2.4402–2.4409 in.)",
+      "value": "61.982â€“62.000 mm (2.4402â€“2.4409 in.)",
       "limit": null,
       "unit": "mm",
       "engine": "V6",
@@ -421,7 +420,7 @@
       "id": "sv-crankshaft-pin-od",
       "type": "standard_value",
       "label": "Crankshaft Pin O.D.",
-      "value": "47.982–48.000 mm (1.8891–1.8898 in.)",
+      "value": "47.982â€“48.000 mm (1.8891â€“1.8898 in.)",
       "unit": "mm",
       "engine": "V6",
       "table_page_ref": "EMA-3"
@@ -430,18 +429,17 @@
       "id": "sv-piston-diameter",
       "type": "standard_value",
       "label": "Piston Diameter (Standard)",
-      "value": "86.68–86.71 mm (3.413–3.414 in.)",
+      "value": "86.68â€“86.71 mm (3.413â€“3.414 in.)",
       "unit": "mm",
       "engine": "V6",
       "table_page_ref": "EMA-3"
     },
-
     {
       "id": "sv-coil-primary-resistance-v6",
       "type": "standard_value",
       "label": "Ignition Coil Primary Resistance (V6)",
-      "value": "0.74 ± 10% Ω",
-      "unit": "Ω",
+      "value": "0.74 Â± 10% Î©",
+      "unit": "Î©",
       "engine": "V6",
       "table_page_ref": "EE-2"
     },
@@ -449,8 +447,8 @@
       "id": "sv-coil-secondary-resistance-v6",
       "type": "standard_value",
       "label": "Ignition Coil Secondary Resistance (V6)",
-      "value": "13.3 ± 15% kΩ",
-      "unit": "kΩ",
+      "value": "13.3 Â± 15% kÎ©",
+      "unit": "kÎ©",
       "engine": "V6",
       "table_page_ref": "EE-2"
     },
@@ -466,18 +464,17 @@
       "id": "sv-alternator-regulator-voltage",
       "type": "standard_value",
       "label": "Alternator Regulator Setting Voltage",
-      "value": "14.4 ± 0.3 V",
+      "value": "14.4 Â± 0.3 V",
       "unit": "V",
       "engine": "both",
       "table_page_ref": "EE-2"
     },
-
     {
       "id": "sv-tps-resistance-v6",
       "type": "standard_value",
       "label": "TPS Resistance at Curb Idle (V6)",
-      "value": "1.6–2.4 kΩ",
-      "unit": "kΩ",
+      "value": "1.6â€“2.4 kÎ©",
+      "unit": "kÎ©",
       "engine": "V6",
       "table_page_ref": "FLA-2"
     },
@@ -485,7 +482,7 @@
       "id": "sv-tps-voltage-v6",
       "type": "standard_value",
       "label": "TPS Output Voltage at Curb Idle (V6)",
-      "value": "250–800 mV",
+      "value": "250â€“800 mV",
       "unit": "mV",
       "engine": "V6",
       "table_page_ref": "FLA-2"
@@ -493,27 +490,27 @@
     {
       "id": "sv-iat-resistance",
       "type": "standard_value",
-      "label": "IAT Sensor Resistance at 20°C",
-      "value": "2.33–2.97 kΩ",
-      "unit": "kΩ",
+      "label": "IAT Sensor Resistance at 20Â°C",
+      "value": "2.33â€“2.97 kÎ©",
+      "unit": "kÎ©",
       "engine": "V6",
       "table_page_ref": "FLA-2"
     },
     {
       "id": "sv-ect-resistance-20c",
       "type": "standard_value",
-      "label": "ECT Sensor Resistance at 20°C",
-      "value": "2.5 kΩ",
-      "unit": "kΩ",
+      "label": "ECT Sensor Resistance at 20Â°C",
+      "value": "2.5 kÎ©",
+      "unit": "kÎ©",
       "engine": "V6",
       "table_page_ref": "FLA-2"
     },
     {
       "id": "sv-ect-resistance-80c",
       "type": "standard_value",
-      "label": "ECT Sensor Resistance at 80°C",
-      "value": "0.3 kΩ",
-      "unit": "kΩ",
+      "label": "ECT Sensor Resistance at 80Â°C",
+      "value": "0.3 kÎ©",
+      "unit": "kÎ©",
       "engine": "V6",
       "table_page_ref": "FLA-2"
     },
@@ -521,8 +518,8 @@
       "id": "sv-injector-resistance",
       "type": "standard_value",
       "label": "Injector Resistance",
-      "value": "13–16 Ω at 20°C",
-      "unit": "Ω",
+      "value": "13â€“16 Î© at 20Â°C",
+      "unit": "Î©",
       "engine": "V6",
       "table_page_ref": "FLA-2"
     },
@@ -530,7 +527,7 @@
       "id": "sv-fuel-pressure-vac-disconnected",
       "type": "standard_value",
       "label": "Fuel Pressure (Vacuum Hose Disconnected)",
-      "value": "330–350 kPa (47–50 psi)",
+      "value": "330â€“350 kPa (47â€“50 psi)",
       "unit": "kPa",
       "engine": "V6",
       "table_page_ref": "FLA-3"
@@ -548,7 +545,7 @@
       "id": "sv-ignition-timing-v6",
       "type": "standard_value",
       "label": "Basic Ignition Timing (V6)",
-      "value": "BTDC 12° ± 5° at curb idle",
+      "value": "BTDC 12Â° Â± 5Â° at curb idle",
       "engine": "V6",
       "table_page_ref": "FLA-3"
     },
@@ -556,19 +553,18 @@
       "id": "sv-idle-speed-v6",
       "type": "standard_value",
       "label": "Curb Idle Speed (V6)",
-      "value": "750 ± 100 RPM (A/C OFF) / 800 ± 100 RPM (A/C ON)",
+      "value": "750 Â± 100 RPM (A/C OFF) / 800 Â± 100 RPM (A/C ON)",
       "unit": "RPM",
       "engine": "V6",
       "table_page_ref": "FLA-3"
     },
-
     {
       "id": "ts-cam-sprocket",
       "type": "torque_spec",
       "label": "Camshaft Sprocket Bolt",
-      "nm_range": "90–110",
-      "kgcm": "900–1100",
-      "lbft": "65–80",
+      "nm_range": "90â€“110",
+      "kgcm": "900â€“1100",
+      "lbft": "65â€“80",
       "method": "standard",
       "table_page_ref": "EMA-5",
       "engine": "V6"
@@ -577,9 +573,9 @@
       "id": "ts-valve-cover",
       "type": "torque_spec",
       "label": "Cylinder Head Cover Bolt",
-      "nm_range": "5–6",
-      "kgcm": "50–60",
-      "lbft": "3.6–4.3",
+      "nm_range": "5â€“6",
+      "kgcm": "50â€“60",
+      "lbft": "3.6â€“4.3",
       "method": "standard",
       "table_page_ref": "EMA-5",
       "engine": "V6"
@@ -588,9 +584,9 @@
       "id": "ts-main-bearing-m10",
       "type": "torque_spec",
       "label": "Main Bearing Cap Bolt (M10)",
-      "nm_range": "27–33",
-      "kgcm": "270–330",
-      "lbft": "19.5–24",
+      "nm_range": "27â€“33",
+      "kgcm": "270â€“330",
+      "lbft": "19.5â€“24",
       "method": "torque-angle",
       "angle_deg": 90,
       "table_page_ref": "EMA-5",
@@ -600,9 +596,9 @@
       "id": "ts-main-bearing-m8",
       "type": "torque_spec",
       "label": "Main Bearing Cap Bolt (M8)",
-      "nm_range": "13–19",
-      "kgcm": "130–190",
-      "lbft": "10–14",
+      "nm_range": "13â€“19",
+      "kgcm": "130â€“190",
+      "lbft": "10â€“14",
       "method": "torque-angle",
       "angle_deg": 90,
       "table_page_ref": "EMA-5",
@@ -612,22 +608,21 @@
       "id": "ts-connecting-rod",
       "type": "torque_spec",
       "label": "Connecting Rod Bolt",
-      "nm_range": "16–20",
-      "kgcm": "160–200",
-      "lbft": "12–15",
+      "nm_range": "16â€“20",
+      "kgcm": "160â€“200",
+      "lbft": "12â€“15",
       "method": "torque-angle",
       "angle_deg": 90,
       "table_page_ref": "EMA-5",
       "engine": "V6"
     },
-
     {
       "id": "ts-ect-sensor",
       "type": "torque_spec",
       "label": "Engine Coolant Temperature Sensor",
-      "nm_range": "20–40",
-      "kgcm": "200–400",
-      "lbft": "14–29",
+      "nm_range": "20â€“40",
+      "kgcm": "200â€“400",
+      "lbft": "14â€“29",
       "method": "standard",
       "table_page_ref": "FLA-4",
       "engine": "V6"
@@ -636,40 +631,103 @@
       "id": "ts-o2-sensor",
       "type": "torque_spec",
       "label": "Heated Oxygen Sensor",
-      "nm_range": "40–50",
-      "kgcm": "400–500",
-      "lbft": "29–36",
+      "nm_range": "40â€“50",
+      "kgcm": "400â€“500",
+      "lbft": "29â€“36",
       "method": "standard",
       "table_page_ref": "FLA-4",
       "engine": "V6"
     },
-
     {
       "id": "comp-cmp-sensor",
       "type": "component",
       "label": "Camshaft Position Sensor",
-      "aliases": ["CMP sensor", "CMP", "cam position sensor", "cam sensor"],
+      "aliases": [
+        "CMP sensor",
+        "CMP",
+        "cam position sensor",
+        "cam sensor"
+      ],
       "system": "engine",
       "subsystem": "engine-management",
       "engine": "V6",
       "sensor_type": "Hall effect",
-      "oem_location": "Camshaft journal area — top of engine",
+      "oem_location": "Camshaft journal area â€” top of engine",
       "opengk_url": "https://opengk.org/",
       "community_review": "pending",
       "connector_code": "C114",
       "pin_count": 3,
       "quick_pinout": {
-        "1": {"function": "power", "wire": "O", "size": "0.5", "to": "C142 joint connector (SNSR FUSE 10A)"},
-        "2": {"function": "signal", "wire": "B", "size": "0.5", "to": "ECM C133-4 pin 7"},
-        "3": {"function": "ground", "wire": "Br", "size": "0.5", "to": "ECM C133-4"}
+        "1": {
+          "function": "power",
+          "wire": "O",
+          "size": "0.5",
+          "to": "C142 joint connector (SNSR FUSE 10A)"
+        },
+        "2": {
+          "function": "signal",
+          "wire": "B",
+          "size": "0.5",
+          "to": "ECM C133-4 pin 7"
+        },
+        "3": {
+          "function": "ground",
+          "wire": "Br",
+          "size": "0.5",
+          "to": "ECM C133-4"
+        }
       },
-      "verification": "verified"
+      "verification": "verified",
+      "oem_part_numbers": [
+        {
+          "pn": "39350-37100",
+          "pnc": "39350",
+          "name": "SENSOR ASSY - CAMSHAFT POSITION",
+          "catalog_source": "hyundai.catalogs-parts.com",
+          "catalog_code": "hma2c0pa01",
+          "engine_filter": "2700 CC",
+          "start_date": "10.2001",
+          "end_date": null,
+          "model_year": 2003,
+          "qty": 1,
+          "cross_refs": {
+            "NTK": "EC0145",
+            "MANDO": "22A1218"
+          },
+          "source_files": [
+            "common/opengk/sensor-information.md",
+            "common/opengk/gk-chassis-specs.md"
+          ]
+        },
+        {
+          "pn": "39350-37110",
+          "pnc": "39350",
+          "name": "SENSOR ASSY - CAMSHAFT POSITION (superseded)",
+          "catalog_source": "hyundai.catalogs-parts.com",
+          "catalog_code": "hma2c0pa01",
+          "engine_filter": "2700 CC",
+          "start_date": null,
+          "end_date": null,
+          "model_year": 2003,
+          "qty": 1,
+          "cross_refs": {},
+          "source_files": [
+            "common/opengk/sensor-information.md"
+          ],
+          "notes": "Supersession of 39350-37100"
+        }
+      ]
     },
     {
       "id": "comp-ckp-sensor",
       "type": "component",
       "label": "Crankshaft Position Sensor",
-      "aliases": ["CKP sensor", "CKP", "crank position sensor", "crank sensor"],
+      "aliases": [
+        "CKP sensor",
+        "CKP",
+        "crank position sensor",
+        "crank sensor"
+      ],
       "system": "engine",
       "subsystem": "engine-management",
       "engine": "V6",
@@ -677,17 +735,75 @@
       "connector_code": "C113",
       "pin_count": 3,
       "quick_pinout": {
-        "1": {"function": "power", "wire": "O", "size": "0.5", "to": "C142 joint connector (SNSR FUSE 10A)"},
-        "2": {"function": "signal", "wire": "Y", "size": "0.5", "to": "ECM C133-3 pin 8"},
-        "3": {"function": "ground", "wire": "B", "size": "0.5", "to": "ECM C133-3"}
+        "1": {
+          "function": "power",
+          "wire": "O",
+          "size": "0.5",
+          "to": "C142 joint connector (SNSR FUSE 10A)"
+        },
+        "2": {
+          "function": "signal",
+          "wire": "Y",
+          "size": "0.5",
+          "to": "ECM C133-3 pin 8"
+        },
+        "3": {
+          "function": "ground",
+          "wire": "B",
+          "size": "0.5",
+          "to": "ECM C133-3"
+        }
       },
-      "verification": "verified"
+      "verification": "verified",
+      "oem_part_numbers": [
+        {
+          "pn": "39180-37150",
+          "pnc": "39180",
+          "name": "SENSOR ASSY - CRANKSHAFT POSITION",
+          "catalog_source": "hyundai.catalogs-parts.com",
+          "catalog_code": "hma2c0pa01",
+          "engine_filter": "2700 CC",
+          "start_date": "10.2001",
+          "end_date": null,
+          "model_year": 2003,
+          "qty": 1,
+          "cross_refs": {
+            "NTK": "EH0220",
+            "MANDO": "22A1223"
+          },
+          "source_files": [
+            "common/opengk/sensor-information.md",
+            "common/opengk/gk-chassis-specs.md"
+          ]
+        },
+        {
+          "pn": "39180-37200",
+          "pnc": "39180",
+          "name": "SENSOR ASSY - CRANKSHAFT POSITION (superseded)",
+          "catalog_source": "hyundai.catalogs-parts.com",
+          "catalog_code": "hma2c0pa01",
+          "engine_filter": "2700 CC",
+          "start_date": null,
+          "end_date": null,
+          "model_year": 2003,
+          "qty": 1,
+          "cross_refs": {},
+          "source_files": [
+            "common/opengk/sensor-information.md"
+          ],
+          "notes": "Supersession of 39180-37150"
+        }
+      ]
     },
     {
       "id": "comp-ect-sensor",
       "type": "component",
       "label": "Engine Coolant Temperature Sensor",
-      "aliases": ["ECT sensor", "ECT", "coolant temp sensor"],
+      "aliases": [
+        "ECT sensor",
+        "ECT",
+        "coolant temp sensor"
+      ],
       "system": "engine",
       "subsystem": "engine-management",
       "engine": "V6",
@@ -696,16 +812,41 @@
       "connector_code": "C111",
       "pin_count": 2,
       "quick_pinout": {
-        "1": {"function": "signal", "wire": "B", "size": "0.5", "to": "ECM C133-4"},
-        "2": {"function": "ground", "wire": "S/W", "size": "0.5", "to": "ECM C133-4"}
+        "1": {
+          "function": "signal",
+          "wire": "B",
+          "size": "0.5",
+          "to": "ECM C133-4"
+        },
+        "2": {
+          "function": "ground",
+          "wire": "S/W",
+          "size": "0.5",
+          "to": "ECM C133-4"
+        }
       },
-      "verification": "unverified"
+      "verification": "unverified",
+      "oem_part_numbers": [
+        {
+          "pn": "39220-38030",
+          "pnc": "39220",
+          "name": "SENSOR & GAUGE UNIT - WATER TEMPERATURE",
+          "catalog_source": "hyundai.catalogs-parts.com",
+          "catalog_code": "hma2c0pa01",
+          "engine_filter": "[H] 2700 CC",
+          "dates": "10.2001-12.2006",
+          "notes": "V6 coolant temp sensor (in cylinder head)"
+        }
+      ]
     },
     {
       "id": "comp-iat-sensor",
       "type": "component",
       "label": "Intake Air Temperature Sensor",
-      "aliases": ["IAT sensor", "IAT"],
+      "aliases": [
+        "IAT sensor",
+        "IAT"
+      ],
       "system": "engine",
       "subsystem": "engine-management",
       "engine": "V6",
@@ -713,16 +854,51 @@
       "connector_code": "C127",
       "pin_count": 2,
       "quick_pinout": {
-        "1": {"function": "signal", "wire": "B", "size": "0.5", "to": "ECM C133-4"},
-        "2": {"function": "ground", "wire": "B", "size": "0.5", "to": "ECM C133-4"}
+        "1": {
+          "function": "signal",
+          "wire": "B",
+          "size": "0.5",
+          "to": "ECM C133-4"
+        },
+        "2": {
+          "function": "ground",
+          "wire": "B",
+          "size": "0.5",
+          "to": "ECM C133-4"
+        }
       },
-      "verification": "unverified"
+      "verification": "unverified",
+      "oem_part_numbers": [
+        {
+          "pn": "39340-37100",
+          "pnc": "39340",
+          "name": "SENSOR - AIR TEMPERATURE",
+          "catalog_source": "hyundai.catalogs-parts.com",
+          "catalog_code": "hma2c0pa01",
+          "engine_filter": "[H] 2700 CC",
+          "dates": "10.2001-12.2006",
+          "notes": "V6 IAT sensor, intake manifold"
+        },
+        {
+          "pn": "39340-24765",
+          "pnc": "39340",
+          "name": "SENSOR - AIR TEMPERATURE (early PN)",
+          "catalog_source": "hyundai.catalogs-parts.com",
+          "catalog_code": "hma2c0pa01",
+          "engine_filter": "[H] 2700 CC",
+          "dates": "10.2001-12.2006",
+          "notes": "Alternate PN (early production)"
+        }
+      ]
     },
     {
       "id": "comp-tps",
       "type": "component",
       "label": "Throttle Position Sensor",
-      "aliases": ["TPS", "throttle position sensor"],
+      "aliases": [
+        "TPS",
+        "throttle position sensor"
+      ],
       "system": "engine",
       "subsystem": "engine-management",
       "engine": "V6",
@@ -730,17 +906,58 @@
       "connector_code": "C112",
       "pin_count": 3,
       "quick_pinout": {
-        "1": {"function": "+5V ref", "wire": "G/W", "size": "0.5", "to": "ECM C133-3 pin 10"},
-        "2": {"function": "ground", "wire": "B", "size": "0.5", "to": "ECM C133-3"},
-        "3": {"function": "signal", "wire": "L", "size": "0.5", "to": "ECM C133-3 pin 19"}
+        "1": {
+          "function": "+5V ref",
+          "wire": "G/W",
+          "size": "0.5",
+          "to": "ECM C133-3 pin 10"
+        },
+        "2": {
+          "function": "ground",
+          "wire": "B",
+          "size": "0.5",
+          "to": "ECM C133-3"
+        },
+        "3": {
+          "function": "signal",
+          "wire": "L",
+          "size": "0.5",
+          "to": "ECM C133-3 pin 19"
+        }
       },
-      "verification": "verified"
+      "verification": "verified",
+      "oem_part_numbers": [
+        {
+          "pn": "35170-37100",
+          "pnc": "35170",
+          "name": "SENSOR ASSY - THROTTLE POSITION",
+          "catalog_source": "hyundai.catalogs-parts.com",
+          "catalog_code": "hma2c0pa01",
+          "engine_filter": "2700 CC",
+          "start_date": "10.2001",
+          "end_date": "12.2006",
+          "model_year": 2003,
+          "qty": 1,
+          "cross_refs": {
+            "NTK": "TH0151"
+          },
+          "source_files": [
+            "common/opengk/sensor-information.md",
+            "Sources/OEM Parts Catalogs/Engine Parts Catalog/THROTTLE BODY & INJECTOR"
+          ]
+        }
+      ]
     },
     {
       "id": "comp-maf-sensor",
       "type": "component",
       "label": "Air Flow Sensor (MAF)",
-      "aliases": ["MAF sensor", "MAF", "airflow sensor", "hot film sensor"],
+      "aliases": [
+        "MAF sensor",
+        "MAF",
+        "airflow sensor",
+        "hot film sensor"
+      ],
       "system": "engine",
       "subsystem": "engine-management",
       "engine": "V6",
@@ -748,43 +965,144 @@
       "connector_code": "C125",
       "pin_count": 3,
       "quick_pinout": {
-        "1": {"function": "power", "wire": "bat_V", "size": null, "to": "MFI control relay (E42)"},
-        "2": {"function": "ground", "wire": null, "size": null, "to": "Ground"},
-        "3": {"function": "signal", "wire": "O", "size": "0.5", "to": "ECM C133-3 pin 1"}
+        "1": {
+          "function": "power",
+          "wire": "bat_V",
+          "size": null,
+          "to": "MFI control relay (E42)"
+        },
+        "2": {
+          "function": "ground",
+          "wire": null,
+          "size": null,
+          "to": "Ground"
+        },
+        "3": {
+          "function": "signal",
+          "wire": "O",
+          "size": "0.5",
+          "to": "ECM C133-3 pin 1"
+        }
       },
-      "verification": "spot_checked"
+      "verification": "spot_checked",
+      "oem_part_numbers": [
+        {
+          "pn": "28164-37200",
+          "pnc": "28164",
+          "name": "SENSOR ASSY - AIR FLOW",
+          "catalog_source": "hyundai.catalogs-parts.com",
+          "catalog_code": "hma2c0pa01",
+          "engine_filter": "2700 CC",
+          "start_date": "10.2001",
+          "end_date": "12.2006",
+          "model_year": 2003,
+          "qty": 1,
+          "cross_refs": {
+            "Siemens": "5WK9643",
+            "Continental": "5WK9643Z"
+          },
+          "source_files": [
+            "common/opengk/sensor-information.md"
+          ]
+        }
+      ]
     },
     {
       "id": "comp-isc-actuator",
       "type": "component",
       "label": "Idle Speed Control Actuator",
-      "aliases": ["ISC actuator", "ISC", "idle air control", "IACV"],
+      "aliases": [
+        "ISC actuator",
+        "ISC",
+        "idle air control",
+        "IACV"
+      ],
       "system": "engine",
       "subsystem": "engine-management",
       "engine": "V6",
       "connector_code": "C126",
       "pin_count": 2,
       "quick_pinout": {
-        "1": {"function": "power", "wire": null, "size": null, "to": "via fuse"},
-        "2": {"function": "control", "wire": "B", "size": "0.5", "to": "ECM C133-3"}
+        "1": {
+          "function": "power",
+          "wire": null,
+          "size": null,
+          "to": "via fuse"
+        },
+        "2": {
+          "function": "control",
+          "wire": "B",
+          "size": "0.5",
+          "to": "ECM C133-3"
+        }
       },
-      "verification": "unverified"
+      "verification": "unverified",
+      "oem_part_numbers": [
+        {
+          "pn": "35150-33010",
+          "pnc": "35150",
+          "name": "ACTUATOR ASSY - IDLE SPEED",
+          "catalog_source": "hyundai.catalogs-parts.com",
+          "catalog_code": "hma2c0pa01",
+          "engine_filter": "2700 CC",
+          "start_date": "10.2001",
+          "end_date": "12.2006",
+          "model_year": 2003,
+          "qty": 1,
+          "cross_refs": {
+            "Kefico": "9540930002"
+          },
+          "source_files": [
+            "common/opengk/sensor-information.md",
+            "Sources/OEM Parts Catalogs/Engine Parts Catalog/THROTTLE BODY & INJECTOR"
+          ]
+        }
+      ]
     },
     {
       "id": "comp-knock-sensor",
       "type": "component",
       "label": "Knock Sensor",
-      "aliases": ["knock sensor", "detonation sensor"],
+      "aliases": [
+        "knock sensor",
+        "detonation sensor"
+      ],
       "system": "engine",
       "subsystem": "engine-management",
       "engine": "V6",
-      "notes": "Two sensors — front bank and rear bank (G6BA)"
+      "notes": "Two sensors â€” front bank and rear bank (G6BA)",
+      "oem_part_numbers": [
+        {
+          "pn": "39250-37150",
+          "pnc": "39250",
+          "name": "SENSOR ASSY - KNOCK, LH",
+          "catalog_source": "hyundai.catalogs-parts.com",
+          "catalog_code": "hma2c0pa01",
+          "engine_filter": "[H] 2700 CC",
+          "dates": "10.2001-12.2006",
+          "notes": "Bank 1 (firewall side) knock sensor"
+        },
+        {
+          "pn": "39250-37100",
+          "pnc": "39250",
+          "name": "SENSOR - KNOCK, RH",
+          "catalog_source": "hyundai.catalogs-parts.com",
+          "catalog_code": "hma2c0pa01",
+          "engine_filter": "[H] 2700 CC",
+          "dates": "10.2001-12.2006",
+          "notes": "Bank 2 (front side) knock sensor"
+        }
+      ]
     },
     {
       "id": "comp-vss",
       "type": "component",
       "label": "Vehicle Speed Sensor",
-      "aliases": ["VSS", "vehicle speed sensor", "speed sensor"],
+      "aliases": [
+        "VSS",
+        "vehicle speed sensor",
+        "speed sensor"
+      ],
       "system": "drivetrain",
       "subsystem": "transaxle",
       "sensor_type": "Hall effect, 4 pulses/rev",
@@ -795,99 +1113,774 @@
       "id": "comp-ignition-coil",
       "type": "component",
       "label": "Ignition Coil (V6)",
-      "aliases": ["ignition coil", "coil", "COP coil"],
+      "aliases": [
+        "ignition coil",
+        "coil",
+        "COP coil"
+      ],
       "system": "engine",
       "subsystem": "ignition",
       "engine": "V6",
-      "notes": "OEM: wasted spark (3 coils). White car converted to COP — Toyota 90919-A2005 ×6. See hardware/sensors/cop-ignition.md."
+      "notes": "OEM: wasted spark (3 coils). White car converted to COP â€” Toyota 90919-A2005 Ã—6. See hardware/sensors/cop-ignition.md.",
+      "oem_part_numbers": [
+        {
+          "pn": "27310-37120",
+          "pnc": "27310",
+          "name": "COIL - IGNITION, LH",
+          "catalog_source": "hyundai.catalogs-parts.com",
+          "catalog_code": "hma2c0pa01",
+          "engine_filter": "[H] 2700 CC",
+          "dates": "24.10.2001-12.2006",
+          "notes": "Waste spark coil - LH bank pair (cyl 1+4 or 2+5)"
+        },
+        {
+          "pn": "27310-37140",
+          "pnc": "27310",
+          "name": "COIL - IGNITION, RH",
+          "catalog_source": "hyundai.catalogs-parts.com",
+          "catalog_code": "hma2c0pa01",
+          "engine_filter": "[H] 2700 CC",
+          "dates": "24.10.2001-12.2006",
+          "notes": "Waste spark coil - RH bank pair"
+        },
+        {
+          "pn": "27310-37130",
+          "pnc": "27310",
+          "name": "COIL - IGNITION, CENTER",
+          "catalog_source": "hyundai.catalogs-parts.com",
+          "catalog_code": "hma2c0pa01",
+          "engine_filter": "[H] 2700 CC",
+          "dates": "24.10.2001-12.2006",
+          "notes": "Waste spark coil - center pair"
+        }
+      ]
     },
     {
       "id": "comp-injector",
       "type": "component",
       "label": "Fuel Injector (V6)",
-      "aliases": ["injector", "fuel injector"],
+      "aliases": [
+        "injector",
+        "fuel injector"
+      ],
       "system": "engine",
       "subsystem": "fuel",
       "engine": "V6",
       "quantity": 6,
-      "injector_type": "Electromagnetic"
+      "injector_type": "Electromagnetic",
+      "oem_part_numbers": [
+        {
+          "pn": "35310-37150",
+          "pnc": "35310",
+          "name": "INJECTOR ASSY",
+          "catalog_source": "hyundai.catalogs-parts.com",
+          "catalog_code": "hma2c0pa01",
+          "engine_filter": "2700 CC",
+          "start_date": "10.2001",
+          "end_date": "09.2004",
+          "model_year": 2003,
+          "qty": 6,
+          "cross_refs": {
+            "Kefico": "9260930004"
+          },
+          "source_files": [
+            "Sources/OEM Parts Catalogs/Engine Parts Catalog/THROTTLE BODY & INJECTOR",
+            "common/opengk/gk-chassis-specs.md"
+          ]
+        }
+      ]
     },
     {
       "id": "comp-o2-sensor",
       "type": "component",
       "label": "Heated Oxygen Sensor",
-      "aliases": ["O2 sensor", "HO2S", "oxygen sensor", "lambda sensor"],
+      "aliases": [
+        "O2 sensor",
+        "HO2S",
+        "oxygen sensor",
+        "lambda sensor"
+      ],
       "system": "engine",
       "subsystem": "emissions",
       "engine": "V6",
-      "sensor_type": "Titanium (2.7 V6)"
+      "sensor_type": "Titanium (2.7 V6)",
+      "oem_part_numbers": [
+        {
+          "pn": "39210-37120",
+          "pnc": "39210",
+          "name": "SENSOR - HEATED OXYGEN, B1S1 (upstream bank 1)",
+          "catalog_source": "hyundai.catalogs-parts.com",
+          "catalog_code": "hma2c0pa01",
+          "engine_filter": "2700 CC",
+          "start_date": "10.2001",
+          "end_date": "01.2003",
+          "model_year": 2003,
+          "qty": 1,
+          "cross_refs": {
+            "NTK": "25000"
+          },
+          "source_files": [
+            "common/opengk/sensor-information.md"
+          ],
+          "notes": "Pre-Jan 2003 production"
+        },
+        {
+          "pn": "39210-37510",
+          "pnc": "39210",
+          "name": "SENSOR - HEATED OXYGEN, B1S1 (upstream bank 1)",
+          "catalog_source": "hyundai.catalogs-parts.com",
+          "catalog_code": "hma2c0pa01",
+          "engine_filter": "2700 CC",
+          "start_date": "02.2003",
+          "end_date": "12.2006",
+          "model_year": 2003,
+          "qty": 1,
+          "cross_refs": {
+            "NTK": "25180"
+          },
+          "source_files": [
+            "common/opengk/sensor-information.md"
+          ],
+          "notes": "Post-Jan 2003 production, supersedes 39210-37120"
+        },
+        {
+          "pn": "39210-37190",
+          "pnc": "39210",
+          "name": "SENSOR - HEATED OXYGEN, B1S2 (downstream bank 1)",
+          "catalog_source": "hyundai.catalogs-parts.com",
+          "catalog_code": "hma2c0pa01",
+          "engine_filter": "2700 CC",
+          "start_date": "10.2001",
+          "end_date": "01.2003",
+          "model_year": 2003,
+          "qty": 1,
+          "cross_refs": {},
+          "source_files": [
+            "common/opengk/sensor-information.md"
+          ],
+          "notes": "Pre-Jan 2003 production"
+        },
+        {
+          "pn": "39210-37540",
+          "pnc": "39210",
+          "name": "SENSOR - HEATED OXYGEN, B1S2 (downstream bank 1)",
+          "catalog_source": "hyundai.catalogs-parts.com",
+          "catalog_code": "hma2c0pa01",
+          "engine_filter": "2700 CC",
+          "start_date": "02.2003",
+          "end_date": "12.2006",
+          "model_year": 2003,
+          "qty": 1,
+          "cross_refs": {},
+          "source_files": [
+            "common/opengk/sensor-information.md"
+          ],
+          "notes": "Post-Jan 2003 production, supersedes 39210-37190"
+        },
+        {
+          "pn": "39210-37151",
+          "pnc": "39210",
+          "name": "SENSOR - HEATED OXYGEN, B2S2 (downstream bank 2)",
+          "catalog_source": "hyundai.catalogs-parts.com",
+          "catalog_code": "hma2c0pa01",
+          "engine_filter": "2700 CC",
+          "start_date": "10.2001",
+          "end_date": "01.2003",
+          "model_year": 2003,
+          "qty": 1,
+          "cross_refs": {},
+          "source_files": [
+            "common/opengk/sensor-information.md"
+          ],
+          "notes": "Pre-Jan 2003 production"
+        },
+        {
+          "pn": "39210-37525",
+          "pnc": "39210",
+          "name": "SENSOR - HEATED OXYGEN, B2S2 (downstream bank 2)",
+          "catalog_source": "hyundai.catalogs-parts.com",
+          "catalog_code": "hma2c0pa01",
+          "engine_filter": "2700 CC",
+          "start_date": "02.2003",
+          "end_date": "12.2006",
+          "model_year": 2003,
+          "qty": 1,
+          "cross_refs": {},
+          "source_files": [
+            "common/opengk/sensor-information.md"
+          ],
+          "notes": "Post-Jan 2003 production, supersedes 39210-37151"
+        }
+      ]
     },
     {
       "id": "comp-alternator",
       "type": "component",
       "label": "Alternator (Generator)",
-      "aliases": ["alternator", "generator", "alt"],
+      "aliases": [
+        "alternator",
+        "generator",
+        "alt"
+      ],
       "system": "electrical",
       "subsystem": "charging",
-      "notes": "Battery voltage sensing type. 95A rated. Exciter wire routed through PDM MP6 on white car."
+      "notes": "Battery voltage sensing type. 95A rated. Exciter wire routed through PDM MP6 on white car.",
+      "oem_part_numbers": [
+        {
+          "pn": "37300-37400",
+          "pnc": "37300",
+          "name": "GENERATOR ASSY",
+          "catalog_source": "hyundai.catalogs-parts.com",
+          "catalog_code": "hma2c0pa01",
+          "engine_filter": "2700 CC",
+          "start_date": "07.2002",
+          "end_date": "10.2003",
+          "model_year": 2003,
+          "qty": 1,
+          "cross_refs": {},
+          "source_files": [
+            "Sources/OEM Parts Catalogs/Engine Parts Catalog/GENERATOR"
+          ]
+        },
+        {
+          "pn": "37300-37405",
+          "pnc": "37300",
+          "name": "GENERATOR ASSY",
+          "catalog_source": "hyundai.catalogs-parts.com",
+          "catalog_code": "hma2c0pa01",
+          "engine_filter": "2700 CC",
+          "start_date": "10.2003",
+          "end_date": "09.2004",
+          "model_year": 2003,
+          "qty": 1,
+          "cross_refs": {},
+          "source_files": [
+            "Sources/OEM Parts Catalogs/Engine Parts Catalog/GENERATOR"
+          ],
+          "notes": "Supersedes 37300-37400 from 10.2003"
+        }
+      ]
     },
     {
       "id": "comp-starter",
       "type": "component",
       "label": "Starter Motor",
-      "aliases": ["starter", "starter motor"],
+      "aliases": [
+        "starter",
+        "starter motor"
+      ],
       "system": "electrical",
       "subsystem": "starting",
-      "notes": "Reduction drive with planetary gear. 1.2 kW, 12V."
+      "notes": "Reduction drive with planetary gear. 1.2 kW, 12V.",
+      "oem_part_numbers": [
+        {
+          "pn": "36100-37210",
+          "pnc": "36100",
+          "name": "STARTER ASSY (1.2KW)",
+          "catalog_source": "hyundai.catalogs-parts.com",
+          "catalog_code": "hma2c0pa01",
+          "engine_filter": "2700 CC",
+          "start_date": "10.2001",
+          "end_date": "09.2004",
+          "model_year": 2003,
+          "qty": 1,
+          "cross_refs": {},
+          "source_files": [
+            "Sources/OEM Parts Catalogs/Engine Parts Catalog/STARTER"
+          ]
+        }
+      ]
     },
     {
       "id": "comp-fuel-pressure-regulator",
       "type": "component",
       "label": "Fuel Pressure Regulator",
-      "aliases": ["FPR", "fuel pressure regulator"],
+      "aliases": [
+        "FPR",
+        "fuel pressure regulator"
+      ],
       "system": "engine",
       "subsystem": "fuel",
       "engine": "V6",
-      "notes": "OEM setpoint: 300 ± 1.5 kPa (3.35 ± 0.06 kg/cm²). White car: Radium FPR/damper to be installed."
+      "notes": "OEM setpoint: 300 Â± 1.5 kPa (3.35 Â± 0.06 kg/cmÂ²). White car: Radium FPR/damper to be installed.",
+      "oem_part_numbers": [
+        {
+          "pn": "35301-37100",
+          "pnc": "35301",
+          "name": "REGULATOR ASSY - FUEL PRESSURE",
+          "catalog_source": "hyundai.catalogs-parts.com",
+          "catalog_code": "hma2c0pa01",
+          "engine_filter": "2700 CC",
+          "start_date": "10.2001",
+          "end_date": "09.2004",
+          "model_year": 2003,
+          "qty": 1,
+          "cross_refs": {},
+          "source_files": [
+            "Sources/OEM Parts Catalogs/Engine Parts Catalog/THROTTLE BODY & INJECTOR"
+          ]
+        }
+      ]
     },
     {
       "id": "comp-valve-spring",
       "type": "component",
       "label": "Valve Spring",
-      "aliases": ["valve spring"],
+      "aliases": [
+        "valve spring"
+      ],
       "system": "engine",
       "subsystem": "valvetrain",
       "engine": "V6",
-      "quantity_per_engine": 12
+      "quantity_per_engine": 12,
+      "oem_part_numbers": [
+        {
+          "pn": "22221-37101",
+          "pnc": "22221",
+          "name": "SPRING - VALVE",
+          "catalog_source": "hyundai.catalogs-parts.com",
+          "catalog_code": "hma2c0pa01",
+          "engine_filter": "[H] 2700 CC",
+          "dates": "10.2001-12.2006"
+        }
+      ]
     },
     {
       "id": "comp-camshaft",
       "type": "component",
       "label": "Camshaft",
-      "aliases": ["camshaft", "cam"],
+      "aliases": [
+        "camshaft",
+        "cam"
+      ],
       "system": "engine",
       "subsystem": "valvetrain",
       "engine": "V6",
       "drive_type": "Cogged belt (timing belt)",
-      "quantity_per_engine": 2
+      "quantity_per_engine": 2,
+      "oem_part_numbers": [
+        {
+          "pn": "24110-37201",
+          "pnc": "24110",
+          "name": "CAMSHAFT - INTAKE, LH (Bank 1)",
+          "catalog_source": "hyundai.catalogs-parts.com",
+          "catalog_code": "hma2c0pa01",
+          "engine_filter": "[H] 2700 CC",
+          "dates": "10.2001-12.2006"
+        },
+        {
+          "pn": "24110-37211",
+          "pnc": "24110",
+          "name": "CAMSHAFT - INTAKE, LH (Bank 1) alt",
+          "catalog_source": "hyundai.catalogs-parts.com",
+          "catalog_code": "hma2c0pa01",
+          "engine_filter": "[H] 2700 CC",
+          "dates": "10.2001-12.2006",
+          "notes": "Superseded variant"
+        },
+        {
+          "pn": "24910-37201",
+          "pnc": "24910",
+          "name": "CAMSHAFT - INTAKE, RH (Bank 2)",
+          "catalog_source": "hyundai.catalogs-parts.com",
+          "catalog_code": "hma2c0pa01",
+          "engine_filter": "[H] 2700 CC",
+          "dates": "10.2001-12.2006"
+        },
+        {
+          "pn": "24210-37201",
+          "pnc": "24210",
+          "name": "CAMSHAFT - EXHAUST, LH (Bank 1)",
+          "catalog_source": "hyundai.catalogs-parts.com",
+          "catalog_code": "hma2c0pa01",
+          "engine_filter": "[H] 2700 CC",
+          "dates": "10.2001-12.2006"
+        },
+        {
+          "pn": "24710-37201",
+          "pnc": "24710",
+          "name": "CAMSHAFT - EXHAUST, RH (Bank 2)",
+          "catalog_source": "hyundai.catalogs-parts.com",
+          "catalog_code": "hma2c0pa01",
+          "engine_filter": "[H] 2700 CC",
+          "dates": "10.2001-12.2006"
+        }
+      ]
     },
     {
       "id": "comp-cylinder-block",
       "type": "component",
       "label": "Cylinder Block (G6BA)",
-      "aliases": ["cylinder block", "engine block", "block"],
+      "aliases": [
+        "cylinder block",
+        "engine block",
+        "block"
+      ],
       "system": "engine",
       "subsystem": "engine-block",
       "engine": "V6"
     },
-
+    {
+      "id": "comp-ecu",
+      "type": "component",
+      "label": "Engine Control Module (ECM/ECU)",
+      "aliases": [
+        "ECU",
+        "ECM",
+        "engine control module",
+        "engine computer",
+        "SIMK43"
+      ],
+      "system": "engine",
+      "subsystem": "engine-management",
+      "engine": "V6",
+      "oem_location": "Behind glove box, passenger side",
+      "connector_code": "C133",
+      "notes": "Siemens SIMK43. Blue car: stock (GKFlasher tuned). White car: replaced by Haltech Elite 2500.",
+      "oem_part_numbers": [
+        {
+          "pn": "39109-37700",
+          "pnc": "39109",
+          "name": "MODULE ASSY - ECM",
+          "catalog_source": "hyundai.catalogs-parts.com",
+          "catalog_code": "hma2c0pa01",
+          "engine_filter": "2700 CC",
+          "start_date": "10.2001",
+          "end_date": "01.2003",
+          "model_year": 2003,
+          "qty": 1,
+          "cross_refs": {},
+          "source_files": [
+            "Sources/OEM Parts Catalogs/Engine Parts Catalog/ELECTRONIC CONTROL"
+          ],
+          "notes": "Early production"
+        },
+        {
+          "pn": "39109-37702",
+          "pnc": "39109",
+          "name": "MODULE ASSY - ECM",
+          "catalog_source": "hyundai.catalogs-parts.com",
+          "catalog_code": "hma2c0pa01",
+          "engine_filter": "2700 CC",
+          "start_date": "01.2003",
+          "end_date": "06.2003",
+          "model_year": 2003,
+          "qty": 1,
+          "cross_refs": {},
+          "source_files": [
+            "Sources/OEM Parts Catalogs/Engine Parts Catalog/ELECTRONIC CONTROL"
+          ],
+          "notes": "Mid production"
+        },
+        {
+          "pn": "39109-37703",
+          "pnc": "39109",
+          "name": "MODULE ASSY - ECM",
+          "catalog_source": "hyundai.catalogs-parts.com",
+          "catalog_code": "hma2c0pa01",
+          "engine_filter": "2700 CC",
+          "start_date": "06.2003",
+          "end_date": "09.2004",
+          "model_year": 2003,
+          "qty": 1,
+          "cross_refs": {},
+          "source_files": [
+            "Sources/OEM Parts Catalogs/Engine Parts Catalog/ELECTRONIC CONTROL"
+          ],
+          "notes": "Late production, supersedes 39109-37702"
+        }
+      ]
+    },
+    {
+      "id": "comp-throttle-body",
+      "type": "component",
+      "label": "Throttle Body Assembly",
+      "aliases": [
+        "throttle body",
+        "TB"
+      ],
+      "system": "engine",
+      "subsystem": "fuel",
+      "engine": "V6",
+      "oem_part_numbers": [
+        {
+          "pn": "35100-37300",
+          "pnc": "35100",
+          "name": "BODY ASSY - THROTTLE (non-ACC)",
+          "catalog_source": "hyundai.catalogs-parts.com",
+          "catalog_code": "hma2c0pa01",
+          "engine_filter": "2700 CC",
+          "start_date": "10.2001",
+          "end_date": "09.2004",
+          "model_year": 2003,
+          "qty": 1,
+          "cross_refs": {},
+          "source_files": [
+            "Sources/OEM Parts Catalogs/Engine Parts Catalog/THROTTLE BODY & INJECTOR"
+          ],
+          "notes": "Without Active Control"
+        },
+        {
+          "pn": "35100-37320",
+          "pnc": "35100",
+          "name": "BODY ASSY - THROTTLE (w/ ACC)",
+          "catalog_source": "hyundai.catalogs-parts.com",
+          "catalog_code": "hma2c0pa01",
+          "engine_filter": "2700 CC",
+          "start_date": "10.2001",
+          "end_date": "09.2004",
+          "model_year": 2003,
+          "qty": 1,
+          "cross_refs": {},
+          "source_files": [
+            "Sources/OEM Parts Catalogs/Engine Parts Catalog/THROTTLE BODY & INJECTOR"
+          ],
+          "notes": "With Active Control (cruise control equipped)"
+        }
+      ]
+    },
+    {
+      "id": "comp-fuel-rail",
+      "type": "component",
+      "label": "Fuel Delivery Pipe (Fuel Rail)",
+      "aliases": [
+        "fuel rail",
+        "delivery pipe"
+      ],
+      "system": "engine",
+      "subsystem": "fuel",
+      "engine": "V6",
+      "oem_part_numbers": [
+        {
+          "pn": "35304-37100",
+          "pnc": "35304",
+          "name": "PIPE ASSY - DELIVERY",
+          "catalog_source": "hyundai.catalogs-parts.com",
+          "catalog_code": "hma2c0pa01",
+          "engine_filter": "2700 CC",
+          "start_date": "10.2001",
+          "end_date": "09.2004",
+          "model_year": 2003,
+          "qty": 1,
+          "cross_refs": {},
+          "source_files": [
+            "Sources/OEM Parts Catalogs/Engine Parts Catalog/THROTTLE BODY & INJECTOR"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "comp-engine-harness",
+      "type": "component",
+      "label": "Engine Wiring Harness",
+      "aliases": [
+        "engine harness",
+        "engine wiring"
+      ],
+      "system": "electrical",
+      "subsystem": "wiring",
+      "engine": "V6",
+      "oem_part_numbers": [
+        {
+          "pn": "91207-2C182",
+          "pnc": "91207",
+          "name": "WIRING ASSY - ENGINE (V6 6MT, w/o immobilizer)",
+          "catalog_source": "hyundai.catalogs-parts.com",
+          "catalog_code": "hma2c0pa01",
+          "engine_filter": "2700 CC",
+          "start_date": "10.2001",
+          "end_date": "01.2003",
+          "model_year": 2003,
+          "qty": 1,
+          "cross_refs": {},
+          "source_files": [
+            "Sources/OEM Parts Catalogs/Electrical Parts Catalog/ENGINE WIRING"
+          ],
+          "notes": "Early production, manual trans, w/o immobilizer"
+        },
+        {
+          "pn": "91207-2C222",
+          "pnc": "91207",
+          "name": "WIRING ASSY - ENGINE (V6 6MT, w/ immobilizer)",
+          "catalog_source": "hyundai.catalogs-parts.com",
+          "catalog_code": "hma2c0pa01",
+          "engine_filter": "2700 CC",
+          "start_date": "10.2001",
+          "end_date": "01.2003",
+          "model_year": 2003,
+          "qty": 1,
+          "cross_refs": {},
+          "source_files": [
+            "Sources/OEM Parts Catalogs/Electrical Parts Catalog/ENGINE WIRING"
+          ],
+          "notes": "Early production, manual trans, w/ immobilizer"
+        },
+        {
+          "pn": "91207-2C183",
+          "pnc": "91207",
+          "name": "WIRING ASSY - ENGINE (V6 6MT, w/o immobilizer)",
+          "catalog_source": "hyundai.catalogs-parts.com",
+          "catalog_code": "hma2c0pa01",
+          "engine_filter": "2700 CC",
+          "start_date": "01.2003",
+          "end_date": "09.2004",
+          "model_year": 2003,
+          "qty": 1,
+          "cross_refs": {},
+          "source_files": [
+            "Sources/OEM Parts Catalogs/Electrical Parts Catalog/ENGINE WIRING"
+          ],
+          "notes": "Late production, manual trans, w/o immobilizer"
+        },
+        {
+          "pn": "91207-2C223",
+          "pnc": "91207",
+          "name": "WIRING ASSY - ENGINE (V6 6MT, w/ immobilizer)",
+          "catalog_source": "hyundai.catalogs-parts.com",
+          "catalog_code": "hma2c0pa01",
+          "engine_filter": "2700 CC",
+          "start_date": "01.2003",
+          "end_date": "09.2004",
+          "model_year": 2003,
+          "qty": 1,
+          "cross_refs": {},
+          "source_files": [
+            "Sources/OEM Parts Catalogs/Electrical Parts Catalog/ENGINE WIRING"
+          ],
+          "notes": "Late production, manual trans, w/ immobilizer"
+        }
+      ]
+    },
+    {
+      "id": "comp-control-harness",
+      "type": "component",
+      "label": "Control Wiring Harness (ECM)",
+      "aliases": [
+        "control harness",
+        "ECM harness",
+        "control wiring"
+      ],
+      "system": "electrical",
+      "subsystem": "wiring",
+      "engine": "V6",
+      "oem_part_numbers": [
+        {
+          "pn": "91420-2C412",
+          "pnc": "91420",
+          "name": "WIRING ASSY - CONTROL (V6 6MT)",
+          "catalog_source": "hyundai.catalogs-parts.com",
+          "catalog_code": "hma2c0pa01",
+          "engine_filter": "2700 CC",
+          "start_date": "10.2001",
+          "end_date": "01.2003",
+          "model_year": 2003,
+          "qty": 1,
+          "cross_refs": {},
+          "source_files": [
+            "Sources/OEM Parts Catalogs/Electrical Parts Catalog/CONTROL WIRING"
+          ],
+          "notes": "Early production V6 6-speed manual"
+        },
+        {
+          "pn": "91420-2C413",
+          "pnc": "91420",
+          "name": "WIRING ASSY - CONTROL (V6 6MT)",
+          "catalog_source": "hyundai.catalogs-parts.com",
+          "catalog_code": "hma2c0pa01",
+          "engine_filter": "2700 CC",
+          "start_date": "01.2003",
+          "end_date": "09.2004",
+          "model_year": 2003,
+          "qty": 1,
+          "cross_refs": {},
+          "source_files": [
+            "Sources/OEM Parts Catalogs/Electrical Parts Catalog/CONTROL WIRING"
+          ],
+          "notes": "Late production V6 6-speed manual"
+        }
+      ]
+    },
+    {
+      "id": "comp-abs-sensor",
+      "type": "component",
+      "label": "ABS Wheel Speed Sensor",
+      "aliases": [
+        "ABS sensor",
+        "wheel speed sensor",
+        "WSS"
+      ],
+      "system": "chassis",
+      "subsystem": "brakes",
+      "oem_part_numbers": [
+        {
+          "pn": "95670-2C000",
+          "pnc": "95670",
+          "name": "SENSOR ASSY - ABS, FRONT LH",
+          "catalog_source": "hyundai.catalogs-parts.com",
+          "catalog_code": "hma2c0pa01",
+          "start_date": "10.2001",
+          "end_date": "09.2004",
+          "model_year": 2003,
+          "qty": 1,
+          "cross_refs": {},
+          "source_files": [
+            "Sources/OEM Parts Catalogs/Electrical Parts Catalog/ABS SENSOR"
+          ]
+        },
+        {
+          "pn": "95670-2C100",
+          "pnc": "95670",
+          "name": "SENSOR ASSY - ABS, FRONT RH",
+          "catalog_source": "hyundai.catalogs-parts.com",
+          "catalog_code": "hma2c0pa01",
+          "start_date": "10.2001",
+          "end_date": "09.2004",
+          "model_year": 2003,
+          "qty": 1,
+          "cross_refs": {},
+          "source_files": [
+            "Sources/OEM Parts Catalogs/Electrical Parts Catalog/ABS SENSOR"
+          ]
+        },
+        {
+          "pn": "95690-2C000",
+          "pnc": "95690",
+          "name": "SENSOR ASSY - ABS, REAR LH",
+          "catalog_source": "hyundai.catalogs-parts.com",
+          "catalog_code": "hma2c0pa01",
+          "start_date": "10.2001",
+          "end_date": "09.2004",
+          "model_year": 2003,
+          "qty": 1,
+          "cross_refs": {},
+          "source_files": [
+            "Sources/OEM Parts Catalogs/Electrical Parts Catalog/ABS SENSOR"
+          ]
+        },
+        {
+          "pn": "95690-2C100",
+          "pnc": "95690",
+          "name": "SENSOR ASSY - ABS, REAR RH",
+          "catalog_source": "hyundai.catalogs-parts.com",
+          "catalog_code": "hma2c0pa01",
+          "start_date": "10.2001",
+          "end_date": "09.2004",
+          "model_year": 2003,
+          "qty": 1,
+          "cross_refs": {},
+          "source_files": [
+            "Sources/OEM Parts Catalogs/Electrical Parts Catalog/ABS SENSOR"
+          ]
+        }
+      ]
+    },
     {
       "id": "pn-spark-plug-ngk-v6-unleaded",
       "type": "part_number",
       "label": "NGK BKR5ES-11",
       "number": "BKR5ES-11",
       "source": "NGK",
-      "notes": "2.7 V6, unleaded fuel. Gap: 1.0–1.1 mm",
+      "notes": "2.7 V6, unleaded fuel. Gap: 1.0â€“1.1 mm",
       "table_page_ref": "EE-2"
     },
     {
@@ -908,15 +1901,13 @@
       "notes": "COP conversion for G6BA. Smart coil (internal igniter). Qty: 6. See hardware/sensors/cop-ignition.md.",
       "url": null
     },
-
     {
       "id": "diag-EMA-72",
       "type": "diagram",
-      "label": "Valve Spring — Installation Diagram",
+      "label": "Valve Spring â€” Installation Diagram",
       "page_ref": "EMA-72",
       "engine": "V6"
     },
-
     {
       "id": "conn-C111",
       "type": "connector",
@@ -1011,372 +2002,1203 @@
       "pin_count": 1,
       "etm_page_ref": "CC-17"
     },
-
     {
       "id": "section-SD-78",
       "type": "section",
-      "label": "MFI Control System (2.7L) — ECM Area",
+      "label": "MFI Control System (2.7L) â€” ECM Area",
       "page_ref": "SD-78",
       "section_type": "diagram"
     },
     {
       "id": "section-SD-79",
       "type": "section",
-      "label": "MFI Control System (2.7L) — O2 Sensors Bank 1",
+      "label": "MFI Control System (2.7L) â€” O2 Sensors Bank 1",
       "page_ref": "SD-79",
       "section_type": "diagram"
     },
     {
       "id": "section-SD-80",
       "type": "section",
-      "label": "MFI Control System (2.7L) — O2 Sensors Bank 2",
+      "label": "MFI Control System (2.7L) â€” O2 Sensors Bank 2",
       "page_ref": "SD-80",
       "section_type": "diagram"
     },
     {
       "id": "section-SD-81",
       "type": "section",
-      "label": "MFI Control System (2.7L) — Fuel/Actuators",
+      "label": "MFI Control System (2.7L) â€” Fuel/Actuators",
       "page_ref": "SD-81",
       "section_type": "diagram"
     },
     {
       "id": "section-SD-82",
       "type": "section",
-      "label": "MFI Control System (2.7L) — Air/Misc Sensors",
+      "label": "MFI Control System (2.7L) â€” Air/Misc Sensors",
       "page_ref": "SD-82",
       "section_type": "diagram"
     },
     {
       "id": "section-CL-22",
       "type": "section",
-      "label": "Component Locations — Engine Sensors",
+      "label": "Component Locations â€” Engine Sensors",
       "page_ref": "CL-22",
       "section_type": "diagram"
     },
     {
       "id": "section-CL-23",
       "type": "section",
-      "label": "Component Locations — Engine Actuators/Coils",
+      "label": "Component Locations â€” Engine Actuators/Coils",
       "page_ref": "CL-23",
       "section_type": "diagram"
     },
     {
       "id": "section-CL-24",
       "type": "section",
-      "label": "Component Locations — ISC/IAT Area",
+      "label": "Component Locations â€” ISC/IAT Area",
       "page_ref": "CL-24",
       "section_type": "diagram"
     },
     {
       "id": "section-CL-25",
       "type": "section",
-      "label": "Component Locations — ECM Area",
+      "label": "Component Locations â€” ECM Area",
       "page_ref": "CL-25",
       "section_type": "diagram"
     },
     {
       "id": "section-HL-15",
       "type": "section",
-      "label": "Harness Layout — Control Harness (4) 2.7L",
+      "label": "Harness Layout â€” Control Harness (4) 2.7L",
       "page_ref": "HL-15",
       "section_type": "diagram"
     },
     {
       "id": "section-FLA-35",
       "type": "section",
-      "label": "ECT Sensor — Circuit Diagram & Procedure",
+      "label": "ECT Sensor â€” Circuit Diagram & Procedure",
       "page_ref": "FLA-35",
       "section_type": "diagram"
     },
     {
       "id": "section-FLA-40",
       "type": "section",
-      "label": "MAF Sensor — Circuit Diagram & Procedure",
+      "label": "MAF Sensor â€” Circuit Diagram & Procedure",
       "page_ref": "FLA-40",
       "section_type": "diagram"
     },
     {
       "id": "section-FLA-43",
       "type": "section",
-      "label": "IAT Sensor — Circuit Diagram & Procedure",
+      "label": "IAT Sensor â€” Circuit Diagram & Procedure",
       "page_ref": "FLA-43",
       "section_type": "diagram"
     },
     {
       "id": "section-FLA-46",
       "type": "section",
-      "label": "TPS — Circuit Diagram & Procedure",
+      "label": "TPS â€” Circuit Diagram & Procedure",
       "page_ref": "FLA-46",
       "section_type": "diagram"
     },
     {
       "id": "section-FLA-52",
       "type": "section",
-      "label": "Heated Oxygen Sensor — Circuit Diagram & Procedure",
+      "label": "Heated Oxygen Sensor â€” Circuit Diagram & Procedure",
       "page_ref": "FLA-52",
       "section_type": "diagram"
     },
     {
       "id": "section-FLA-55",
       "type": "section",
-      "label": "CMP Sensor — Circuit Diagram & Procedure",
+      "label": "CMP Sensor â€” Circuit Diagram & Procedure",
       "page_ref": "FLA-55",
       "section_type": "diagram"
     },
     {
       "id": "section-FLA-57",
       "type": "section",
-      "label": "CKP Sensor — Circuit Diagram & Procedure",
+      "label": "CKP Sensor â€” Circuit Diagram & Procedure",
       "page_ref": "FLA-57",
       "section_type": "diagram"
     },
     {
       "id": "section-FLA-59",
       "type": "section",
-      "label": "Fuel Injector — Circuit Diagram & Procedure",
+      "label": "Fuel Injector â€” Circuit Diagram & Procedure",
       "page_ref": "FLA-59",
       "section_type": "diagram"
     },
     {
       "id": "section-FLA-65",
       "type": "section",
-      "label": "Knock Sensor — Circuit Diagram & Procedure",
+      "label": "Knock Sensor â€” Circuit Diagram & Procedure",
       "page_ref": "FLA-65",
       "section_type": "diagram"
     }
-
   ],
-
   "edges": [
-
-    { "source": "EMA-index",   "target": "manual-ema", "rel": "chapter_of" },
-    { "source": "EMA-2",       "target": "manual-ema", "rel": "chapter_of" },
-    { "source": "EMA-3",       "target": "manual-ema", "rel": "chapter_of" },
-    { "source": "EMA-4",       "target": "manual-ema", "rel": "chapter_of" },
-    { "source": "EMA-5",       "target": "manual-ema", "rel": "chapter_of" },
-    { "source": "EMA-20",      "target": "manual-ema", "rel": "chapter_of" },
-    { "source": "EMA-69",      "target": "manual-ema", "rel": "chapter_of" },
-    { "source": "EMA-72",      "target": "manual-ema", "rel": "chapter_of" },
-    { "source": "EMA-73",      "target": "manual-ema", "rel": "chapter_of" },
-    { "source": "EE-index",    "target": "manual-ee",  "rel": "chapter_of" },
-    { "source": "EE-2",        "target": "manual-ee",  "rel": "chapter_of" },
-    { "source": "EE-14",       "target": "manual-ee",  "rel": "chapter_of" },
-    { "source": "FLA-index",   "target": "manual-fla", "rel": "chapter_of" },
-    { "source": "FLA-2",       "target": "manual-fla", "rel": "chapter_of" },
-    { "source": "FLA-3",       "target": "manual-fla", "rel": "chapter_of" },
-    { "source": "FLA-4",       "target": "manual-fla", "rel": "chapter_of" },
-
-    { "source": "EMA-EDHA2300",        "target": "EMA-20",          "rel": "subsection_of" },
-    { "source": "EMA-cylinder-block-topic", "target": "EMA-EDHA2300", "rel": "topic_of" },
-    { "source": "EMA-72",              "target": "EMA-69",           "rel": "subsection_of" },
-    { "source": "EMA-73",              "target": "EMA-69",           "rel": "subsection_of" },
-
-    { "source": "EMA-2", "target": "sv-bore",                  "rel": "table_specifies" },
-    { "source": "EMA-2", "target": "sv-stroke",                "rel": "table_specifies" },
-    { "source": "EMA-2", "target": "sv-compression-ratio",    "rel": "table_specifies" },
-    { "source": "EMA-2", "target": "sv-firing-order",         "rel": "table_specifies" },
-    { "source": "EMA-2", "target": "sv-cam-height-intake",    "rel": "table_specifies" },
-    { "source": "EMA-2", "target": "sv-cam-height-exhaust",   "rel": "table_specifies" },
-    { "source": "EMA-2", "target": "sv-cam-journal-diameter", "rel": "table_specifies" },
-    { "source": "EMA-2", "target": "sv-cam-bearing-clearance","rel": "table_specifies" },
-    { "source": "EMA-3", "target": "sv-valve-spring-free-height", "rel": "table_specifies" },
-    { "source": "EMA-3", "target": "sv-valve-spring-load",    "rel": "table_specifies" },
-    { "source": "EMA-3", "target": "sv-valve-spring-squareness", "rel": "table_specifies" },
-    { "source": "EMA-3", "target": "sv-cylinder-bore",        "rel": "table_specifies" },
-    { "source": "EMA-3", "target": "sv-piston-diameter",      "rel": "table_specifies" },
-    { "source": "EMA-3", "target": "sv-crankshaft-journal-od","rel": "table_specifies" },
-    { "source": "EMA-3", "target": "sv-crankshaft-pin-od",    "rel": "table_specifies" },
-    { "source": "EMA-4", "target": "sv-coolant-capacity",     "rel": "table_specifies" },
-    { "source": "EMA-4", "target": "sv-thermostat-open",      "rel": "table_specifies" },
-    { "source": "EMA-4", "target": "sv-thermostat-wide-open", "rel": "table_specifies" },
-    { "source": "EE-2",  "target": "sv-coil-primary-resistance-v6",  "rel": "table_specifies" },
-    { "source": "EE-2",  "target": "sv-coil-secondary-resistance-v6","rel": "table_specifies" },
-    { "source": "EE-2",  "target": "sv-alternator-output",    "rel": "table_specifies" },
-    { "source": "EE-2",  "target": "sv-alternator-regulator-voltage", "rel": "table_specifies" },
-    { "source": "FLA-2", "target": "sv-tps-resistance-v6",    "rel": "table_specifies" },
-    { "source": "FLA-2", "target": "sv-tps-voltage-v6",       "rel": "table_specifies" },
-    { "source": "FLA-2", "target": "sv-iat-resistance",       "rel": "table_specifies" },
-    { "source": "FLA-2", "target": "sv-ect-resistance-20c",   "rel": "table_specifies" },
-    { "source": "FLA-2", "target": "sv-ect-resistance-80c",   "rel": "table_specifies" },
-    { "source": "FLA-2", "target": "sv-injector-resistance",  "rel": "table_specifies" },
-    { "source": "FLA-3", "target": "sv-fuel-pressure-vac-disconnected", "rel": "table_specifies" },
-    { "source": "FLA-3", "target": "sv-fuel-pressure-vac-connected",    "rel": "table_specifies" },
-    { "source": "FLA-3", "target": "sv-ignition-timing-v6",   "rel": "table_specifies" },
-    { "source": "FLA-3", "target": "sv-idle-speed-v6",        "rel": "table_specifies" },
-
-    { "source": "sv-cylinder-bore",        "target": "EMA-cylinder-block-topic", "rel": "procedure_contains" },
-    { "source": "sv-valve-spring-free-height", "target": "EMA-73",              "rel": "procedure_contains" },
-    { "source": "sv-valve-spring-load",    "target": "EMA-73",                   "rel": "procedure_contains" },
-    { "source": "sv-valve-spring-squareness", "target": "EMA-73",               "rel": "procedure_contains" },
-
-    { "source": "diag-EMA-72", "target": "comp-valve-spring", "rel": "diagram_illustrates" },
-    { "source": "diag-EMA-72", "target": "EMA-73",            "rel": "cross_ref", "note": "Diagram on EMA-72, installation instructions on EMA-73" },
-
-    { "source": "ts-cam-sprocket",      "target": "comp-camshaft",         "rel": "torque_for" },
-    { "source": "ts-valve-cover",       "target": "manual-ema",            "rel": "torque_for", "note": "Cylinder head cover" },
-    { "source": "ts-main-bearing-m10",  "target": "comp-cylinder-block",   "rel": "torque_for" },
-    { "source": "ts-main-bearing-m8",   "target": "comp-cylinder-block",   "rel": "torque_for" },
-    { "source": "ts-connecting-rod",    "target": "comp-cylinder-block",   "rel": "torque_for" },
-    { "source": "ts-ect-sensor",        "target": "comp-ect-sensor",       "rel": "torque_for" },
-    { "source": "ts-o2-sensor",         "target": "comp-o2-sensor",        "rel": "torque_for" },
-
-    { "source": "comp-cmp-sensor",    "target": "FLA-2",  "rel": "procedure_for", "context": "Type: Hall effect, specs" },
-    { "source": "comp-cmp-sensor",    "target": "FLA-20", "rel": "procedure_for", "context": "MFI control system — sensor role" },
-    { "source": "comp-ckp-sensor",    "target": "FLA-2",  "rel": "procedure_for" },
-    { "source": "comp-ect-sensor",    "target": "FLA-2",  "rel": "procedure_for", "context": "Resistance specs" },
-    { "source": "comp-ect-sensor",    "target": "FLA-3",  "rel": "procedure_for", "context": "Sealant: LOCTITE 962T" },
-    { "source": "comp-ect-sensor",    "target": "FLA-4",  "rel": "procedure_for", "context": "Torque: 20–40 Nm" },
-    { "source": "comp-iat-sensor",    "target": "FLA-2",  "rel": "procedure_for" },
-    { "source": "comp-tps",           "target": "FLA-2",  "rel": "procedure_for" },
-    { "source": "comp-maf-sensor",    "target": "FLA-2",  "rel": "procedure_for" },
-    { "source": "comp-injector",      "target": "FLA-2",  "rel": "procedure_for" },
-    { "source": "comp-o2-sensor",     "target": "FLA-4",  "rel": "procedure_for", "context": "Torque: 40–50 Nm" },
-    { "source": "comp-ignition-coil", "target": "EE-14",  "rel": "procedure_for" },
-    { "source": "comp-ignition-coil", "target": "EE-2",   "rel": "procedure_for", "context": "Resistance specs" },
-    { "source": "comp-alternator",    "target": "EE-2",   "rel": "procedure_for", "context": "Output and regulator specs" },
-    { "source": "comp-valve-spring",  "target": "EMA-72", "rel": "procedure_for", "context": "Diagram" },
-    { "source": "comp-valve-spring",  "target": "EMA-73", "rel": "procedure_for", "context": "Installation" },
-    { "source": "comp-valve-spring",  "target": "EMA-3",  "rel": "procedure_for", "context": "Specs table" },
-    { "source": "comp-camshaft",      "target": "EMA-2",  "rel": "procedure_for", "context": "Cam height, journal specs" },
-    { "source": "comp-cylinder-block","target": "EMA-3",  "rel": "procedure_for", "context": "Bore, flatness specs" },
-    { "source": "comp-cylinder-block","target": "EMA-20", "rel": "procedure_for", "context": "Engine block section" },
-
-    { "source": "sv-cam-height-intake",       "target": "comp-camshaft",       "rel": "applies_to" },
-    { "source": "sv-cam-height-exhaust",      "target": "comp-camshaft",       "rel": "applies_to" },
-    { "source": "sv-cam-journal-diameter",    "target": "comp-camshaft",       "rel": "applies_to" },
-    { "source": "sv-cam-bearing-clearance",   "target": "comp-camshaft",       "rel": "applies_to" },
-    { "source": "sv-valve-spring-free-height","target": "comp-valve-spring",   "rel": "applies_to" },
-    { "source": "sv-valve-spring-load",       "target": "comp-valve-spring",   "rel": "applies_to" },
-    { "source": "sv-valve-spring-squareness", "target": "comp-valve-spring",   "rel": "applies_to" },
-    { "source": "sv-cylinder-bore",           "target": "comp-cylinder-block", "rel": "applies_to" },
-    { "source": "sv-piston-diameter",         "target": "comp-cylinder-block", "rel": "applies_to" },
-    { "source": "sv-ect-resistance-20c",      "target": "comp-ect-sensor",     "rel": "applies_to" },
-    { "source": "sv-ect-resistance-80c",      "target": "comp-ect-sensor",     "rel": "applies_to" },
-    { "source": "sv-tps-resistance-v6",       "target": "comp-tps",            "rel": "applies_to" },
-    { "source": "sv-tps-voltage-v6",          "target": "comp-tps",            "rel": "applies_to" },
-    { "source": "sv-iat-resistance",          "target": "comp-iat-sensor",     "rel": "applies_to" },
-    { "source": "sv-injector-resistance",     "target": "comp-injector",       "rel": "applies_to" },
-    { "source": "sv-coil-primary-resistance-v6",  "target": "comp-ignition-coil", "rel": "applies_to" },
-    { "source": "sv-coil-secondary-resistance-v6","target": "comp-ignition-coil", "rel": "applies_to" },
-    { "source": "sv-alternator-output",       "target": "comp-alternator",     "rel": "applies_to" },
-    { "source": "sv-fuel-pressure-vac-disconnected","target": "comp-fuel-pressure-regulator","rel": "applies_to"},
-    { "source": "sv-fuel-pressure-vac-connected",   "target": "comp-fuel-pressure-regulator","rel": "applies_to"},
-
-    { "source": "comp-ignition-coil", "target": "pn-cop-toyota-90919-A2005",   "rel": "has_part", "note": "COP conversion — white car only. OEM = wasted spark." },
-    { "source": "comp-ignition-coil", "target": "pn-spark-plug-ngk-v6-unleaded", "rel": "has_part" },
-    { "source": "comp-ignition-coil", "target": "pn-spark-plug-champion-v6-unleaded", "rel": "has_part" },
-
-    { "source": "section-SD-78",  "target": "manual-etm-sd", "rel": "chapter_of" },
-    { "source": "section-SD-79",  "target": "manual-etm-sd", "rel": "chapter_of" },
-    { "source": "section-SD-80",  "target": "manual-etm-sd", "rel": "chapter_of" },
-    { "source": "section-SD-81",  "target": "manual-etm-sd", "rel": "chapter_of" },
-    { "source": "section-SD-82",  "target": "manual-etm-sd", "rel": "chapter_of" },
-    { "source": "section-CL-22",  "target": "manual-etm-cl", "rel": "chapter_of" },
-    { "source": "section-CL-23",  "target": "manual-etm-cl", "rel": "chapter_of" },
-    { "source": "section-CL-24",  "target": "manual-etm-cl", "rel": "chapter_of" },
-    { "source": "section-CL-25",  "target": "manual-etm-cl", "rel": "chapter_of" },
-    { "source": "section-HL-15",  "target": "manual-etm-sd", "rel": "chapter_of", "note": "HL is a separate ETM section but linked here for navigation" },
-    { "source": "section-FLA-35", "target": "manual-fla", "rel": "chapter_of" },
-    { "source": "section-FLA-40", "target": "manual-fla", "rel": "chapter_of" },
-    { "source": "section-FLA-43", "target": "manual-fla", "rel": "chapter_of" },
-    { "source": "section-FLA-46", "target": "manual-fla", "rel": "chapter_of" },
-    { "source": "section-FLA-52", "target": "manual-fla", "rel": "chapter_of" },
-    { "source": "section-FLA-55", "target": "manual-fla", "rel": "chapter_of" },
-    { "source": "section-FLA-57", "target": "manual-fla", "rel": "chapter_of" },
-    { "source": "section-FLA-59", "target": "manual-fla", "rel": "chapter_of" },
-    { "source": "section-FLA-65", "target": "manual-fla", "rel": "chapter_of" },
-
-    { "source": "comp-ect-sensor",    "target": "conn-C111",   "rel": "connector_code", "context": "ETM connector C111, 2-pin, CC-17, Control Harness (4)" },
-    { "source": "comp-tps",           "target": "conn-C112",   "rel": "connector_code", "context": "ETM connector C112, 3-pin, CC-17, Control Harness (4)" },
-    { "source": "comp-ckp-sensor",    "target": "conn-C113",   "rel": "connector_code", "context": "ETM connector C113, 3-pin, CR03F038, CC-17, Control Harness (4)" },
-    { "source": "comp-cmp-sensor",    "target": "conn-C114",   "rel": "connector_code", "context": "ETM connector C114, 3-pin, CR03F029, CC-17, Control Harness (4)" },
-    { "source": "comp-vss",           "target": "conn-C109",   "rel": "connector_code", "context": "ETM connector C109, 3-pin, CC-17, Control Harness (4)" },
-    { "source": "comp-maf-sensor",    "target": "conn-C125",   "rel": "connector_code", "context": "ETM connector C125, 3-pin, CC-18, Control Harness (4)" },
-    { "source": "comp-iat-sensor",    "target": "conn-C127",   "rel": "connector_code", "context": "ETM connector C127, 3-pin, CC-18, Control Harness (4)" },
-    { "source": "comp-isc-actuator",  "target": "conn-C126",   "rel": "connector_code", "context": "ETM connector C126, 2-pin functional, CC-17, Control Harness (4)" },
-    { "source": "comp-knock-sensor",  "target": "conn-C123-1", "rel": "connector_code", "context": "ETM connector C123-1, 1-pin, CC-17, Control Harness (4) — front bank" },
-    { "source": "comp-knock-sensor",  "target": "conn-C123-2", "rel": "connector_code", "context": "ETM connector C123-2, 1-pin, CC-17, Control Harness (4) — rear bank" },
-
-    { "source": "comp-ckp-sensor",    "target": "section-SD-78", "rel": "schematic_page", "context": "SD-78: MFI Control System (2.7L) — ECM pinout, CKP circuit" },
-    { "source": "comp-cmp-sensor",    "target": "section-SD-78", "rel": "schematic_page", "context": "SD-78: MFI Control System (2.7L) — CMP circuit, signal (B, 0.5) to C133-4 pin 7, power via C142" },
-    { "source": "comp-tps",           "target": "section-SD-78", "rel": "schematic_page", "context": "SD-78: TPS circuit — signal (L, 0.5) to C133-3 pin 19" },
-    { "source": "comp-ect-sensor",    "target": "section-SD-81", "rel": "schematic_page", "context": "SD-81: ECT circuit — signal to C133-4" },
-    { "source": "comp-injector",      "target": "section-SD-81", "rel": "schematic_page", "context": "SD-81: Injector circuits — C124-1 through C124-6" },
-    { "source": "comp-maf-sensor",    "target": "section-SD-82", "rel": "schematic_page", "context": "SD-82: MAF circuit — signal to C133-3 pin 5" },
-    { "source": "comp-iat-sensor",    "target": "section-SD-82", "rel": "schematic_page", "context": "SD-82: IAT circuit — signal to C133-4" },
-    { "source": "comp-knock-sensor",  "target": "section-SD-82", "rel": "schematic_page", "context": "SD-82: Knock sensor circuits — both banks" },
-    { "source": "comp-vss",           "target": "section-SD-82", "rel": "schematic_page", "context": "SD-82: VSS circuit — C109 to cluster/BCM/ECM" },
-    { "source": "comp-o2-sensor",     "target": "section-SD-79", "rel": "schematic_page", "context": "SD-79: O2 sensors Bank 1 — C116, C145, C147" },
-    { "source": "comp-o2-sensor",     "target": "section-SD-80", "rel": "schematic_page", "context": "SD-80: O2 sensors Bank 2 — C122, C146, C148" },
-
-    { "source": "comp-ect-sensor",    "target": "section-CL-22", "rel": "location_page", "context": "CL-22: Engine harness component locations" },
-    { "source": "comp-tps",           "target": "section-CL-22", "rel": "location_page", "context": "CL-22: Engine harness component locations" },
-    { "source": "comp-ckp-sensor",    "target": "section-CL-22", "rel": "location_page", "context": "CL-22: Engine harness component locations" },
-    { "source": "comp-cmp-sensor",    "target": "section-CL-22", "rel": "location_page", "context": "CL-22: Engine harness component locations" },
-    { "source": "comp-o2-sensor",     "target": "section-CL-22", "rel": "location_page", "context": "CL-22: Front O2 sensor locations" },
-    { "source": "comp-ignition-coil", "target": "section-CL-23", "rel": "location_page", "context": "CL-23: Ignition coil locations" },
-    { "source": "comp-knock-sensor",  "target": "section-CL-23", "rel": "location_page", "context": "CL-23: Knock sensor locations" },
-    { "source": "comp-maf-sensor",    "target": "section-CL-23", "rel": "location_page", "context": "CL-23: MAF sensor location" },
-    { "source": "comp-injector",      "target": "section-CL-23", "rel": "location_page", "context": "CL-23: Injector locations — all 6 cylinders" },
-    { "source": "comp-iat-sensor",    "target": "section-CL-24", "rel": "location_page", "context": "CL-24: IAT sensor location" },
-
-    { "source": "comp-ckp-sensor",    "target": "section-HL-15", "rel": "harness_assignment", "context": "HL-15: Control Harness (4) 2.7L — C113" },
-    { "source": "comp-cmp-sensor",    "target": "section-HL-15", "rel": "harness_assignment", "context": "HL-15: Control Harness (4) 2.7L — C114" },
-    { "source": "comp-ect-sensor",    "target": "section-HL-15", "rel": "harness_assignment", "context": "HL-15: Control Harness (4) 2.7L — C111" },
-    { "source": "comp-tps",           "target": "section-HL-15", "rel": "harness_assignment", "context": "HL-15: Control Harness (4) 2.7L — C112" },
-    { "source": "comp-maf-sensor",    "target": "section-HL-15", "rel": "harness_assignment", "context": "HL-15: Control Harness (4) 2.7L — C125" },
-    { "source": "comp-iat-sensor",    "target": "section-HL-15", "rel": "harness_assignment", "context": "HL-15: Control Harness (4) 2.7L — C127" },
-    { "source": "comp-knock-sensor",  "target": "section-HL-15", "rel": "harness_assignment", "context": "HL-15: Control Harness (4) 2.7L — C123-1/C123-2" },
-    { "source": "comp-vss",           "target": "section-HL-15", "rel": "harness_assignment", "context": "HL-15: Control Harness (4) 2.7L — C109" },
-    { "source": "comp-o2-sensor",     "target": "section-HL-15", "rel": "harness_assignment", "context": "HL-15: Control Harness (4) 2.7L — C116/C122/C145-C148" },
-    { "source": "comp-injector",      "target": "section-HL-15", "rel": "harness_assignment", "context": "HL-15: Control Harness (4) + Injector Harness — C124-1..6" },
-    { "source": "comp-ignition-coil", "target": "section-HL-15", "rel": "harness_assignment", "context": "HL-15: Control Harness (4) 2.7L — C118" },
-
-    { "source": "section-FLA-35", "target": "comp-ect-sensor",   "rel": "circuit_diagram", "context": "FLA-35: ECT sensor circuit diagram, inspection, troubleshooting" },
-    { "source": "section-FLA-40", "target": "comp-maf-sensor",   "rel": "circuit_diagram", "context": "FLA-40: MAF sensor circuit diagram, inspection, troubleshooting" },
-    { "source": "section-FLA-43", "target": "comp-iat-sensor",   "rel": "circuit_diagram", "context": "FLA-43: IAT sensor circuit diagram, inspection, troubleshooting" },
-    { "source": "section-FLA-46", "target": "comp-tps",          "rel": "circuit_diagram", "context": "FLA-46: TPS circuit diagram, 3-pin pinout, inspection" },
-    { "source": "section-FLA-52", "target": "comp-o2-sensor",    "rel": "circuit_diagram", "context": "FLA-52: HO2S circuit diagram, heater circuits, bank ID" },
-    { "source": "section-FLA-55", "target": "comp-cmp-sensor",   "rel": "circuit_diagram", "context": "FLA-55: CMP sensor circuit — Pin 1=Power, Pin 2=Signal, Pin 3=GND" },
-    { "source": "section-FLA-57", "target": "comp-ckp-sensor",   "rel": "circuit_diagram", "context": "FLA-57: CKP sensor circuit — Pin 1=Power, Pin 2=Signal, Pin 3=GND" },
-    { "source": "section-FLA-59", "target": "comp-injector",     "rel": "circuit_diagram", "context": "FLA-59: Fuel injector circuit diagram, resistance check" },
-    { "source": "section-FLA-65", "target": "comp-knock-sensor", "rel": "circuit_diagram", "context": "FLA-65: Knock sensor circuit diagram, signal characteristics" },
-
-    { "source": "section-FLA-57", "target": "comp-ckp-sensor",   "rel": "dtc_for", "context": "FLA-73+: P0335 CKP Circuit Malfunction, P0336 CKP Range/Performance" },
-    { "source": "section-FLA-55", "target": "comp-cmp-sensor",   "rel": "dtc_for", "context": "FLA-73: P0340 CMP Circuit Malfunction, P0341 CMP Range/Performance" },
-    { "source": "section-FLA-35", "target": "comp-ect-sensor",   "rel": "dtc_for", "context": "FLA-73+: P0115/P0117/P0118 ECT Circuit" },
-    { "source": "section-FLA-46", "target": "comp-tps",          "rel": "dtc_for", "context": "FLA-73+: P0120/P0122/P0123 TPS Circuit" },
-    { "source": "section-FLA-40", "target": "comp-maf-sensor",   "rel": "dtc_for", "context": "FLA-73+: P0100-P0103 MAF Circuit" },
-    { "source": "section-FLA-43", "target": "comp-iat-sensor",   "rel": "dtc_for", "context": "FLA-73+: P0110/P0112/P0113 IAT Circuit" },
-    { "source": "section-FLA-65", "target": "comp-knock-sensor", "rel": "dtc_for", "context": "FLA-73+: P0325 KS1, P0330 KS2" }
-
+    {
+      "source": "EMA-index",
+      "target": "manual-ema",
+      "rel": "chapter_of"
+    },
+    {
+      "source": "EMA-2",
+      "target": "manual-ema",
+      "rel": "chapter_of"
+    },
+    {
+      "source": "EMA-3",
+      "target": "manual-ema",
+      "rel": "chapter_of"
+    },
+    {
+      "source": "EMA-4",
+      "target": "manual-ema",
+      "rel": "chapter_of"
+    },
+    {
+      "source": "EMA-5",
+      "target": "manual-ema",
+      "rel": "chapter_of"
+    },
+    {
+      "source": "EMA-20",
+      "target": "manual-ema",
+      "rel": "chapter_of"
+    },
+    {
+      "source": "EMA-69",
+      "target": "manual-ema",
+      "rel": "chapter_of"
+    },
+    {
+      "source": "EMA-72",
+      "target": "manual-ema",
+      "rel": "chapter_of"
+    },
+    {
+      "source": "EMA-73",
+      "target": "manual-ema",
+      "rel": "chapter_of"
+    },
+    {
+      "source": "EE-index",
+      "target": "manual-ee",
+      "rel": "chapter_of"
+    },
+    {
+      "source": "EE-2",
+      "target": "manual-ee",
+      "rel": "chapter_of"
+    },
+    {
+      "source": "EE-14",
+      "target": "manual-ee",
+      "rel": "chapter_of"
+    },
+    {
+      "source": "FLA-index",
+      "target": "manual-fla",
+      "rel": "chapter_of"
+    },
+    {
+      "source": "FLA-2",
+      "target": "manual-fla",
+      "rel": "chapter_of"
+    },
+    {
+      "source": "FLA-3",
+      "target": "manual-fla",
+      "rel": "chapter_of"
+    },
+    {
+      "source": "FLA-4",
+      "target": "manual-fla",
+      "rel": "chapter_of"
+    },
+    {
+      "source": "EMA-EDHA2300",
+      "target": "EMA-20",
+      "rel": "subsection_of"
+    },
+    {
+      "source": "EMA-cylinder-block-topic",
+      "target": "EMA-EDHA2300",
+      "rel": "topic_of"
+    },
+    {
+      "source": "EMA-72",
+      "target": "EMA-69",
+      "rel": "subsection_of"
+    },
+    {
+      "source": "EMA-73",
+      "target": "EMA-69",
+      "rel": "subsection_of"
+    },
+    {
+      "source": "EMA-2",
+      "target": "sv-bore",
+      "rel": "table_specifies"
+    },
+    {
+      "source": "EMA-2",
+      "target": "sv-stroke",
+      "rel": "table_specifies"
+    },
+    {
+      "source": "EMA-2",
+      "target": "sv-compression-ratio",
+      "rel": "table_specifies"
+    },
+    {
+      "source": "EMA-2",
+      "target": "sv-firing-order",
+      "rel": "table_specifies"
+    },
+    {
+      "source": "EMA-2",
+      "target": "sv-cam-height-intake",
+      "rel": "table_specifies"
+    },
+    {
+      "source": "EMA-2",
+      "target": "sv-cam-height-exhaust",
+      "rel": "table_specifies"
+    },
+    {
+      "source": "EMA-2",
+      "target": "sv-cam-journal-diameter",
+      "rel": "table_specifies"
+    },
+    {
+      "source": "EMA-2",
+      "target": "sv-cam-bearing-clearance",
+      "rel": "table_specifies"
+    },
+    {
+      "source": "EMA-3",
+      "target": "sv-valve-spring-free-height",
+      "rel": "table_specifies"
+    },
+    {
+      "source": "EMA-3",
+      "target": "sv-valve-spring-load",
+      "rel": "table_specifies"
+    },
+    {
+      "source": "EMA-3",
+      "target": "sv-valve-spring-squareness",
+      "rel": "table_specifies"
+    },
+    {
+      "source": "EMA-3",
+      "target": "sv-cylinder-bore",
+      "rel": "table_specifies"
+    },
+    {
+      "source": "EMA-3",
+      "target": "sv-piston-diameter",
+      "rel": "table_specifies"
+    },
+    {
+      "source": "EMA-3",
+      "target": "sv-crankshaft-journal-od",
+      "rel": "table_specifies"
+    },
+    {
+      "source": "EMA-3",
+      "target": "sv-crankshaft-pin-od",
+      "rel": "table_specifies"
+    },
+    {
+      "source": "EMA-4",
+      "target": "sv-coolant-capacity",
+      "rel": "table_specifies"
+    },
+    {
+      "source": "EMA-4",
+      "target": "sv-thermostat-open",
+      "rel": "table_specifies"
+    },
+    {
+      "source": "EMA-4",
+      "target": "sv-thermostat-wide-open",
+      "rel": "table_specifies"
+    },
+    {
+      "source": "EE-2",
+      "target": "sv-coil-primary-resistance-v6",
+      "rel": "table_specifies"
+    },
+    {
+      "source": "EE-2",
+      "target": "sv-coil-secondary-resistance-v6",
+      "rel": "table_specifies"
+    },
+    {
+      "source": "EE-2",
+      "target": "sv-alternator-output",
+      "rel": "table_specifies"
+    },
+    {
+      "source": "EE-2",
+      "target": "sv-alternator-regulator-voltage",
+      "rel": "table_specifies"
+    },
+    {
+      "source": "FLA-2",
+      "target": "sv-tps-resistance-v6",
+      "rel": "table_specifies"
+    },
+    {
+      "source": "FLA-2",
+      "target": "sv-tps-voltage-v6",
+      "rel": "table_specifies"
+    },
+    {
+      "source": "FLA-2",
+      "target": "sv-iat-resistance",
+      "rel": "table_specifies"
+    },
+    {
+      "source": "FLA-2",
+      "target": "sv-ect-resistance-20c",
+      "rel": "table_specifies"
+    },
+    {
+      "source": "FLA-2",
+      "target": "sv-ect-resistance-80c",
+      "rel": "table_specifies"
+    },
+    {
+      "source": "FLA-2",
+      "target": "sv-injector-resistance",
+      "rel": "table_specifies"
+    },
+    {
+      "source": "FLA-3",
+      "target": "sv-fuel-pressure-vac-disconnected",
+      "rel": "table_specifies"
+    },
+    {
+      "source": "FLA-3",
+      "target": "sv-fuel-pressure-vac-connected",
+      "rel": "table_specifies"
+    },
+    {
+      "source": "FLA-3",
+      "target": "sv-ignition-timing-v6",
+      "rel": "table_specifies"
+    },
+    {
+      "source": "FLA-3",
+      "target": "sv-idle-speed-v6",
+      "rel": "table_specifies"
+    },
+    {
+      "source": "sv-cylinder-bore",
+      "target": "EMA-cylinder-block-topic",
+      "rel": "procedure_contains"
+    },
+    {
+      "source": "sv-valve-spring-free-height",
+      "target": "EMA-73",
+      "rel": "procedure_contains"
+    },
+    {
+      "source": "sv-valve-spring-load",
+      "target": "EMA-73",
+      "rel": "procedure_contains"
+    },
+    {
+      "source": "sv-valve-spring-squareness",
+      "target": "EMA-73",
+      "rel": "procedure_contains"
+    },
+    {
+      "source": "diag-EMA-72",
+      "target": "comp-valve-spring",
+      "rel": "diagram_illustrates"
+    },
+    {
+      "source": "diag-EMA-72",
+      "target": "EMA-73",
+      "rel": "cross_ref",
+      "note": "Diagram on EMA-72, installation instructions on EMA-73"
+    },
+    {
+      "source": "ts-cam-sprocket",
+      "target": "comp-camshaft",
+      "rel": "torque_for"
+    },
+    {
+      "source": "ts-valve-cover",
+      "target": "manual-ema",
+      "rel": "torque_for",
+      "note": "Cylinder head cover"
+    },
+    {
+      "source": "ts-main-bearing-m10",
+      "target": "comp-cylinder-block",
+      "rel": "torque_for"
+    },
+    {
+      "source": "ts-main-bearing-m8",
+      "target": "comp-cylinder-block",
+      "rel": "torque_for"
+    },
+    {
+      "source": "ts-connecting-rod",
+      "target": "comp-cylinder-block",
+      "rel": "torque_for"
+    },
+    {
+      "source": "ts-ect-sensor",
+      "target": "comp-ect-sensor",
+      "rel": "torque_for"
+    },
+    {
+      "source": "ts-o2-sensor",
+      "target": "comp-o2-sensor",
+      "rel": "torque_for"
+    },
+    {
+      "source": "comp-cmp-sensor",
+      "target": "FLA-2",
+      "rel": "procedure_for",
+      "context": "Type: Hall effect, specs"
+    },
+    {
+      "source": "comp-cmp-sensor",
+      "target": "FLA-20",
+      "rel": "procedure_for",
+      "context": "MFI control system â€” sensor role"
+    },
+    {
+      "source": "comp-ckp-sensor",
+      "target": "FLA-2",
+      "rel": "procedure_for"
+    },
+    {
+      "source": "comp-ect-sensor",
+      "target": "FLA-2",
+      "rel": "procedure_for",
+      "context": "Resistance specs"
+    },
+    {
+      "source": "comp-ect-sensor",
+      "target": "FLA-3",
+      "rel": "procedure_for",
+      "context": "Sealant: LOCTITE 962T"
+    },
+    {
+      "source": "comp-ect-sensor",
+      "target": "FLA-4",
+      "rel": "procedure_for",
+      "context": "Torque: 20â€“40 Nm"
+    },
+    {
+      "source": "comp-iat-sensor",
+      "target": "FLA-2",
+      "rel": "procedure_for"
+    },
+    {
+      "source": "comp-tps",
+      "target": "FLA-2",
+      "rel": "procedure_for"
+    },
+    {
+      "source": "comp-maf-sensor",
+      "target": "FLA-2",
+      "rel": "procedure_for"
+    },
+    {
+      "source": "comp-injector",
+      "target": "FLA-2",
+      "rel": "procedure_for"
+    },
+    {
+      "source": "comp-o2-sensor",
+      "target": "FLA-4",
+      "rel": "procedure_for",
+      "context": "Torque: 40â€“50 Nm"
+    },
+    {
+      "source": "comp-ignition-coil",
+      "target": "EE-14",
+      "rel": "procedure_for"
+    },
+    {
+      "source": "comp-ignition-coil",
+      "target": "EE-2",
+      "rel": "procedure_for",
+      "context": "Resistance specs"
+    },
+    {
+      "source": "comp-alternator",
+      "target": "EE-2",
+      "rel": "procedure_for",
+      "context": "Output and regulator specs"
+    },
+    {
+      "source": "comp-valve-spring",
+      "target": "EMA-72",
+      "rel": "procedure_for",
+      "context": "Diagram"
+    },
+    {
+      "source": "comp-valve-spring",
+      "target": "EMA-73",
+      "rel": "procedure_for",
+      "context": "Installation"
+    },
+    {
+      "source": "comp-valve-spring",
+      "target": "EMA-3",
+      "rel": "procedure_for",
+      "context": "Specs table"
+    },
+    {
+      "source": "comp-camshaft",
+      "target": "EMA-2",
+      "rel": "procedure_for",
+      "context": "Cam height, journal specs"
+    },
+    {
+      "source": "comp-cylinder-block",
+      "target": "EMA-3",
+      "rel": "procedure_for",
+      "context": "Bore, flatness specs"
+    },
+    {
+      "source": "comp-cylinder-block",
+      "target": "EMA-20",
+      "rel": "procedure_for",
+      "context": "Engine block section"
+    },
+    {
+      "source": "sv-cam-height-intake",
+      "target": "comp-camshaft",
+      "rel": "applies_to"
+    },
+    {
+      "source": "sv-cam-height-exhaust",
+      "target": "comp-camshaft",
+      "rel": "applies_to"
+    },
+    {
+      "source": "sv-cam-journal-diameter",
+      "target": "comp-camshaft",
+      "rel": "applies_to"
+    },
+    {
+      "source": "sv-cam-bearing-clearance",
+      "target": "comp-camshaft",
+      "rel": "applies_to"
+    },
+    {
+      "source": "sv-valve-spring-free-height",
+      "target": "comp-valve-spring",
+      "rel": "applies_to"
+    },
+    {
+      "source": "sv-valve-spring-load",
+      "target": "comp-valve-spring",
+      "rel": "applies_to"
+    },
+    {
+      "source": "sv-valve-spring-squareness",
+      "target": "comp-valve-spring",
+      "rel": "applies_to"
+    },
+    {
+      "source": "sv-cylinder-bore",
+      "target": "comp-cylinder-block",
+      "rel": "applies_to"
+    },
+    {
+      "source": "sv-piston-diameter",
+      "target": "comp-cylinder-block",
+      "rel": "applies_to"
+    },
+    {
+      "source": "sv-ect-resistance-20c",
+      "target": "comp-ect-sensor",
+      "rel": "applies_to"
+    },
+    {
+      "source": "sv-ect-resistance-80c",
+      "target": "comp-ect-sensor",
+      "rel": "applies_to"
+    },
+    {
+      "source": "sv-tps-resistance-v6",
+      "target": "comp-tps",
+      "rel": "applies_to"
+    },
+    {
+      "source": "sv-tps-voltage-v6",
+      "target": "comp-tps",
+      "rel": "applies_to"
+    },
+    {
+      "source": "sv-iat-resistance",
+      "target": "comp-iat-sensor",
+      "rel": "applies_to"
+    },
+    {
+      "source": "sv-injector-resistance",
+      "target": "comp-injector",
+      "rel": "applies_to"
+    },
+    {
+      "source": "sv-coil-primary-resistance-v6",
+      "target": "comp-ignition-coil",
+      "rel": "applies_to"
+    },
+    {
+      "source": "sv-coil-secondary-resistance-v6",
+      "target": "comp-ignition-coil",
+      "rel": "applies_to"
+    },
+    {
+      "source": "sv-alternator-output",
+      "target": "comp-alternator",
+      "rel": "applies_to"
+    },
+    {
+      "source": "sv-fuel-pressure-vac-disconnected",
+      "target": "comp-fuel-pressure-regulator",
+      "rel": "applies_to"
+    },
+    {
+      "source": "sv-fuel-pressure-vac-connected",
+      "target": "comp-fuel-pressure-regulator",
+      "rel": "applies_to"
+    },
+    {
+      "source": "comp-ignition-coil",
+      "target": "pn-cop-toyota-90919-A2005",
+      "rel": "has_part",
+      "note": "COP conversion â€” white car only. OEM = wasted spark."
+    },
+    {
+      "source": "comp-ignition-coil",
+      "target": "pn-spark-plug-ngk-v6-unleaded",
+      "rel": "has_part"
+    },
+    {
+      "source": "comp-ignition-coil",
+      "target": "pn-spark-plug-champion-v6-unleaded",
+      "rel": "has_part"
+    },
+    {
+      "source": "section-SD-78",
+      "target": "manual-etm-sd",
+      "rel": "chapter_of"
+    },
+    {
+      "source": "section-SD-79",
+      "target": "manual-etm-sd",
+      "rel": "chapter_of"
+    },
+    {
+      "source": "section-SD-80",
+      "target": "manual-etm-sd",
+      "rel": "chapter_of"
+    },
+    {
+      "source": "section-SD-81",
+      "target": "manual-etm-sd",
+      "rel": "chapter_of"
+    },
+    {
+      "source": "section-SD-82",
+      "target": "manual-etm-sd",
+      "rel": "chapter_of"
+    },
+    {
+      "source": "section-CL-22",
+      "target": "manual-etm-cl",
+      "rel": "chapter_of"
+    },
+    {
+      "source": "section-CL-23",
+      "target": "manual-etm-cl",
+      "rel": "chapter_of"
+    },
+    {
+      "source": "section-CL-24",
+      "target": "manual-etm-cl",
+      "rel": "chapter_of"
+    },
+    {
+      "source": "section-CL-25",
+      "target": "manual-etm-cl",
+      "rel": "chapter_of"
+    },
+    {
+      "source": "section-HL-15",
+      "target": "manual-etm-sd",
+      "rel": "chapter_of",
+      "note": "HL is a separate ETM section but linked here for navigation"
+    },
+    {
+      "source": "section-FLA-35",
+      "target": "manual-fla",
+      "rel": "chapter_of"
+    },
+    {
+      "source": "section-FLA-40",
+      "target": "manual-fla",
+      "rel": "chapter_of"
+    },
+    {
+      "source": "section-FLA-43",
+      "target": "manual-fla",
+      "rel": "chapter_of"
+    },
+    {
+      "source": "section-FLA-46",
+      "target": "manual-fla",
+      "rel": "chapter_of"
+    },
+    {
+      "source": "section-FLA-52",
+      "target": "manual-fla",
+      "rel": "chapter_of"
+    },
+    {
+      "source": "section-FLA-55",
+      "target": "manual-fla",
+      "rel": "chapter_of"
+    },
+    {
+      "source": "section-FLA-57",
+      "target": "manual-fla",
+      "rel": "chapter_of"
+    },
+    {
+      "source": "section-FLA-59",
+      "target": "manual-fla",
+      "rel": "chapter_of"
+    },
+    {
+      "source": "section-FLA-65",
+      "target": "manual-fla",
+      "rel": "chapter_of"
+    },
+    {
+      "source": "comp-ect-sensor",
+      "target": "conn-C111",
+      "rel": "connector_code",
+      "context": "ETM connector C111, 2-pin, CC-17, Control Harness (4)"
+    },
+    {
+      "source": "comp-tps",
+      "target": "conn-C112",
+      "rel": "connector_code",
+      "context": "ETM connector C112, 3-pin, CC-17, Control Harness (4)"
+    },
+    {
+      "source": "comp-ckp-sensor",
+      "target": "conn-C113",
+      "rel": "connector_code",
+      "context": "ETM connector C113, 3-pin, CR03F038, CC-17, Control Harness (4)"
+    },
+    {
+      "source": "comp-cmp-sensor",
+      "target": "conn-C114",
+      "rel": "connector_code",
+      "context": "ETM connector C114, 3-pin, CR03F029, CC-17, Control Harness (4)"
+    },
+    {
+      "source": "comp-vss",
+      "target": "conn-C109",
+      "rel": "connector_code",
+      "context": "ETM connector C109, 3-pin, CC-17, Control Harness (4)"
+    },
+    {
+      "source": "comp-maf-sensor",
+      "target": "conn-C125",
+      "rel": "connector_code",
+      "context": "ETM connector C125, 3-pin, CC-18, Control Harness (4)"
+    },
+    {
+      "source": "comp-iat-sensor",
+      "target": "conn-C127",
+      "rel": "connector_code",
+      "context": "ETM connector C127, 3-pin, CC-18, Control Harness (4)"
+    },
+    {
+      "source": "comp-isc-actuator",
+      "target": "conn-C126",
+      "rel": "connector_code",
+      "context": "ETM connector C126, 2-pin functional, CC-17, Control Harness (4)"
+    },
+    {
+      "source": "comp-knock-sensor",
+      "target": "conn-C123-1",
+      "rel": "connector_code",
+      "context": "ETM connector C123-1, 1-pin, CC-17, Control Harness (4) â€” front bank"
+    },
+    {
+      "source": "comp-knock-sensor",
+      "target": "conn-C123-2",
+      "rel": "connector_code",
+      "context": "ETM connector C123-2, 1-pin, CC-17, Control Harness (4) â€” rear bank"
+    },
+    {
+      "source": "comp-ckp-sensor",
+      "target": "section-SD-78",
+      "rel": "schematic_page",
+      "context": "SD-78: MFI Control System (2.7L) â€” ECM pinout, CKP circuit"
+    },
+    {
+      "source": "comp-cmp-sensor",
+      "target": "section-SD-78",
+      "rel": "schematic_page",
+      "context": "SD-78: MFI Control System (2.7L) â€” CMP circuit, signal (B, 0.5) to C133-4 pin 7, power via C142"
+    },
+    {
+      "source": "comp-tps",
+      "target": "section-SD-78",
+      "rel": "schematic_page",
+      "context": "SD-78: TPS circuit â€” signal (L, 0.5) to C133-3 pin 19"
+    },
+    {
+      "source": "comp-ect-sensor",
+      "target": "section-SD-81",
+      "rel": "schematic_page",
+      "context": "SD-81: ECT circuit â€” signal to C133-4"
+    },
+    {
+      "source": "comp-injector",
+      "target": "section-SD-81",
+      "rel": "schematic_page",
+      "context": "SD-81: Injector circuits â€” C124-1 through C124-6"
+    },
+    {
+      "source": "comp-maf-sensor",
+      "target": "section-SD-82",
+      "rel": "schematic_page",
+      "context": "SD-82: MAF circuit â€” signal to C133-3 pin 5"
+    },
+    {
+      "source": "comp-iat-sensor",
+      "target": "section-SD-82",
+      "rel": "schematic_page",
+      "context": "SD-82: IAT circuit â€” signal to C133-4"
+    },
+    {
+      "source": "comp-knock-sensor",
+      "target": "section-SD-82",
+      "rel": "schematic_page",
+      "context": "SD-82: Knock sensor circuits â€” both banks"
+    },
+    {
+      "source": "comp-vss",
+      "target": "section-SD-82",
+      "rel": "schematic_page",
+      "context": "SD-82: VSS circuit â€” C109 to cluster/BCM/ECM"
+    },
+    {
+      "source": "comp-o2-sensor",
+      "target": "section-SD-79",
+      "rel": "schematic_page",
+      "context": "SD-79: O2 sensors Bank 1 â€” C116, C145, C147"
+    },
+    {
+      "source": "comp-o2-sensor",
+      "target": "section-SD-80",
+      "rel": "schematic_page",
+      "context": "SD-80: O2 sensors Bank 2 â€” C122, C146, C148"
+    },
+    {
+      "source": "comp-ect-sensor",
+      "target": "section-CL-22",
+      "rel": "location_page",
+      "context": "CL-22: Engine harness component locations"
+    },
+    {
+      "source": "comp-tps",
+      "target": "section-CL-22",
+      "rel": "location_page",
+      "context": "CL-22: Engine harness component locations"
+    },
+    {
+      "source": "comp-ckp-sensor",
+      "target": "section-CL-22",
+      "rel": "location_page",
+      "context": "CL-22: Engine harness component locations"
+    },
+    {
+      "source": "comp-cmp-sensor",
+      "target": "section-CL-22",
+      "rel": "location_page",
+      "context": "CL-22: Engine harness component locations"
+    },
+    {
+      "source": "comp-o2-sensor",
+      "target": "section-CL-22",
+      "rel": "location_page",
+      "context": "CL-22: Front O2 sensor locations"
+    },
+    {
+      "source": "comp-ignition-coil",
+      "target": "section-CL-23",
+      "rel": "location_page",
+      "context": "CL-23: Ignition coil locations"
+    },
+    {
+      "source": "comp-knock-sensor",
+      "target": "section-CL-23",
+      "rel": "location_page",
+      "context": "CL-23: Knock sensor locations"
+    },
+    {
+      "source": "comp-maf-sensor",
+      "target": "section-CL-23",
+      "rel": "location_page",
+      "context": "CL-23: MAF sensor location"
+    },
+    {
+      "source": "comp-injector",
+      "target": "section-CL-23",
+      "rel": "location_page",
+      "context": "CL-23: Injector locations â€” all 6 cylinders"
+    },
+    {
+      "source": "comp-iat-sensor",
+      "target": "section-CL-24",
+      "rel": "location_page",
+      "context": "CL-24: IAT sensor location"
+    },
+    {
+      "source": "comp-ckp-sensor",
+      "target": "section-HL-15",
+      "rel": "harness_assignment",
+      "context": "HL-15: Control Harness (4) 2.7L â€” C113"
+    },
+    {
+      "source": "comp-cmp-sensor",
+      "target": "section-HL-15",
+      "rel": "harness_assignment",
+      "context": "HL-15: Control Harness (4) 2.7L â€” C114"
+    },
+    {
+      "source": "comp-ect-sensor",
+      "target": "section-HL-15",
+      "rel": "harness_assignment",
+      "context": "HL-15: Control Harness (4) 2.7L â€” C111"
+    },
+    {
+      "source": "comp-tps",
+      "target": "section-HL-15",
+      "rel": "harness_assignment",
+      "context": "HL-15: Control Harness (4) 2.7L â€” C112"
+    },
+    {
+      "source": "comp-maf-sensor",
+      "target": "section-HL-15",
+      "rel": "harness_assignment",
+      "context": "HL-15: Control Harness (4) 2.7L â€” C125"
+    },
+    {
+      "source": "comp-iat-sensor",
+      "target": "section-HL-15",
+      "rel": "harness_assignment",
+      "context": "HL-15: Control Harness (4) 2.7L â€” C127"
+    },
+    {
+      "source": "comp-knock-sensor",
+      "target": "section-HL-15",
+      "rel": "harness_assignment",
+      "context": "HL-15: Control Harness (4) 2.7L â€” C123-1/C123-2"
+    },
+    {
+      "source": "comp-vss",
+      "target": "section-HL-15",
+      "rel": "harness_assignment",
+      "context": "HL-15: Control Harness (4) 2.7L â€” C109"
+    },
+    {
+      "source": "comp-o2-sensor",
+      "target": "section-HL-15",
+      "rel": "harness_assignment",
+      "context": "HL-15: Control Harness (4) 2.7L â€” C116/C122/C145-C148"
+    },
+    {
+      "source": "comp-injector",
+      "target": "section-HL-15",
+      "rel": "harness_assignment",
+      "context": "HL-15: Control Harness (4) + Injector Harness â€” C124-1..6"
+    },
+    {
+      "source": "comp-ignition-coil",
+      "target": "section-HL-15",
+      "rel": "harness_assignment",
+      "context": "HL-15: Control Harness (4) 2.7L â€” C118"
+    },
+    {
+      "source": "section-FLA-35",
+      "target": "comp-ect-sensor",
+      "rel": "circuit_diagram",
+      "context": "FLA-35: ECT sensor circuit diagram, inspection, troubleshooting"
+    },
+    {
+      "source": "section-FLA-40",
+      "target": "comp-maf-sensor",
+      "rel": "circuit_diagram",
+      "context": "FLA-40: MAF sensor circuit diagram, inspection, troubleshooting"
+    },
+    {
+      "source": "section-FLA-43",
+      "target": "comp-iat-sensor",
+      "rel": "circuit_diagram",
+      "context": "FLA-43: IAT sensor circuit diagram, inspection, troubleshooting"
+    },
+    {
+      "source": "section-FLA-46",
+      "target": "comp-tps",
+      "rel": "circuit_diagram",
+      "context": "FLA-46: TPS circuit diagram, 3-pin pinout, inspection"
+    },
+    {
+      "source": "section-FLA-52",
+      "target": "comp-o2-sensor",
+      "rel": "circuit_diagram",
+      "context": "FLA-52: HO2S circuit diagram, heater circuits, bank ID"
+    },
+    {
+      "source": "section-FLA-55",
+      "target": "comp-cmp-sensor",
+      "rel": "circuit_diagram",
+      "context": "FLA-55: CMP sensor circuit â€” Pin 1=Power, Pin 2=Signal, Pin 3=GND"
+    },
+    {
+      "source": "section-FLA-57",
+      "target": "comp-ckp-sensor",
+      "rel": "circuit_diagram",
+      "context": "FLA-57: CKP sensor circuit â€” Pin 1=Power, Pin 2=Signal, Pin 3=GND"
+    },
+    {
+      "source": "section-FLA-59",
+      "target": "comp-injector",
+      "rel": "circuit_diagram",
+      "context": "FLA-59: Fuel injector circuit diagram, resistance check"
+    },
+    {
+      "source": "section-FLA-65",
+      "target": "comp-knock-sensor",
+      "rel": "circuit_diagram",
+      "context": "FLA-65: Knock sensor circuit diagram, signal characteristics"
+    },
+    {
+      "source": "section-FLA-57",
+      "target": "comp-ckp-sensor",
+      "rel": "dtc_for",
+      "context": "FLA-73+: P0335 CKP Circuit Malfunction, P0336 CKP Range/Performance"
+    },
+    {
+      "source": "section-FLA-55",
+      "target": "comp-cmp-sensor",
+      "rel": "dtc_for",
+      "context": "FLA-73: P0340 CMP Circuit Malfunction, P0341 CMP Range/Performance"
+    },
+    {
+      "source": "section-FLA-35",
+      "target": "comp-ect-sensor",
+      "rel": "dtc_for",
+      "context": "FLA-73+: P0115/P0117/P0118 ECT Circuit"
+    },
+    {
+      "source": "section-FLA-46",
+      "target": "comp-tps",
+      "rel": "dtc_for",
+      "context": "FLA-73+: P0120/P0122/P0123 TPS Circuit"
+    },
+    {
+      "source": "section-FLA-40",
+      "target": "comp-maf-sensor",
+      "rel": "dtc_for",
+      "context": "FLA-73+: P0100-P0103 MAF Circuit"
+    },
+    {
+      "source": "section-FLA-43",
+      "target": "comp-iat-sensor",
+      "rel": "dtc_for",
+      "context": "FLA-73+: P0110/P0112/P0113 IAT Circuit"
+    },
+    {
+      "source": "section-FLA-65",
+      "target": "comp-knock-sensor",
+      "rel": "dtc_for",
+      "context": "FLA-73+: P0325 KS1, P0330 KS2"
+    },
+    {
+      "source": "comp-ecu",
+      "target": "section-SD-78",
+      "rel": "schematic_page",
+      "context": "SD-78: ECM pinout and sensor connections"
+    },
+    {
+      "source": "comp-ecu",
+      "target": "section-CL-25",
+      "rel": "location_page",
+      "context": "CL-25: ECM physical location"
+    },
+    {
+      "source": "comp-throttle-body",
+      "target": "section-CL-22",
+      "rel": "location_page",
+      "context": "CL-22: Throttle body location"
+    },
+    {
+      "source": "comp-fuel-rail",
+      "target": "section-CL-23",
+      "rel": "location_page",
+      "context": "CL-23: Fuel rail location"
+    },
+    {
+      "source": "comp-engine-harness",
+      "target": "section-HL-15",
+      "rel": "harness_assignment",
+      "context": "HL-15: Engine wiring harness routing"
+    },
+    {
+      "source": "comp-control-harness",
+      "target": "section-HL-15",
+      "rel": "harness_assignment",
+      "context": "HL-15: Control wiring harness â€” ECM connectors"
+    }
   ],
-
   "quick_lookup": {
     "chapter_codes": {
-      "GI":  "General Information",
-      "EMA": "Engine Mechanical (V6 Delta 2.7L) — shop manual",
-      "EM":  "Engine Mechanical (I4 Beta 2.0L) — shop manual",
-      "EE":  "Engine Electrical — shop manual (both engines)",
-      "EC":  "Emission Control — shop manual",
-      "FLA": "Fuel System (V6) — shop manual",
-      "FL":  "Fuel System (I4) — shop manual",
-      "CH":  "Clutch System",
-      "TR":  "Transaxle",
-      "DS":  "Driveshaft and Axle",
-      "SS":  "Suspension System",
-      "ST":  "Steering System",
-      "BR":  "Brake System",
-      "BE":  "Body Electrical",
+      "GI": "General Information",
+      "EMA": "Engine Mechanical (V6 Delta 2.7L) â€” shop manual",
+      "EM": "Engine Mechanical (I4 Beta 2.0L) â€” shop manual",
+      "EE": "Engine Electrical â€” shop manual (both engines)",
+      "EC": "Emission Control â€” shop manual",
+      "FLA": "Fuel System (V6) â€” shop manual",
+      "FL": "Fuel System (I4) â€” shop manual",
+      "CH": "Clutch System",
+      "TR": "Transaxle",
+      "DS": "Driveshaft and Axle",
+      "SS": "Suspension System",
+      "ST": "Steering System",
+      "BR": "Brake System",
+      "BE": "Body Electrical",
       "BCM": "Body Control Module",
-      "BD":  "Body Interior and Exterior",
-      "HA":  "HVAC",
-      "RT":  "Restraints",
-      "CC":  "Connector Configurations (ETM)",
-      "CL":  "Component Locations (ETM)",
-      "SD":  "Schematic Diagrams (ETM)",
-      "HL":  "Harness Layouts (ETM)"
+      "BD": "Body Interior and Exterior",
+      "HA": "HVAC",
+      "RT": "Restraints",
+      "CC": "Connector Configurations (ETM)",
+      "CL": "Component Locations (ETM)",
+      "SD": "Schematic Diagrams (ETM)",
+      "HL": "Harness Layouts (ETM)"
     },
     "key_specs_v6": {
       "bore_mm": 86.7,
@@ -1384,12 +3206,12 @@
       "displacement_cc": 2656,
       "compression_ratio": "10:1",
       "firing_order": "1-2-3-4-5-6",
-      "idle_speed_rpm": "750 ± 100 (A/C OFF)",
-      "ignition_timing_btdc": "12° ± 5°",
+      "idle_speed_rpm": "750 Â± 100 (A/C OFF)",
+      "ignition_timing_btdc": "12Â° Â± 5Â°",
       "thermostat_open_c": 82,
       "thermostat_wide_open_c": 95,
       "coolant_capacity_liters": 7.0,
-      "fuel_pressure_static_kpa": "330–350"
+      "fuel_pressure_static_kpa": "330â€“350"
     },
     "build_overlay_refs": [
       {
@@ -1418,8 +3240,19 @@
       "injectors": "comp-injector",
       "ignition_coil": "comp-ignition-coil",
       "alternator": "comp-alternator",
+      "starter": "comp-starter",
       "valve_spring": "comp-valve-spring",
-      "camshaft": "comp-camshaft"
+      "camshaft": "comp-camshaft",
+      "ecu": "comp-ecu",
+      "throttle_body": "comp-throttle-body",
+      "fuel_rail": "comp-fuel-rail",
+      "fuel_pressure_regulator": "comp-fuel-pressure-regulator",
+      "o2_sensor": "comp-o2-sensor",
+      "abs_sensor": "comp-abs-sensor",
+      "engine_harness": "comp-engine-harness",
+      "control_harness": "comp-control-harness",
+      "isc_actuator": "comp-isc-actuator",
+      "vss": "comp-vss"
     }
   }
 }

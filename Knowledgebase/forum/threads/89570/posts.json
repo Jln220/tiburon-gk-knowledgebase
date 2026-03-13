@@ -1,0 +1,37 @@
+[
+  {
+    "post_number": 1,
+    "author": "Raven",
+    "date": "2006-12-04",
+    "is_op": true,
+    "has_images": false,
+    "content": "i have a '03 coupe 2.0 5spd and i want to find the ecu pinout, but i really don't know how to find it, i read a lot on hmaservice.com but didn't find anything that looks like it, only some bcs sh*t. anyone can give me a directlink or maybe a clue how it is called and where to search?",
+    "extraction_notes": "OP is a question asking where to find ECU pinout for 2003 2.0L I4 coupe. No images. Pinout data is in replies (images broken)."
+  },
+  {
+    "post_number": 2,
+    "author": "RedTibby04",
+    "date": "2006-12-04",
+    "is_op": false,
+    "has_images": false,
+    "content": "Its under the ETM in www.hmaservice.com"
+  },
+  {
+    "post_number": 16,
+    "author": "Tuscanirider",
+    "date": "2008-01-22",
+    "is_op": false,
+    "has_images": false,
+    "content": "Can you double check the resource for this pinout clearifications?? some things are missing, something are wrong. I am cross checking with other ECU related information\n\nexamples i figured so far:\n- above has duplicate information for pin nr. 18 (the first one mostly is correct for wheel sensor)\n- pin 10 is not shown, proven by guys who installed NEO to be knock signal\n- pin 66 is not shown, proven by Neo guys to be RPM signal",
+    "extraction_notes": "Corrections to the broken pinout image posted in earlier posts. These are for the I4 2.0L ECU connector."
+  },
+  {
+    "post_number": 19,
+    "author": "Charlie-III",
+    "date": "2024-08-11",
+    "is_op": false,
+    "has_images": false,
+    "content": "Are you running a Haltech, Megasquirt or similar aftermarket ECU? If not, then bypassing the original ECU gains you nothing except a dead car. The ECU runs the engine and related systems.\n\nIf you have a factory security system (not common for US cars), that's a different issue.",
+    "extraction_notes": "Charlie-III responding to post #18 (Bradley Simpson, Aug 2024) who asked about bypassing the ECU. Charlie-III's sig: 'Ex-Wifes car: 2004 Tib GT, 2.7L, 5MT, 204K miles, medium blue, basically stock.' V6 owner confirmed."
+  }
+]

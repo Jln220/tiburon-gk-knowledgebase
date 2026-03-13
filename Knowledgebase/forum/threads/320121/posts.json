@@ -1,0 +1,44 @@
+[
+  {
+    "post_number": 1,
+    "author": "NxTC1275",
+    "date": "2014-06-25",
+    "is_op": true,
+    "has_images": true,
+    "image_descriptions": ["CASCADE emulator screenshot", "breakout box example"],
+    "content": "Hi-Scan Pro for Windows Download (Dealer-Level Diagnostics)\n\nEdited 09/01/2022 to provide new d/l URL, etc. Sorry, embedded images will have to be fixed later.\n\nDownload Hi-Scan Pro with Car Scanner Device Emulator (CASCADE) v0.9.3 Windows PC emulation software (30.4MB Zip) - including the following ROM packs and misc. documentation:\n  ASIAN PACK1.bin\n  ASIAN PACK2.bin\n  EUROPEAN PACK1.bin\n  EUROPEAN PACK2.bin\n  HYUNDAI KIA.bin\n  KOREAN.bin\n  USA AUSTRALIA.bin\n\nWashinglee K+CAN Diagnostic Cable (No longer available)\nhttps://www.aliexpress.us/item/2251832612703671.html (Works! in 2026)\n\nHi-Scan Pro User Manual included. This software is not DEMO, but instead FULLY FUNCTIONAL. No installation required - package (.exe) may be run from a USB drive.\n\nCustom DLC Cable / Breakout Box: allows nearly full control and diagnostics of the ECU, BCM, SRS and ABS modules for a total investment of less than $60. You may build your own cable for working exclusively on Hyundai vehicles.\n\nBig hat-tip to airkix72 for the official Hi-Scan Pro user guide, his testing of various OBD2 cables, breakout-box pin-out and more."
+  },
+  {
+    "post_number": 2,
+    "author": "Charlie-III",
+    "date": "2014-06-25",
+    "is_op": false,
+    "has_images": false,
+    "content": "Nice, I already have a USB to OBDII cable, wonder if it will work. From the one screenshot, do you know if this will clear the dreaded \"SRS light\" when your front buckle switches fail? How much have you used this set-up?"
+  },
+  {
+    "post_number": 3,
+    "author": "NxTC1275",
+    "date": "2014-06-25",
+    "is_op": false,
+    "has_images": false,
+    "content": "Yes, it can. [Clears SRS light confirmed]"
+  },
+  {
+    "post_number": 4,
+    "author": "airkix72",
+    "date": "2014-06-25",
+    "is_op": false,
+    "has_images": false,
+    "content": "Thanks, I'm ordering the cables and breakaway box right now. I will definitely post results. I am gathering all the files related to the Tib and hosting them. If you have a file I don't, please PM me and I will host it. Service manuals, install guides, ECU tuning, Hi-scan Emulator, etc. Updated Oct 21st, 2021."
+  },
+  {
+    "post_number": 25,
+    "author": "airkix72",
+    "date": "2014-07-03",
+    "is_op": false,
+    "has_images": true,
+    "image_descriptions": ["airbag light DTC clear screenshot", "live data screenshot", "injector test screenshot"],
+    "content": "Airbag light DTC clear demonstrated. Some screens were from HD Coupe 02 in Hyundai General. Injector test was awesome - while it was going the car was idling rough, meaning it was working. Tested in Live tests and data (car was running and in some cases moving). I am gathering all the files related to the Tib and hosting them."
+  }
+]
