@@ -1,0 +1,19 @@
+[
+  {
+    "post_number": 1,
+    "author": "faus03",
+    "date": "2008-02-15",
+    "is_op": true,
+    "has_images": true,
+    "image_descriptions": ["Crower E-64012 cam card showing HYUNDAI SPECIAL grind specs"],
+    "content": "In the past few months I can't count how many new cam threads have came up. Here are some threads I have read and found very informative.\n\n[various old forum thread links — cam degreeeing PDF, dyno results with mods, cam cards, Crower .340 cam card]\n\nMember Dingleweeds popular N/A Cams Install DIY Guide\n[link to cardomain.com/ride/309045/11]\nSound and Video clips with and without Crower Cams.\n\nHow camshafts work and their explanation: [old forum link]\nAnother explanation of cam terms: [old forum link]\n\nPlaces to get cams:\n\nCROWER - By far the most common place. Stock cams can be picked up in the for-sale section anywhere from $125-200 and sent to Crower for the regrind for around $400 including shipping both ways (could be a little more or less depending on your location).\nTo send cams: package your cams with a card inside containing Name, Address, Phone number, Car Information (make, model, year, engine), Cam specs. They will contact you when they get them.\nCrower Information: 6180 Business Center Court, San Diego, CA 92154-5604, Phone: 619-661-6477, Fax: 619-661-6466\n\nCRANE - Offers cams that are more aggressive and a little more expensive. Specs from one member: .370 lift, .216 duration, 116 degree separation.\n\nNGM - Cams come reground and ready to install. Stage one will run you around a grand ($1000).\n\nTri-flow cams from Colt Cams - they idle good and gain power throughout the power band. TRI FLOW cams for 2.7 delta:\n  Primary Intake Valve: 218 duration, .365 lift\n  Secondary Intake: 210 duration, .355 lift\n  Exhaust: 218 duration, .365 lift\n\nWebcamshafts.com - did the cams for RIPP. Very expensive $1000+. None of their delta grinds are under .350 lift.\n\ni-intech.com/chain.html - did the grinds for pross, the legendary 'hi-cam' (cost unknown).\n\nMOST COMMON SPEC: .340 LIFT .210 DURATION .110 SEPARATION\n\nOthers have used:\n  .333 Lift 204 degrees duration @.50, 112 degrees separation\n  .349 Lift .210 Duration 110 Separation\n\nBasic cam card: ie what most people have. Thanks to bluegtv6 for the card.\n[IMAGE: Crower Part Number E-64012, Engine Application HYUNDAI SPECIAL\nINTAKE: Duration 264°, Lift .340, Clearance .000 (hot)\nEXHAUST: Duration 264°, Lift .340, Clearance .000 (hot)]"
+  },
+  {
+    "post_number": 17,
+    "author": "myslow1",
+    "date": "2008-02-16",
+    "is_op": false,
+    "has_images": false,
+    "content": "Webcamshafts.com place did the cams for RIPP. They do not need a cam card — you send them your cams with a list of mods and what you want. They have an index with thousands of grinds. Very expensive ($1000+). None of their delta grinds are under .350. If Crower can do some of their grinds it would be PERFECT.\n\nECU wise: something with a higher rev limiter is huge — all of the power is made at higher RPMs, typically fall off around 7600rpm. NGM is working on re-flashes and full re-tunes for FI and NA (rev limiter, fuel, timing, and more).\n\nRecommended mods to get the most out of your cams: Intake, Headers, Exhaust, Stage IV intake manifold, fuel tuner, REAL ECU or NGM's, cam gears, cam sprockets, Stage IV heads, larger injectors (over certain HP range — 290's are fine, may want Maf extender), BBTB, front and rear motor mounts, eventually a clutch and flywheel.\n\nThe .370 cams from Crane are NGM's 'Stage 2' cams. Very aggressive. MUST have supporting mods. Cam sprockets recommended — tightens lobe separation, creates more WHP NA. At least 3 members on NT have them. Can also do other grinds. Total cost $500-600 through them."
+  }
+]

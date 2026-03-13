@@ -1,0 +1,10 @@
+[
+  {
+    "post_number": 1,
+    "author": "Ravencrow",
+    "date": "2007-12-28",
+    "is_op": true,
+    "has_images": false,
+    "content": "Ok, I thought I would list some engine compatibility info. You can use this to find donor cars for blown engines and such.\n\nThe Asian/European market Tiburon 1.6 i4 Alpha engine can be found in the following vehicles:\n  Hyundai Lantra 1996-2000\n  Hyundai Accent 2001-present\n\nThe Tiburon 2.0 i4 Beta II engine can be found in the following vehicles:\n  Hyundai Elantra 2001-present\n  Hyundai Tucson 2005-present\n  Kia Spectra 2005-present\n\nThe Tiburon 2.7 Delta engine (G6BA) can be found in the following vehicles:\n  Hyundai Sonata 2002-2005\n  Hyundai Santa Fe 2001-present\n  Hyundai Tucson 2005-present\n  Kia Optima 2001-present (NOTE: 2006.5 and above is a variant called the 2.7 Mu, which puts out an extra 15 horsepower for the same displacement)\n  Kia Sportage 2005-present\n\nThe Hyundai 3.3L v6 Lambda engine can be found in the following vehicles:\n  (suitable swap for the Tiburon, although not a drop-in mod like the 3.5)\n  Hyundai Sonata 2006-present\n  Hyundai Santa Fe 2007-present\n  Kia Sorento 2007-present\n  Hyundai Azera 2006-present\n\nThe Hyundai 3.5L v6 Sigma engine can be found in the following vehicles:\n  (mostly drop-in for Tiburon, common practice in Korea. See Kspec for more details)\n  Hyundai Santa Fe 2001-2006\n  Hyundai XG350 2002-2005\n  Kia Amanti 2004-present\n  Kia Sedona 1999-2005\n  Kia Sorento 2003-2006\n\n[Post continues with additional notes on side note regarding engine codes and part compatibility — see page 1 posts 2+ for replies]"
+  }
+]

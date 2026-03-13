@@ -67,11 +67,26 @@ This directory is the **single entry point** for any Claude session that needs t
 
 | Status | Count |
 |--------|-------|
-| Indexed in thread-index.json | 7 threads |
-| Scraped (posts.json populated) | 7 (all indexed) |
-| Multi-page threads (page 1 only) | 4 (114386, 74906, 88511, 34325) |
+| Indexed in thread-index.json | 22 threads |
+| Scraped (posts.json populated) | 17 of 22 |
+| Multi-page threads (page 1 only) | multiple (see scrape-log.md) |
 | Extraction tool | `scripts/forum-scraper.js` |
 | Batch pipeline docs | `extraction/forum-extraction-guide.md` § Batch Scraping Pipeline |
+| Run log | `extraction/scrape-log.md` |
+
+### OEM Parts Catalog
+
+| Source | Status | Output |
+|--------|--------|--------|
+| Engine Parts Catalog (48 PDFs) | **Complete** | `common/parts-catalog/engine.md` |
+| Chassis Parts Catalog (25 PDFs) | **Complete** | `common/parts-catalog/chassis.md` |
+| Electrical Parts Catalog (34 PDFs) | **Complete** | `common/parts-catalog/electrical.md` |
+| Raw JSON | **Complete** | `common/parts-catalog/catalog-metadata.json` |
+| Knowledge graph enrichment | **Complete** | `common/tiburon-knowledge-graph.json` |
+
+Extraction tool: `scripts/extract-parts-catalog.py` (pymupdf text extraction)
+Source PDFs: `Sources/OEM Parts Catalogs/` (107 PDFs, 2003 Tiburon GK USA HMA)
+Parts catalog guide: `extraction/parts-catalog-guide.md`
 
 ---
 
@@ -81,7 +96,10 @@ This directory is the **single entry point** for any Claude session that needs t
 |------|---------|
 | `extraction/pdf-extraction-guide.md` | Step-by-step PDF extraction SOP |
 | `extraction/forum-extraction-guide.md` | Forum thread ingestion SOP |
+| `extraction/parts-catalog-guide.md` | Parts catalog ingestion SOP |
+| `extraction/scrape-log.md` | Forum scraper run log |
 | `scripts/extract-pdf.py` | PDF → PNG extraction tool (pymupdf) |
+| `scripts/extract-parts-catalog.py` | Parts catalog PDF → markdown/JSON extractor |
 | `common/vector-store/README.md` | Chunking strategy for semantic search |
 | `forum/README.md` | Forum scraping methodology and challenges |
 | `credibility/README.md` | Source credibility scoring system |
