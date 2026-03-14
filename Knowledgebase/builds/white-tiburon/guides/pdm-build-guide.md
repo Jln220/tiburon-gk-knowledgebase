@@ -32,25 +32,213 @@
 ### Channel Inputs
 
 > **Ch01–Ch08** are analog-capable (0–5V or 0–12V) on PDM Connector B. **Ch09–Ch12** are digital-only on Connector B (Ch09–Ch10 = B21/B22) and Connector A (Ch11–Ch12 = A26/A27). Grouped by physical connector for clean wiring. Speed 1 (B20) and Speed 2 (B19) are dedicated speed inputs — unused since VSS routes to Haltech SPI 1 and PDM reads speed via CAN.
+>
+> **Naming:** Channel names must not duplicate power output names. All switch inputs use the `*SW` suffix (e.g., `StarterSW` not `Starter`).
+>
+> **Work As = Momentary for ALL channels.** Physical toggle switches handle their own latching — Race Studio just reads the current pin state. Using "Toggle" mode would cause the PDM to re-toggle on each switch flip, getting out of sync with the physical switch.
 
-| PDM Input | Pin | Conn | Capability | Assignment | Type | Close To | Pull-Up | Timing | Notes |
-|-----------|-----|------|-----------|------------|------|----------|---------|--------|-------|
-| **IGN Input** | B23 | B | Built-in | Ignition switch | Latching toggle | 12V | No | No | 12V when ON |
-| **Ch01** | B26 | B | Analog/Digital | Starter | Momentary | GND | Yes | No | Button shorts to ground; pull-up holds high |
-| **Ch02** | B27 | B | Analog/Digital | Fan Low | Latching | 12V | No | No | Toggle supplies 12V; forces ~50% duty |
-| **Ch03** | B28 | B | Analog/Digital | Fan High | Latching | 12V | No | No | Toggle supplies 12V; forces 98% duty (overrides low) |
-| **Ch04** | B29 | B | Analog/Digital | Headlights | Latching | 12V | No | No | Phase 2+: toggle supplies 12V |
-| **Ch05** | B30 | B | Analog/Digital | Wiper Low (future) | Latching | 12V | No | No | Reserved for wiper install |
-| **Ch06** | B31 | B | Analog/Digital | Wiper High (future) | Latching | 12V | No | No | Reserved for wiper install |
-| **Ch07** | B32 | B | Analog/Digital | **SPARE** | — | — | — | — | Available for future analog sensor (0–5V) |
-| **Ch08** | B33 | B | Analog/Digital | **SPARE** | — | — | — | — | Available for future analog sensor (0–5V) |
-| **Ch09** | B21 | B | Digital only | Brake light switch | Digital | 12V | No | No | OEM brake switch provides 12V on press |
-| **Ch10** | B22 | B | Digital only | Coolsuit | Latching | 12V | No | No | Toggle supplies 12V |
-| **Ch11** | A26 | A | Digital only | Defogger | Latching | 12V | No | No | Toggle supplies 12V |
-| **Ch12** | A27 | A | Digital only | Horn | Momentary | GND | Yes | No | Phase 2+: button shorts to ground; pull-up holds high |
-| Speed 1 | B20 | B | Speed input | **SPARE** | — | — | — | — | Available for wheel speed / driveshaft sensor |
-| Speed 2 | B19 | B | Speed input | **SPARE** | — | — | — | — | Available |
-| +5V Vref | B16 | B | Reference | Sensor supply | — | — | — | — | For future ratiometric analog sensors |
+#### Quick Reference
+
+| Ch | Pin | Name | Close To | Pull-Up | Physical Switch | Wiring |
+|----|-----|------|----------|---------|-----------------|--------|
+| IGN | B23 | *(built-in)* | VBatt | No | Latching toggle | 12V → switch → B23 |
+| 01 | B26 | `StarterSW` | Ground | ✅ 10kΩ | Momentary button | B26 → switch → GND |
+| 02 | B27 | `FanLoSW` | Ground | ✅ 10kΩ | Latching toggle | B27 → switch → GND |
+| 03 | B28 | `FanHiSW` | Ground | ✅ 10kΩ | Latching toggle | B28 → switch → GND |
+| 04 | B29 | `HeadlightSW` | Ground | ✅ 10kΩ | Latching toggle | B29 → switch → GND |
+| 05 | B30 | `WiperLoSW` | Ground | ✅ 10kΩ | Latching toggle | B30 → switch → GND (future) |
+| 06 | B31 | `WiperHiSW` | Ground | ✅ 10kΩ | Latching toggle | B31 → switch → GND (future) |
+| 07 | B32 | **SPARE** | — | — | — | Available for analog sensor (0–5V) |
+| 08 | B33 | **SPARE** | — | — | — | Available for analog sensor (0–5V) |
+| 09 | B21 | `BrakeSW` | VBatt | No | OEM brake switch | 12V → OEM switch → B21 |
+| 10 | B22 | `CoolsuitSW` | Ground | ✅ 10kΩ | Latching toggle | B22 → switch → GND |
+| 11 | A26 | `DefoggerSW` | Ground | ✅ 10kΩ | Latching toggle | A26 → switch → GND |
+| 12 | A27 | `HornSW` | Ground | ✅ 10kΩ | Momentary button | A27 → switch → GND |
+| Spd1 | B20 | **SPARE** | — | — | — | Speed input — available for wheel speed |
+| Spd2 | B19 | **SPARE** | — | — | — | Speed input — available |
+| Vref | B16 | *(sensor supply)* | — | — | — | +5V for future ratiometric sensors |
+
+> **Close to Ground** = switch shorts pin to chassis ground when ON. Internal 10kΩ pull-up holds pin high (~5V) when switch is open. All custom panel switches use this — one wire to PDM, one wire to common ground bus. Simple.
+>
+> **Close to VBatt** = switch provides 12V to pin when ON. No pull-up needed. Used for OEM brake switch (provides 12V on pedal press) and IGN input (toggle feeds 12V).
+
+#### Race Studio Channel Settings
+
+Open **Configuration → Channels → Ch##** for each channel. All channels use Digital mode.
+
+##### Ch01 — `StarterSW`
+
+| Field | Value |
+|-------|-------|
+| **Name** | `StarterSW` |
+| **Mode** | ◉ Digital |
+| **Function** | Digital Status |
+| **Sensor** | Status |
+| **Sampling Frequency** | 20 Hz |
+| **Log values** | ☐ No |
+| **Active when signal is** | ◉ Close to ground |
+| **Use internal pull up 10kΩ** | ✅ Yes |
+| **Work As** | ◉ Momentary |
+| **Use timing** | ☐ No |
+| **Not active** | Label: `S0`, Value: `0` |
+| **Active** | Label: `S1`, Value: `1` |
+
+##### Ch02 — `FanLoSW`
+
+| Field | Value |
+|-------|-------|
+| **Name** | `FanLoSW` |
+| **Mode** | ◉ Digital |
+| **Function** | Digital Status |
+| **Sensor** | Status |
+| **Sampling Frequency** | 20 Hz |
+| **Log values** | ☐ No |
+| **Active when signal is** | ◉ Close to ground |
+| **Use internal pull up 10kΩ** | ✅ Yes |
+| **Work As** | ◉ Momentary |
+| **Use timing** | ☐ No |
+| **Not active** | Label: `S0`, Value: `0` |
+| **Active** | Label: `S1`, Value: `1` |
+
+##### Ch03 — `FanHiSW`
+
+| Field | Value |
+|-------|-------|
+| **Name** | `FanHiSW` |
+| **Mode** | ◉ Digital |
+| **Function** | Digital Status |
+| **Sensor** | Status |
+| **Sampling Frequency** | 20 Hz |
+| **Log values** | ☐ No |
+| **Active when signal is** | ◉ Close to ground |
+| **Use internal pull up 10kΩ** | ✅ Yes |
+| **Work As** | ◉ Momentary |
+| **Use timing** | ☐ No |
+| **Not active** | Label: `S0`, Value: `0` |
+| **Active** | Label: `S1`, Value: `1` |
+
+##### Ch04 — `HeadlightSW`
+
+| Field | Value |
+|-------|-------|
+| **Name** | `HeadlightSW` |
+| **Mode** | ◉ Digital |
+| **Function** | Digital Status |
+| **Sensor** | Status |
+| **Sampling Frequency** | 20 Hz |
+| **Log values** | ☐ No |
+| **Active when signal is** | ◉ Close to ground |
+| **Use internal pull up 10kΩ** | ✅ Yes |
+| **Work As** | ◉ Momentary |
+| **Use timing** | ☐ No |
+| **Not active** | Label: `S0`, Value: `0` |
+| **Active** | Label: `S1`, Value: `1` |
+
+##### Ch05 — `WiperLoSW` (future)
+
+| Field | Value |
+|-------|-------|
+| **Name** | `WiperLoSW` |
+| **Mode** | ◉ Digital |
+| **Function** | Digital Status |
+| **Sensor** | Status |
+| **Sampling Frequency** | 20 Hz |
+| **Log values** | ☐ No |
+| **Active when signal is** | ◉ Close to ground |
+| **Use internal pull up 10kΩ** | ✅ Yes |
+| **Work As** | ◉ Momentary |
+| **Use timing** | ☐ No |
+| **Not active** | Label: `S0`, Value: `0` |
+| **Active** | Label: `S1`, Value: `1` |
+
+##### Ch06 — `WiperHiSW` (future)
+
+| Field | Value |
+|-------|-------|
+| **Name** | `WiperHiSW` |
+| **Mode** | ◉ Digital |
+| **Function** | Digital Status |
+| **Sensor** | Status |
+| **Sampling Frequency** | 20 Hz |
+| **Log values** | ☐ No |
+| **Active when signal is** | ◉ Close to ground |
+| **Use internal pull up 10kΩ** | ✅ Yes |
+| **Work As** | ◉ Momentary |
+| **Use timing** | ☐ No |
+| **Not active** | Label: `S0`, Value: `0` |
+| **Active** | Label: `S1`, Value: `1` |
+
+##### Ch09 — `BrakeSW`
+
+| Field | Value |
+|-------|-------|
+| **Name** | `BrakeSW` |
+| **Mode** | ◉ Digital |
+| **Function** | Digital Status |
+| **Sensor** | Status |
+| **Sampling Frequency** | 20 Hz |
+| **Log values** | ☐ No |
+| **Active when signal is** | ◉ Close to VBatt |
+| **Use internal pull up 10kΩ** | ☐ No |
+| **Work As** | ◉ Momentary |
+| **Use timing** | ☐ No |
+| **Not active** | Label: `S0`, Value: `0` |
+| **Active** | Label: `S1`, Value: `1` |
+
+> OEM brake light switch provides 12V when pedal is pressed — no pull-up needed.
+
+##### Ch10 — `CoolsuitSW`
+
+| Field | Value |
+|-------|-------|
+| **Name** | `CoolsuitSW` |
+| **Mode** | ◉ Digital |
+| **Function** | Digital Status |
+| **Sensor** | Status |
+| **Sampling Frequency** | 20 Hz |
+| **Log values** | ☐ No |
+| **Active when signal is** | ◉ Close to ground |
+| **Use internal pull up 10kΩ** | ✅ Yes |
+| **Work As** | ◉ Momentary |
+| **Use timing** | ☐ No |
+| **Not active** | Label: `S0`, Value: `0` |
+| **Active** | Label: `S1`, Value: `1` |
+
+##### Ch11 — `DefoggerSW`
+
+| Field | Value |
+|-------|-------|
+| **Name** | `DefoggerSW` |
+| **Mode** | ◉ Digital |
+| **Function** | Digital Status |
+| **Sensor** | Status |
+| **Sampling Frequency** | 20 Hz |
+| **Log values** | ☐ No |
+| **Active when signal is** | ◉ Close to ground |
+| **Use internal pull up 10kΩ** | ✅ Yes |
+| **Work As** | ◉ Momentary |
+| **Use timing** | ☐ No |
+| **Not active** | Label: `S0`, Value: `0` |
+| **Active** | Label: `S1`, Value: `1` |
+
+##### Ch12 — `HornSW`
+
+| Field | Value |
+|-------|-------|
+| **Name** | `HornSW` |
+| **Mode** | ◉ Digital |
+| **Function** | Digital Status |
+| **Sensor** | Status |
+| **Sampling Frequency** | 20 Hz |
+| **Log values** | ☐ No |
+| **Active when signal is** | ◉ Close to ground |
+| **Use internal pull up 10kΩ** | ✅ Yes |
+| **Work As** | ◉ Momentary |
+| **Use timing** | ☐ No |
+| **Not active** | Label: `S0`, Value: `0` |
+| **Active** | Label: `S1`, Value: `1` |
+
+> **Switch panel wiring:** All "Close to ground" switches share a common ground bus on the switch panel. One wire from each switch to the PDM channel pin, one wire to ground. The internal 10kΩ pull-up holds the pin high when the switch is open.
 
 > **VSS routing:** Transaxle VSS (Hall IC, 4 pulses/rev, connector C109) → Haltech SPI 1 (26-pin pin 8). PDM reads vehicle speed from CAN ECU Stream (CC45 ECU VehSpeed). No direct PDM speed input needed.
 > **Connector grouping:** Ch01–Ch10 + IGN + Speed all on Connector B (single harness run). Ch11–Ch12 on Connector A (short jumper wires to switch panel).
@@ -60,6 +248,32 @@
 Configure all of these now — they work across all phases. Open **Configuration → Status Variables → Add Status Variable** in Race Studio 3.
 
 > **Sampling frequency guide:** 10 Hz is correct for anything gating driver actions (starter, fuel pump). Fan/alarm temperature bands can use **1 Hz** — temps change slowly and this reduces CAN bus + logging load.
+
+---
+
+#### `FuelSV` (webinar — keep as reference)
+
+This is the webinar's existing fuel pump variable. **Do not delete** — it works as-is and demonstrates the condition builder pattern. Our `FUEL_PRIME` and `ENGINE_RUNNING` variables below replace its logic with separate prime + run stages.
+
+| Field | Value |
+|-------|-------|
+| **Name** | `FuelSV` |
+| **Sampling Frequency** | 10 Hz |
+| **Log values** | ☐ No |
+| **Work As** | Momentary |
+| **Use timing** | No |
+| **Rest Status** | Label: `OFF`, Value: `0` |
+| **Active Status** | Label: `ON`, Value: `1` |
+| **Condition mode** | Same condition for activation and deactivation |
+
+**Activation condition (compound OR):**
+
+| # | Channel | Operator | Value | TRUE delay | FALSE delay |
+|---|---------|----------|-------|------------|-------------|
+| 1 | `SafeIgnition` [PDM32] | different from | `1` | 5 sec | 0 sec |
+| 2 | OR `ECU RPM` [PDM32-ECU] | greater than | `50` rpm | 0 sec | 0 sec |
+
+> **Webinar logic:** FuelSV activates when SafeIgnition has been OFF for 5 seconds OR RPM > 50. The 5-second delay on SafeIgnition-off provides a brief post-shutdown fuel pump run. We replace this with separate `ENGINE_RUNNING` (RPM-gated with 2s stall protection) and `FUEL_PRIME` (3s one-shot on IGN-on) for cleaner control.
 
 ---
 
@@ -103,7 +317,7 @@ Configure all of these now — they work across all phases. Open **Configuration
 | **Condition mode** | Same condition for activation and deactivation |
 | **Generate Square Wave** | ✅ Yes |
 | **Duration of status On** | `3.0` sec |
-| **Duration of status Off** | `3600` sec |
+| **Duration of status Off** | `999` sec |
 
 **Activation condition:**
 | Field | Value |
@@ -114,7 +328,7 @@ Configure all of these now — they work across all phases. Open **Configuration
 | TRUE after a time of | `0` sec |
 | FALSE after a time of | `0` sec |
 
-> **Why "Generate Square Wave"?** Race Studio requires square wave mode to enable the "Duration of status On" field. Setting ON=3s / OFF=3600s creates an effective one-shot: the pump primes for 3 seconds on SafeIgnition rising edge, then the 1-hour off period means it never re-fires during normal operation. When IGN is cycled off→on, the condition resets and a fresh 3s prime fires. ENGINE_RUNNING takes over pump duty within seconds of start.
+> **Why "Generate Square Wave"?** Race Studio requires square wave mode to enable the "Duration of status On" field. Setting ON=3s / OFF=999s (max) creates an effective one-shot: the pump primes for 3 seconds on SafeIgnition rising edge, then the 16-minute off period means it never re-fires during normal operation. When IGN is cycled off→on, the condition resets and a fresh 3s prime fires. ENGINE_RUNNING takes over pump duty within seconds of start.
 
 ---
 
@@ -136,12 +350,12 @@ Configure all of these now — they work across all phases. Open **Configuration
 |-------|-------|
 | Channel | `ECU CoolantTemp` (Device: Main Device - PDM32, Type: ECU) |
 | Operator | **hysteresis up to down** |
-| Activation Threshold | `170` °F |
-| Off Threshold | `160` °F |
+| Activation Threshold | `160` °F |
+| Off Threshold | `170` °F |
 | TRUE after a time of | `0` sec |
 | FALSE after a time of | `0` sec |
 
-> 170°F thermostat starts opening here — first fan stage. 10°F hysteresis band prevents cycling.
+> **Race Studio hysteresis naming is inverted:** "Activation Threshold" is the LOWER bound (OFF below this falling), "Off Threshold" is the UPPER bound (ON above this rising). So Activation=160 / Off=170 means: fan ON rising above 170°F, OFF falling below 160°F. 170°F = thermostat opening point.
 
 ---
 
@@ -155,8 +369,8 @@ Same structure as FAN_TEMP_25 except:
 | **Sampling Frequency** | **1 Hz** |
 | **Rest/Active** | Label: `OFF`/`F50` |
 | **Operator** | hysteresis up to down |
-| **Activation Threshold** | `180` °F |
-| **Off Threshold** | `170` °F |
+| **Activation Threshold** | `170` °F |
+| **Off Threshold** | `180` °F |
 
 ---
 
@@ -168,8 +382,8 @@ Same structure as FAN_TEMP_25 except:
 | **Sampling Frequency** | **1 Hz** |
 | **Rest/Active** | Label: `OFF`/`F75` |
 | **Operator** | hysteresis up to down |
-| **Activation Threshold** | `190` °F |
-| **Off Threshold** | `180` °F |
+| **Activation Threshold** | `180` °F |
+| **Off Threshold** | `190` °F |
 
 ---
 
@@ -181,8 +395,8 @@ Same structure as FAN_TEMP_25 except:
 | **Sampling Frequency** | **1 Hz** |
 | **Rest/Active** | Label: `OFF`/`F100` |
 | **Operator** | hysteresis up to down |
-| **Activation Threshold** | `200` °F |
-| **Off Threshold** | `190` °F |
+| **Activation Threshold** | `190` °F |
+| **Off Threshold** | `200` °F |
 
 > Thermostat estimated fully open at ~200°F with 170°F unit. Fan at 98% when thermostat is maxed.
 
@@ -843,15 +1057,15 @@ Momentary:
 ```
 
 - [ ] IGN toggle → B23 (already wired in S.2)
-- [ ] Start button → Ch01 (B26), momentary, close to GND, pull-up enabled
-- [ ] Fan low → Ch02 (B27), latching, close to 12V
-- [ ] Fan high → Ch03 (B28), latching, close to 12V
-- [ ] Coolsuit → Ch10 (B22), latching, close to 12V
-- [ ] Defogger → Ch11 (A26), latching, close to 12V
-- [ ] Brake light switch → Ch09 (B21), OEM switch provides 12V on press
+- [ ] Start button → Ch01 (B26), close to GND, pull-up 10kΩ
+- [ ] Fan low → Ch02 (B27), close to GND, pull-up 10kΩ
+- [ ] Fan high → Ch03 (B28), close to GND, pull-up 10kΩ
+- [ ] Coolsuit → Ch10 (B22), close to GND, pull-up 10kΩ
+- [ ] Defogger → Ch11 (A26), close to GND, pull-up 10kΩ
+- [ ] Brake light switch → Ch09 (B21), close to VBatt, no pull-up (OEM switch provides 12V)
 - [ ] Warning LED → LP7 (A20)
 
-> **Phase 2 additions:** Add horn button → Ch12 (A27, close to GND, pull-up enabled) and headlight toggle → Ch04 (B29, close to 12V) when BCM is unplugged.
+> **Phase 2 additions:** Add horn button → Ch12 (A27, close to GND, pull-up 10kΩ) and headlight toggle → Ch04 (B29, close to GND, pull-up 10kΩ) when BCM is unplugged.
 
 #### S.4 First Power-Up
 
@@ -1068,8 +1282,8 @@ Haltech takes over engine control. Stock ECU and BCM are unplugged but left moun
 - [ ] Verify D4 (Lowdoller sensors) connected — oil/coolant/fuel to Haltech AVIs
 
 **Step 7 — Add horn + headlight controls**
-- [ ] Add momentary horn button → Ch12 (A27), close to GND, pull-up enabled
-- [ ] Add latching headlight toggle → Ch04 (B29), close to 12V
+- [ ] Add momentary horn button → Ch12 (A27), close to GND, pull-up 10kΩ
+- [ ] Add latching headlight toggle → Ch04 (B29), close to GND, pull-up 10kΩ
 - [ ] Wire MP3 (A4) → horn (direct to horn or through relay socket)
 - [ ] Wire MP6 (A7) → headlights (direct or through relay socket)
 
@@ -1312,7 +1526,7 @@ Starting point: `Webinar complete.zconfig`. This table maps what was renamed/rep
 | `LowPO2–7` spares | LP | **LP1–LP6** Accessories | Enable |
 | `LowPO8` spare | LP | **LP7 WarningLED** | Enable |
 
-**Webinar variables to delete:** `StarterKYD`, `SirenKYD`, `LightsKYD`, `FanKYD`, `IgnitionKYD`, `ColorsConditionK01–K12`, `BitRed/Green/BlueX15–X1C`. Keep `SafeIgnition`, `FuelSV` (update logic), `momentary_SW` (repurpose → Ch01 START).
+**Webinar variables to delete:** `StarterKYD`, `SirenKYD`, `LightsKYD`, `FanKYD`, `IgnitionKYD`, `ColorsConditionK01–K12`, `BitRed/Green/BlueX15–X1C`. Keep `SafeIgnition`, `FuelSV` (keep as-is, reference example), `momentary_SW` (repurpose → Ch01 START).
 
 ---
 
