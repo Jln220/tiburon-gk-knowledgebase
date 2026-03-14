@@ -18,7 +18,7 @@
 > - `hardware/aim/aim-datahub/aim-datahub.md` — Data Hub star topology
 > - `hardware/aim/aim-gps08/aim-gps08.md` — GPS-08 auto-broadcast behavior
 >
-> **Wiper logic:** Relay-less park design finalized — MP9/MP10/LP9 on Connector B with WIPER_PARKING math channel. Config pre-loaded in RS3. Install when wipers are needed.
+> **Wiper logic:** Relay-less park design finalized — MP9 (G4) / MP10 (G5) / LP9 (G3) on Grey connector with WIPER_PARKING math channel. Config pre-loaded in RS3. Install when wipers are needed.
 
 ---
 
