@@ -174,3 +174,10 @@ Generator S terminal (E61-2) → [W, 0.85S] → [0.5L] → EE01 → BCM-CE
 - A small amount of current provided by both the charge warning lamp and the pre-excitation resistor is used to "excite" the magnetic field windings to start the charging process.
 - With the engine running and the generator charging, terminal L voltage rises and the indicator goes out. If the generator fails to charge, terminal L remains below battery voltage and the indicator remains lit.
 - **V6 build note:** The 2.7L uses generator connectors E61-1 (B+) and E61-2 (L, S) with a 120A fusible link.
+
+### Exciter Wire Identification
+
+The **exciter wire** is the **L (LAMP)** terminal — not the S (SENSING) terminal.
+
+- **L / LAMP** = Exciter wire. Carries initial field current from the ignition switch through Fuse 17 and the pre-excitation resistor to energize the alternator's field coil and initiate charging. This wire also drives the dash charge warning light. On the 2.0L/1.6L it is at connector E20-2; on the 2.7L it is at connector E61-2.
+- **S / SENSING** = Voltage feedback wire. Provides a battery voltage reference to the internal regulator so it can compensate for wiring voltage drop and accurately regulate output. It does not excite the field.
