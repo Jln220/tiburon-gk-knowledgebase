@@ -1,14 +1,14 @@
 # Firewall Pass-Through Wiring Guide
 
-All wires route from the cabin (where the PDM 32 and Haltech Elite 2500 are mounted) through a **single center firewall grommet**, then split into three trunks on the engine-bay side.
+All wires route from the cabin (where the PDM 32 and Haltech Elite 2500 are mounted) through a **single center firewall grommet** to the engine bay. Connector strategy (Deutsch breakouts, splice points, trunk routing) will be determined after sensor placement is finalized in the engine bay.
 
 ---
 
 ## Phase 1 — PDM + Stock ECU, Haltech Sensors Only
 
-Stock ECU still runs the engine. Haltech is powered but only reads the 6 Lowdoller sensor channels. PDM handles power distribution.
+Stock ECU still runs the engine. Haltech is powered but only reads the Lowdoller sensor channels. PDM handles power distribution.
 
-**All PDM power wires for Phase 2 are pulled through the firewall now** so Phase 2 only adds Haltech signal wires. Coil/injector power runs are coiled and capped on the engine-bay side until needed.
+**All PDM power wires for Phase 2 are pulled through the firewall now** so Phase 2 only adds Haltech signal wires. Unused power runs are coiled and capped on the engine-bay side until needed.
 
 ### PDM Power Outputs → Engine Bay
 
@@ -18,23 +18,34 @@ Stock ECU still runs the engine. Haltech is powered but only reads the 6 Lowdoll
 | Fan | HB1 | G1+G2 | 12 AWG | Radiator fan | **Active** |
 | Fuel Pump | HP3 | B24+B25 | 14 AWG | OEM fuse box pin 87 (piggyback) | **Active** |
 | Alt Exciter | LP8 | B21 | 18 AWG | Alternator D+ wire splice | **Active** |
-| Injector Power | MP1 | B2 | 14 AWG | 3-way splice → D2-8 + D3-8 + Haltech 34-pin-26 sense | Coiled & capped |
-| Coil Power | MP2 | B3 | 14 AWG | 2-way splice → D2-7 + D3-7 | Coiled & capped |
+| Injector Power | MP1 | B2 | 14 AWG | Injector rail (both banks) + Haltech 34-pin-26 sense | Coiled & capped |
+| Coil Power | MP2 | B3 | 14 AWG | Coil Pin D bus (both banks) | Coiled & capped |
 | Headlights | MP6 | B7 | 14 AWG | Headlight connector | Coiled & capped |
 | Horn | MP3 | B4 | 16 AWG | Horn | Coiled & capped |
 
-### Haltech Sensor Wiring → Engine Bay (D4 Deutsch 8-pin)
+### Haltech Sensor Wiring → Engine Bay (ECU-Critical)
 
-| Wire | Haltech Pin | AVI | Sensor |
-|------|------------|-----|--------|
-| Fuel pressure signal | 26-pin-13 | AVI1 | Lowdoller 899404 yellow |
-| Fuel temp signal | 34-pin-16 | AVI2 | Lowdoller 899404 green |
-| Oil pressure signal | 34-pin-17 | AVI3 | Lowdoller 899404 yellow |
-| Oil temp signal | 34-pin-2 | AVI4 | Lowdoller 899404 green |
-| Coolant pressure signal | 26-pin-20 | AVI5 | Lowdoller LDM899TP100 yellow |
-| Coolant temp signal | 26-pin-12 | AVI6 | Lowdoller LDM899TP100 green |
-| +5V supply | 34-pin-9 | — | All 3 sensor red wires |
-| Signal GND | 26-pin-14/15/16 | — | All 6 sensor black+white wires |
+These stay on Haltech AVI inputs — the ECU uses them for engine protection and closed-loop strategies. No CAN latency acceptable.
+
+| Wire | Haltech Pin | AVI | Sensor | ECU Use |
+|------|------------|-----|--------|---------|
+| Fuel pressure signal | 26-pin-13 | AVI1 | Lowdoller 899404 yellow | Closed-loop fuel pressure |
+| Oil pressure signal | 34-pin-17 | AVI3 | Lowdoller 899404 yellow | Engine protection (RPM limit/cut) |
+| Oil temp signal | 34-pin-2 | AVI4 | Lowdoller 899404 green | Engine protection (temp limit) |
+| Coolant temp signal | 26-pin-12 | AVI6 | Lowdoller LDM899TP100 green | Engine protection, fan control, cold-start enrichment |
+| +5V supply | 34-pin-9 | — | Haltech sensor red wires | Shared 100mA supply |
+| Signal GND | 26-pin-14/15/16 | — | Haltech sensor black+white wires | Shared signal return |
+
+### PDM Analog Sensor Wiring → Engine Bay (Monitoring Only)
+
+Logging/dash display only — routed to PDM analog inputs. Data reaches the Haltech via CAN if needed.
+
+| Wire | PDM Analog Input | Sensor | Notes |
+|------|-----------------|--------|-------|
+| Fuel temp signal | TBD | Lowdoller 899404 green | Fuel combo sensor, monitoring only |
+| Coolant pressure signal | TBD | Lowdoller LDM899TP100 yellow | Coolant combo sensor, monitoring only |
+| +5V supply | TBD | Sensor red wires | PDM analog supply or shared from Haltech |
+| Signal GND | TBD | Sensor black+white wires | PDM analog ground |
 
 ### Stays Cabin-Side (No Firewall)
 
@@ -47,26 +58,27 @@ Stock ECU still runs the engine. Haltech is powered but only reads the 6 Lowdoll
 
 | Item | Wires |
 |------|-------|
-| PDM power runs — active (starter, fan, fuel pump, alt exciter) | 4 heavy-gauge direct runs |
-| PDM power runs — coiled & capped (inj power, coil power, headlights, horn) | 4 direct runs |
-| D4 Deutsch (Lowdoller sensors) | 8 |
+| PDM power runs — active (starter, fan, fuel pump, alt exciter) | 4 heavy-gauge |
+| PDM power runs — coiled & capped (inj power, coil power, headlights, horn) | 4 |
+| Haltech ECU-critical sensors (fuel press, oil press, oil temp, coolant temp + supply + gnd) | 6 |
+| PDM analog sensors (fuel temp, coolant press + supply + gnd) | 4 |
 | LM2 O2 sensor cable (if installed) | 1 proprietary cable |
-| **Total** | **~16 wires + O2 cable** |
+| **Total** | **~18 wires + O2 cable** |
 
 ---
 
 ## Phase 2 — Full Haltech Running the Engine
 
-All PDM power wires are already through the firewall from Phase 1. This phase adds only the Haltech signal wires: engine sensors, ignition triggers, injector drives, and wideband O2. Uncap the coil/injector power runs and splice them into D2/D3.
+All PDM power wires are already through the firewall from Phase 1. This phase adds only the Haltech signal wires: engine sensors, ignition triggers, injector drives, and wideband O2. Uncap the coil/injector power runs and connect them.
 
-### Engine Sensors (D1 Deutsch 12-pin)
+### Engine Sensors
 
 | Wire | Haltech Pin | Destination |
 |------|------------|-------------|
-| Crank trigger + | 26-pin-1 | CKP sensor (shielded) |
-| Crank trigger − | 26-pin-5 | CKP sensor (shielded) |
-| Cam home + | 26-pin-2 | CMP sensor (shielded) |
-| Cam home − | 26-pin-6 | CMP sensor (shielded) |
+| Crank trigger + | 26-pin-1 | CKP sensor (shielded pair) |
+| Crank trigger − | 26-pin-5 | CKP sensor (shielded pair) |
+| Cam home + | 26-pin-2 | CMP sensor (shielded pair) |
+| Cam home − | 26-pin-6 | CMP sensor (shielded pair) |
 | Knock 1 | 26-pin-21 | Knock sensor, driver block |
 | Knock 2 | 26-pin-22 | Knock sensor, driver block |
 | IAT signal | 26-pin-3 (AVI7) | IAT, back of plenum |
@@ -76,42 +88,41 @@ All PDM power wires are already through the firewall from Phase 1. This phase ad
 | Signal GND | 26-pin-14/15/16 | IAT/MAP return + shield drains |
 | Shield drain | — | Crank/cam shield ties |
 
-### Bank 1 Front — Cyl 1, 3, 5 (D2 Deutsch 8-pin + ground ring)
+### Ignition Triggers (6× COP — Toyota 90919-A2005)
 
-| Wire | Source | Destination |
-|------|--------|-------------|
-| IGN 1 trigger | 34-pin-3 | Coil 1 Pin B |
-| IGN 3 trigger | 34-pin-5 | Coil 3 Pin B |
-| IGN 5 trigger | 34-pin-7 | Coil 5 Pin B |
-| INJ 1 signal | 34-pin-19 | Injector 1 |
-| INJ 3 signal | 34-pin-21 | Injector 3 |
-| INJ 5 signal | 34-pin-27 | Injector 5 |
-| +12V coil power | PDM MP2 (B3) branch | Coil Pin D bus |
-| +12V injector power | PDM MP1 (B2) branch | Injector rail |
-| **GND ring** (outside connector) | 16 AWG | Front head bolt |
+| Wire | Haltech Pin | Destination |
+|------|------------|-------------|
+| IGN 1 | 34-pin-3 | Coil 1 Pin B (Cyl 1, Bank 1 front) |
+| IGN 2 | 34-pin-4 | Coil 2 Pin B (Cyl 2, Bank 2 rear) |
+| IGN 3 | 34-pin-5 | Coil 3 Pin B (Cyl 3, Bank 1 front) |
+| IGN 4 | 34-pin-6 | Coil 4 Pin B (Cyl 4, Bank 2 rear) |
+| IGN 5 | 34-pin-7 | Coil 5 Pin B (Cyl 5, Bank 1 front) |
+| IGN 6 | 34-pin-8 | Coil 6 Pin B (Cyl 6, Bank 2 rear) |
 
-### Bank 2 Rear — Cyl 2, 4, 6 (D3 Deutsch 8-pin + ground ring)
+### Injector Drives (6× sequential)
 
-| Wire | Source | Destination |
-|------|--------|-------------|
-| IGN 2 trigger | 34-pin-4 | Coil 2 Pin B |
-| IGN 4 trigger | 34-pin-6 | Coil 4 Pin B |
-| IGN 6 trigger | 34-pin-8 | Coil 6 Pin B |
-| INJ 2 signal | 34-pin-20 | Injector 2 |
-| INJ 4 signal | 34-pin-22 | Injector 4 |
-| INJ 6 signal | 34-pin-28 | Injector 6 |
-| +12V coil power | PDM MP2 (B3) branch | Coil Pin D bus |
-| +12V injector power | PDM MP1 (B2) branch | Injector rail |
-| **GND ring** (outside connector) | 16 AWG | Rear head bolt |
+| Wire | Haltech Pin | Destination |
+|------|------------|-------------|
+| INJ 1 | 34-pin-19 | Injector 1 (Cyl 1, Bank 1 front) |
+| INJ 2 | 34-pin-20 | Injector 2 (Cyl 2, Bank 2 rear) |
+| INJ 3 | 34-pin-21 | Injector 3 (Cyl 3, Bank 1 front) |
+| INJ 4 | 34-pin-22 | Injector 4 (Cyl 4, Bank 2 rear) |
+| INJ 5 | 34-pin-27 | Injector 5 (Cyl 5, Bank 1 front) |
+| INJ 6 | 34-pin-28 | Injector 6 (Cyl 6, Bank 2 rear) |
 
-### Uncap Phase 1 PDM Runs — Splice into D2/D3
+### Coil & Injector Power (Uncap Phase 1 Runs)
 
 | Wire | Action |
 |------|--------|
-| MP1 (injector power) | Uncap → 3-way splice: D2 pin 8 + D3 pin 8 + Haltech 34-pin-26 sense |
-| MP2 (coil power) | Uncap → 2-way splice: D2 pin 7 + D3 pin 7 |
-| MP6 (headlights) | Uncap → connect to headlight harness |
-| MP3 (horn) | Uncap → connect to horn |
+| MP1 (injector power, 14 AWG) | Uncap → splice to both injector rails + Haltech 34-pin-26 sense |
+| MP2 (coil power, 14 AWG) | Uncap → splice to coil Pin D bus (both banks) |
+
+### Coil & Injector Grounds (Engine-Bay Side Only)
+
+| Wire | Gauge | Destination |
+|------|-------|-------------|
+| Bank 1 coil GND bus | 16 AWG | Ring terminal → front head bolt (Coil 1/3/5 Pin A) |
+| Bank 2 coil GND bus | 16 AWG | Ring terminal → rear head bolt (Coil 2/4/6 Pin A) |
 
 ### Wideband O2
 
@@ -119,54 +130,34 @@ All PDM power wires are already through the firewall from Phase 1. This phase ad
 |------|-------|
 | LM2 O2 sensor cable | Proprietary cable, firewall → exhaust bung |
 
-### Phase 2 New Firewall Wires (Added to Phase 1 Bundle)
+### Uncap Remaining Phase 1 Runs
 
-| Bundle | Wires | Connector |
-|--------|-------|-----------|
-| D1 engine sensors | 12 | 12-pin Deutsch |
-| D2 Bank 1 | 8 + GND ring | 8-pin Deutsch |
-| D3 Bank 2 | 8 + GND ring | 8-pin Deutsch |
-| LM2 O2 cable | 1 | Proprietary |
-| **Phase 2 additions** | **~28 wires + 2 GND rings + O2 cable** | |
+| Wire | Action |
+|------|--------|
+| MP6 (headlights) | Uncap → connect to headlight harness |
+| MP3 (horn) | Uncap → connect to horn |
+
+### Phase 2 New Firewall Wires
+
+| Item | Wires |
+|------|-------|
+| Engine sensors (crank, cam, knock, IAT, MAP, TPS + supply + gnd + shield) | 12 |
+| Ignition triggers (IGN 1–6) | 6 |
+| Injector drives (INJ 1–6) | 6 |
+| LM2 O2 cable | 1 |
+| **Phase 2 additions** | **~24 wires + O2 cable** |
 
 ### Combined Firewall Total (Phase 1 + Phase 2)
 
 | Item | Wires |
 |------|-------|
-| PDM power runs (from Phase 1) | 8 direct runs |
-| D4 Lowdoller sensors (from Phase 1) | 8 |
-| D1 engine sensors | 12 |
-| D2 Bank 1 | 8 + GND ring |
-| D3 Bank 2 | 8 + GND ring |
+| PDM power runs (from Phase 1) | 8 |
+| Haltech ECU-critical sensors (from Phase 1) | 6 |
+| PDM analog sensors (from Phase 1) | 4 |
+| Engine sensors | 12 |
+| Ignition triggers (IGN 1–6) | 6 |
+| Injector drives (INJ 1–6) | 6 |
 | LM2 O2 cable | 1 |
-| **Total** | **~44 wires + 2 GND rings + O2 cable** |
+| **Total** | **~42 wires + O2 cable** |
 
----
-
-## Physical Routing — Engine Bay Side
-
-All wires converge at the center firewall grommet, then split into three trunks:
-
-### Left Trunk (Driver Side)
-- D1 engine sensor cable (12 wires, includes shielded pairs for crank/cam)
-- D3 Bank 2 rear cable (8 wires + 16 AWG ground ring)
-- HP1 starter cable (10 AWG)
-
-### Right Trunk (Passenger Side)
-- D2 Bank 1 front cable (8 wires + 16 AWG ground ring)
-- D4 branch to oil sensor (oil filter area, passenger side)
-- HB1 fan cable (12 AWG)
-- LP8 alt exciter (18 AWG)
-- LM2 O2 sensor cable
-
-### Center Trunk
-- D4 sensor connector (positioned centrally, branches to coolant and fuel sensors)
-- HP3 fuel pump (14 AWG)
-- MP1/MP2 power buses (14 AWG each — coiled & capped in Phase 1, spliced to D2/D3 in Phase 2)
-- MP3 horn + MP6 headlights (coiled & capped in Phase 1, connected in Phase 2)
-- +5V sensor supply trunk
-- Signal GND trunk
-
-### Splice Points (Engine-Bay Side, Before Trunks Diverge)
-- **MP1** → 3-way splice: D2 pin 8 + D3 pin 8 + Haltech 34-pin-26 sense wire
-- **MP2** → 2-way splice: D2 pin 7 + D3 pin 7
+Note: Coil/injector grounds are engine-bay local (ring terminals to head bolts) — they do not pass through the firewall.
