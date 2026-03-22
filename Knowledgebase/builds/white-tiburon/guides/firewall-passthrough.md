@@ -8,14 +8,20 @@ All wires route from the cabin (where the PDM 32 and Haltech Elite 2500 are moun
 
 Stock ECU still runs the engine. Haltech is powered but only reads the 6 Lowdoller sensor channels. PDM handles power distribution.
 
+**All PDM power wires for Phase 2 are pulled through the firewall now** so Phase 2 only adds Haltech signal wires. Coil/injector power runs are coiled and capped on the engine-bay side until needed.
+
 ### PDM Power Outputs → Engine Bay
 
-| Wire | PDM Output | Pin | Gauge | Destination |
-|------|-----------|-----|-------|-------------|
-| Starter | HP1 | B1+B13 | 10 AWG | Starter solenoid S-terminal |
-| Fan | HB1 | G1+G2 | 12 AWG | Radiator fan |
-| Fuel Pump | HP3 | B24+B25 | 14 AWG | OEM fuse box pin 87 (piggyback) |
-| Alt Exciter | LP8 | B21 | 18 AWG | Alternator D+ wire splice |
+| Wire | PDM Output | Pin | Gauge | Destination | Phase 1 State |
+|------|-----------|-----|-------|-------------|---------------|
+| Starter | HP1 | B1+B13 | 10 AWG | Starter solenoid S-terminal | **Active** |
+| Fan | HB1 | G1+G2 | 12 AWG | Radiator fan | **Active** |
+| Fuel Pump | HP3 | B24+B25 | 14 AWG | OEM fuse box pin 87 (piggyback) | **Active** |
+| Alt Exciter | LP8 | B21 | 18 AWG | Alternator D+ wire splice | **Active** |
+| Injector Power | MP1 | B2 | 14 AWG | 3-way splice → D2-8 + D3-8 + Haltech 34-pin-26 sense | Coiled & capped |
+| Coil Power | MP2 | B3 | 14 AWG | 2-way splice → D2-7 + D3-7 | Coiled & capped |
+| Headlights | MP6 | B7 | 14 AWG | Headlight connector | Coiled & capped |
+| Horn | MP3 | B4 | 16 AWG | Horn | Coiled & capped |
 
 ### Haltech Sensor Wiring → Engine Bay (D4 Deutsch 8-pin)
 
@@ -41,16 +47,17 @@ Stock ECU still runs the engine. Haltech is powered but only reads the 6 Lowdoll
 
 | Item | Wires |
 |------|-------|
-| PDM power runs (starter, fan, fuel pump, alt exciter) | 4 heavy-gauge direct runs |
+| PDM power runs — active (starter, fan, fuel pump, alt exciter) | 4 heavy-gauge direct runs |
+| PDM power runs — coiled & capped (inj power, coil power, headlights, horn) | 4 direct runs |
 | D4 Deutsch (Lowdoller sensors) | 8 |
 | LM2 O2 sensor cable (if installed) | 1 proprietary cable |
-| **Total** | **~12 wires + O2 cable** |
+| **Total** | **~16 wires + O2 cable** |
 
 ---
 
 ## Phase 2 — Full Haltech Running the Engine
 
-Everything from Phase 1, plus all ignition, injection, engine sensors, and wideband O2.
+All PDM power wires are already through the firewall from Phase 1. This phase adds only the Haltech signal wires: engine sensors, ignition triggers, injector drives, and wideband O2. Uncap the coil/injector power runs and splice them into D2/D3.
 
 ### Engine Sensors (D1 Deutsch 12-pin)
 
@@ -97,12 +104,14 @@ Everything from Phase 1, plus all ignition, injection, engine sensors, and wideb
 | +12V injector power | PDM MP1 (B2) branch | Injector rail |
 | **GND ring** (outside connector) | 16 AWG | Rear head bolt |
 
-### PDM Power for Coils & Injectors
+### Uncap Phase 1 PDM Runs — Splice into D2/D3
 
-| Wire | PDM Output | Pin | Gauge | Notes |
-|------|-----------|-----|-------|-------|
-| Injector power | MP1 | B2 | 14 AWG | 3-way splice engine-bay side → D2-8 + D3-8 + Haltech 34-pin-26 sense |
-| Coil power | MP2 | B3 | 14 AWG | 2-way splice engine-bay side → D2-7 + D3-7 |
+| Wire | Action |
+|------|--------|
+| MP1 (injector power) | Uncap → 3-way splice: D2 pin 8 + D3 pin 8 + Haltech 34-pin-26 sense |
+| MP2 (coil power) | Uncap → 2-way splice: D2 pin 7 + D3 pin 7 |
+| MP6 (headlights) | Uncap → connect to headlight harness |
+| MP3 (horn) | Uncap → connect to horn |
 
 ### Wideband O2
 
@@ -110,26 +119,27 @@ Everything from Phase 1, plus all ignition, injection, engine sensors, and wideb
 |------|-------|
 | LM2 O2 sensor cable | Proprietary cable, firewall → exhaust bung |
 
-### Future Additions (Headlights / Horn)
-
-| Wire | PDM Output | Pin | Gauge |
-|------|-----------|-----|-------|
-| Headlights | MP6 | B7 | 14 AWG |
-| Horn | MP3 | B4 | 16 AWG |
-
-### Phase 2 Firewall Wire Count
+### Phase 2 New Firewall Wires (Added to Phase 1 Bundle)
 
 | Bundle | Wires | Connector |
 |--------|-------|-----------|
-| Phase 1 carry-over | 12 | D4 + 4 direct runs |
 | D1 engine sensors | 12 | 12-pin Deutsch |
 | D2 Bank 1 | 8 + GND ring | 8-pin Deutsch |
 | D3 Bank 2 | 8 + GND ring | 8-pin Deutsch |
-| MP1 injector power | 1 (14 AWG) | Direct run |
-| MP2 coil power | 1 (14 AWG) | Direct run |
 | LM2 O2 cable | 1 | Proprietary |
-| Headlights + Horn | 2 | Direct run |
-| **Total** | **~44 wires + 2 GND rings + O2 cable** | |
+| **Phase 2 additions** | **~28 wires + 2 GND rings + O2 cable** | |
+
+### Combined Firewall Total (Phase 1 + Phase 2)
+
+| Item | Wires |
+|------|-------|
+| PDM power runs (from Phase 1) | 8 direct runs |
+| D4 Lowdoller sensors (from Phase 1) | 8 |
+| D1 engine sensors | 12 |
+| D2 Bank 1 | 8 + GND ring |
+| D3 Bank 2 | 8 + GND ring |
+| LM2 O2 cable | 1 |
+| **Total** | **~44 wires + 2 GND rings + O2 cable** |
 
 ---
 
@@ -152,8 +162,8 @@ All wires converge at the center firewall grommet, then split into three trunks:
 ### Center Trunk
 - D4 sensor connector (positioned centrally, branches to coolant and fuel sensors)
 - HP3 fuel pump (14 AWG)
-- MP1/MP2 power buses (14 AWG each, splice to D2/D3 before trunk split)
-- MP3 horn + MP6 headlights (future)
+- MP1/MP2 power buses (14 AWG each — coiled & capped in Phase 1, spliced to D2/D3 in Phase 2)
+- MP3 horn + MP6 headlights (coiled & capped in Phase 1, connected in Phase 2)
 - +5V sensor supply trunk
 - Signal GND trunk
 
