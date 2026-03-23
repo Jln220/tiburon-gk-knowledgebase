@@ -34,7 +34,93 @@
 | Kill switch | Mounted left of steering wheel, 2 AWG cable run |
 | Seat panel | Needs welding (~3 hrs) — **must do before electronics install** |
 
-**Removed from this weekend:** Suspension (coilovers → fab shop Wednesday), front brakes + bearings (fab shop).
+**Removed from this weekend:** Coilovers → fab shop Wednesday, front bearings → fab shop.
+
+---
+
+## PRE-PDM — Suspension & Brakes (Before Electronics Work)
+
+> **Do all suspension and brake work before starting PDM install.** These tasks involve torque wrenches, impact guns, and crawling under the car — incompatible with exposed wiring and electronics.
+>
+> **Reference files:**
+> - Front suspension: `common/shop-manual/suspension-system/front-suspension.md`
+> - Rear suspension: `common/shop-manual/suspension-system/rear-suspension.md`
+> - Brake system: `common/shop-manual/brake-system/service-brake.md`
+
+### P.1 Rear Sway Bar — Adjust Links (Zero Preload)
+
+Broken end link tab on rear strut caused a disconnected sway bar → major understeer. With the tab repaired, set link length so the sway bar has zero preload at ride height.
+
+- [ ] Car on ground, at ride height, on flat surface
+- [ ] Measure center-to-center distance between sway bar arm hole and strut tab hole (both sides)
+- [ ] Set adjustable end links to measured length — links must be **vertical** at ride height
+- [ ] Install rear sway bar links — hand-tight first, then torque
+- [ ] Torque: **35–45 Nm (26–33 lb·ft)** — stabilizer link mounting
+- [ ] Verify: no preload — bar should sit in neutral position with links vertical, no tension pulling the bar left or right
+
+### P.2 Torque Check — Rear Suspension
+
+Check all rear suspension fasteners. Components to inspect:
+
+- [ ] Trailing arm bracket mounting — **40–50 Nm (29–37 lb·ft)**
+- [ ] Trailing arm to body — **100–120 Nm (74–88 lb·ft)**
+- [ ] Front lateral arm mounting — **160–180 Nm (118–133 lb·ft)**
+- [ ] Rear lateral arm mounting — **160–180 Nm (118–133 lb·ft)**
+- [ ] Rear crossmember mounting — **100–130 Nm (74–88 lb·ft)**
+- [ ] Strut to carrier mounting — **110–130 Nm (81–96 lb·ft)**
+- [ ] Strut upper mounting nuts — **30–40 Nm (22–29 lb·ft)**
+- [ ] Stabilizer bar bracket — **17–26 Nm (13–19 lb·ft)**
+- [ ] Stabilizer link mounting (just installed) — **35–45 Nm (26–33 lb·ft)**
+
+### P.3 Front Sway Bar Links — Set & Install
+
+Same procedure as rear — zero preload, links vertical at ride height.
+
+- [ ] Car on ground at ride height
+- [ ] Measure center-to-center distance at front sway bar arm hole to strut link tab
+- [ ] Set adjustable end links to measured length
+- [ ] Install front sway bar links
+- [ ] Torque stabilizer link nut: **35–45 Nm (29–33 lb·ft)**
+- [ ] Torque stabilizer bracket bolts: **30–45 Nm (22–33 lb·ft)**
+
+### P.4 Front Strut Bolts — Replace Camber Bolts with Standard Bolts
+
+Remove aftermarket camber bolts and replace with OEM-spec standard strut-to-knuckle bolts + Nordlock washers. Camber bolts are unnecessary — alignment will be set with standard geometry.
+
+- [ ] Support knuckle so it doesn't drop when bolts are removed
+- [ ] Remove camber bolts (one at a time to maintain alignment)
+- [ ] Install standard strut-to-knuckle bolts with Nordlock washers
+- [ ] Torque strut-to-knuckle bolts: **140–160 Nm (104–118 lb·ft)**
+
+> **Note:** Alignment will need to be checked after this change. Camber will return to factory spec range.
+
+### P.5 Torque Check — Front Suspension
+
+- [ ] Strut upper mounting nuts — **40–50 Nm (29–37 lb·ft)**
+- [ ] Strut-to-knuckle bolts (just replaced) — **140–160 Nm (104–118 lb·ft)**
+- [ ] Lower arm ball joint nut — **60–72 Nm (43–52 lb·ft)**
+- [ ] Lower arm bushing (A) — **130–150 Nm (96–111 lb·ft)**
+- [ ] Lower arm bushing (G) — **130–150 Nm (96–111 lb·ft)**
+- [ ] Stabilizer link nut (just installed) — **35–45 Nm (29–33 lb·ft)**
+- [ ] Stabilizer bracket bolt — **30–45 Nm (22–33 lb·ft)**
+
+### P.6 Front Brake Pads
+
+- [ ] Remove front caliper sliding pins — note: **do not remove carrier bolts** (64–74 Nm) unless replacing rotors
+- [ ] Compress caliper piston (open bleeder to avoid pushing fluid back to master)
+- [ ] Install new front pads — minimum thickness 11 mm new (wear limit 2 mm)
+- [ ] Reinstall caliper — torque sliding pin: **34–44 Nm (26–33 lb·ft)**
+- [ ] Front disc spec: 280 mm O.D., 26 mm thickness (minimum 24 mm)
+
+### P.7 Bleed Brakes
+
+Bleed after pad install (especially if bleeders were opened during piston compression).
+
+- [ ] Bleed order: **RR → LR → RF → LF** (farthest from master cylinder first)
+- [ ] Torque bleeder screws: snug only (~8–12 Nm), do not overtighten
+- [ ] Firm pedal before moving the car — pump 10–15 times to seat pads
+- [ ] Torque flare nuts if any lines were disturbed: **13–17 Nm (9–12 lb·ft)**
+- [ ] Wheel nuts after all work complete: **90–110 Nm (67–82 lb·ft)**
 
 ---
 
