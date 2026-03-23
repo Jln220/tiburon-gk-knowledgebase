@@ -43,6 +43,42 @@
 | 33 | G/BR | Stepper 1 P3 / DPO | Hi/Lo side driver, 1A max |
 | 34 | G/R | Stepper 1 P4 / DPO | Hi/Lo side driver, 1A max |
 
+## White Tiburon Assignments
+
+| Pin | Wire | Assignment | Notes |
+|-----|------|------------|-------|
+| 2 | O/Y | AVI 4 — Oil temp | Lowdoller 899404 green wire |
+| 3 | Y/B | IGN 1 | COP Cyl 1 — Toyota 90919-A2005 |
+| 4 | Y/R | IGN 2 | COP Cyl 2 |
+| 5 | Y/O | IGN 3 | COP Cyl 3 |
+| 6 | Y/G | IGN 4 | COP Cyl 4 |
+| 7 | Y/BR | IGN 5 | COP Cyl 5 |
+| 8 | Y/L | IGN 6 | COP Cyl 6 |
+| 9 | O | +5V sensor supply | All Lowdoller red wires (100 mA max) |
+| 10 | B | Battery ground | Battery negative terminal |
+| 11 | B | Battery ground | Battery negative terminal |
+| 12 | O/W | +8V sensor supply | MAP sensor power (1A max) |
+| 13 | P | 12V ignition input | Splice from PDM ignition switch (Grey B23) |
+| 14 | W | AVI 10 — TPS | Throttle body TPS signal |
+| 15 | Y | AVI 9 — Crankcase pressure | Vacuum tee sensor (future) |
+| 16 | O/B | AVI 2 — Fuel temp | Lowdoller 899404 green wire |
+| 17 | O/R | AVI 3 — Oil pressure | Lowdoller 899404 yellow wire |
+| 18 | V/B | DPO 1 — Tacho output | OEM cluster tacho signal |
+| 19 | L | INJ 1 | Injector 1 (cyl 1) |
+| 20 | L/B | INJ 2 | Injector 2 (cyl 2) |
+| 21 | L/BR | INJ 3 | Injector 3 (cyl 3) |
+| 22 | L/R | INJ 4 | Injector 4 (cyl 4) |
+| 24 | B/Y | DPO 5 — Fuel pump trigger | PDM channel input (HP3 prime/RPM logic) |
+| 26 | R/L | Injector power input | Splice from PDM MP1 (A2) — 12V required |
+| 27 | L/O | INJ 5 | Injector 5 (cyl 5) |
+| 28 | L/Y | INJ 6 | Injector 6 (cyl 6) |
+| 31 | G | Stepper 1 P1 — IACV phase A | IACV stepper motor (35150-33010) via D5 |
+| 32 | G/B | Stepper 1 P2 — IACV phase B | IACV stepper motor via D5 |
+| 33 | G/BR | Stepper 1 P3 — IACV phase C | IACV stepper motor via D5 |
+| 34 | G/R | Stepper 1 P4 — IACV phase D | IACV stepper motor via D5 |
+
+---
+
 ## Key Notes
 
 **Sensor Supplies — Two Different Voltages:**

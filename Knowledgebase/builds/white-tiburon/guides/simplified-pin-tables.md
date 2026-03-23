@@ -8,7 +8,7 @@
 
 ---
 
-## 1. Haltech 34-Pin Connector (A) — 25 of 34 pins used
+## 1. Haltech 34-Pin Connector (A) — 29 of 34 pins used
 
 | Pin | Wire | Function | Destination |
 |-----|------|----------|-------------|
@@ -37,8 +37,12 @@
 | **26** | **R/L** | **Injector power input** | Splice from PDM MP1 (A2) — 12V required |
 | 27 | L/O | INJ 5 | D2 pin 6 → Injector 5 (cyl 5) |
 | 28 | L/Y | INJ 6 | D3 pin 6 → Injector 6 (cyl 6) |
+| 31 | G | Stepper 1 P1 — IACV phase A | D5 pin 1 → IACV stepper (35150-33010) |
+| 32 | G/B | Stepper 1 P2 — IACV phase B | D5 pin 2 → IACV stepper |
+| 33 | G/BR | Stepper 1 P3 — IACV phase C | D5 pin 3 → IACV stepper |
+| 34 | G/R | Stepper 1 P4 — IACV phase D | D5 pin 4 → IACV stepper |
 
-**Unused (leave empty):** 1, 23, 25, 29, 30, 31, 32, 33, 34
+**Unused (leave empty):** 1, 23, 25, 29, 30
 
 ---
 
@@ -148,13 +152,13 @@ Half-bridge outputs, wiper outputs, channel inputs 1–10, ignition input, and g
 
 | Connector | Total Pins | Pins Used | Empty |
 |-----------|-----------|-----------|-------|
-| Haltech 34-pin (A) | 34 | 25 | 9 |
+| Haltech 34-pin (A) | 34 | 29 | 5 |
 | Haltech 26-pin (B) | 26 | 18 | 8 |
 | PDM Conn A (Black) | 35 | 27 (+2 future) | 6 |
 | PDM Conn B (Grey) | 35 | 18 | 17 |
-| **Totals** | **130** | **88** | **40** |
+| **Totals** | **130** | **92** | **36** |
 
-> **34% of pins are empty.** That's your harness simplification — 40 wires you don't need to run.
+> **28% of pins are empty.** That's your harness simplification — 36 wires you don't need to run.
 
 ---
 

@@ -102,6 +102,24 @@ See `cars/cop-ignition.md` for full coil pinout (A/B/C/D), wiring diagram, and p
 
 ---
 
+## IACV Stepper Motor (Idle Air Control Valve)
+
+**Part:** Hyundai 35150-33010 / Kefico 9540930002 — 4-phase stepper motor on throttle body.
+**Haltech pins:** 34-pin pins 31–34 (Stepper 1 P1–P4) — Hi/Lo side drivers, 1A max per phase.
+**Deutsch:** D5 4-pin, located near throttle body / IACV (engine-mounted — disconnects for swap).
+**NSP setting:** Idle control mode = Stepper motor, 4-wire. Configure step rate, warm-up steps, and target RPM in Haltech NSP.
+
+| Signal | Haltech Pin | Wire Color | D5 Pin | Notes |
+|--------|-------------|------------|--------|-------|
+| Stepper phase A | 34-pin pin 31 | G | 1 | 🔲 IACV coil A+ |
+| Stepper phase B | 34-pin pin 32 | G/B | 2 | 🔲 IACV coil A− |
+| Stepper phase C | 34-pin pin 33 | G/BR | 3 | 🔲 IACV coil B+ |
+| Stepper phase D | 34-pin pin 34 | G/R | 4 | 🔲 IACV coil B− |
+
+> **OEM reference:** Stock ECM (5WY 5, C133-3) drives the ISC on pins 45–47 + 52. The Haltech Stepper 1 output replaces this. Confirm phase order during bench test — if idle hunts, swap phases A/B or C/D in NSP.
+
+---
+
 ## Power & ECU Supply
 
 | Signal | Source | Haltech Pin | Notes |

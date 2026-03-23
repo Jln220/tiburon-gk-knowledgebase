@@ -2,7 +2,7 @@
 ## Deutsch Connector Architecture for Engine Swap + Serviceability
 
 **Car:** White 2003 Tiburon GK | Haltech Elite 2500 + AIM PDM 32
-**Goal:** Every engine-mounted connection unplugs with a Deutsch connector. Pull 4 connectors + 2 ground ring terminals + unbolt starter = engine is free.
+**Goal:** Every engine-mounted connection unplugs with a Deutsch connector. Pull 5 connectors + 2 ground ring terminals + unbolt starter = engine is free.
 
 > **Connector stock:** 12-pin, 8-pin, 4-pin, 3-pin Deutsch DT series
 > **Injector connectors:** New pigtails (pre-terminated, short leads)
@@ -40,15 +40,15 @@
                     │ [D1] 12-pin      │    │ Fuse box spades │   │ [D4] 8-pin      │
                     │ Engine Sensors   │    │ (Phase 1)       │   │ Lowdoller       │
                     │                  │    │ HP3, MP1/MP2    │   │ Sensors (all 3) │
-                    │ [D3] 8-pin      │    │                 │   │                 │
-                    │ Bank 2 Rear     │    │ Horn MP3 (Ph2+) │   │ LP8 Alt Exciter │
-                    │ (Cyl 2,4,6)     │    │ Lights MP6(Ph2+)│   │                 │
-                    │                  │    │                 │   │ [D2] 8-pin      │
-                    │ Starter (direct) │    │                 │   │ Bank 1 Front    │
-                    └──────────────────┘    │                 │   │ (Cyl 1,3,5)     │
-                                           │                 │   │                 │
-                                           │                 │   │ HB1 Fan         │
-                                           └─────────────────┘   └─────────────────┘
+                    │ [D5] 4-pin      │    │                 │   │                 │
+                    │ IACV Stepper    │    │ Horn MP3 (Ph2+) │   │ LP8 Alt Exciter │
+                    │                  │    │ Lights MP6(Ph2+)│   │                 │
+                    │ [D3] 8-pin      │    │                 │   │ [D2] 8-pin      │
+                    │ Bank 2 Rear     │    │                 │   │ Bank 1 Front    │
+                    │ (Cyl 2,4,6)     │    │                 │   │ (Cyl 1,3,5)     │
+                    │                  │    │                 │   │                 │
+                    │ Starter (direct) │    │                 │   │ HB1 Fan         │
+                    └──────────────────┘    └─────────────────┘   └─────────────────┘
 ```
 
 > **Phase structure:** See `guides/pdm-build-guide.md` for the 3-phase build plan. Phase 1 = stock ECU + fuse box spades. Phase 2 = Haltech + Deutsch connectors. Phase 3 = CAN keypad + OE removal.
@@ -64,10 +64,11 @@
 | **D2** | 8-pin | Front bank (cyl 1,3,5), passenger side | Bank 1: IGN 1/3/5 + INJ 1/3/5 + coil power + injector power | Engine swap |
 | **D3** | 8-pin | Rear bank (cyl 2,4,6), driver side near firewall | Bank 2: IGN 2/4/6 + INJ 2/4/6 + coil power + injector power | Engine swap |
 | **D4** | 8-pin | Convenient central point in engine bay | All 3 Lowdoller sensors (oil/coolant/fuel) | Sensor service |
+| **D5** | 4-pin | Near throttle body / IACV | IACV stepper motor (4 phases) | Engine swap |
 
-**Engine swap disconnect sequence:** Unplug D1 + D2 + D3 + D4 (if oil sensor goes with engine), unbolt 2× bank ground ring terminals (front head bolt + rear head bolt), unbolt starter ring terminal, disconnect alternator B+. Engine is free.
+**Engine swap disconnect sequence:** Unplug D1 + D2 + D3 + D4 (if oil sensor goes with engine) + D5, unbolt 2× bank ground ring terminals (front head bolt + rear head bolt), unbolt starter ring terminal, disconnect alternator B+. Engine is free.
 
-**Total Deutsch connectors:** 1× 12-pin, 3× 8-pin. Each bank also has a separate 16 AWG ground wire with ring terminal to its head bolt.
+**Total Deutsch connectors:** 1× 12-pin, 3× 8-pin, 1× 4-pin. Each bank also has a separate 16 AWG ground wire with ring terminal to its head bolt.
 
 ---
 
@@ -228,6 +229,28 @@ Fuel sensor (return line tap)                     │
 
 ---
 
+## D5 — IACV Stepper Motor (4-Pin Deutsch)
+
+**Location:** Near throttle body / IACV valve, driver side upper — close to D1.
+**Chassis side:** 4 wires from Haltech 34-pin pins 31–34 through firewall.
+**Engine side:** Short pigtail to IACV connector (OEM connector or direct crimp).
+**Part:** Hyundai 35150-33010 / Kefico 9540930002 — 4-phase stepper motor.
+
+| Pin | Signal | Haltech Pin | Wire | Engine-Side Destination |
+|-----|--------|-------------|------|------------------------|
+| 1 | Stepper 1 P1 — phase A | 34-pin pin 31 | G | IACV stepper coil A+ |
+| 2 | Stepper 1 P2 — phase B | 34-pin pin 32 | G/B | IACV stepper coil A− |
+| 3 | Stepper 1 P3 — phase C | 34-pin pin 33 | G/BR | IACV stepper coil B+ |
+| 4 | Stepper 1 P4 — phase D | 34-pin pin 34 | G/R | IACV stepper coil B− |
+
+**Notes:**
+- Haltech Stepper 1 outputs are hi/lo side drivers (1A max per phase) — well within Deutsch DT pin ratings.
+- IACV is engine-mounted (bolted to throttle body), so it goes with the engine on swap. D5 provides the disconnect point.
+- Phase order (A+/A−/B+/B−) must be confirmed during commissioning. If idle hunts or stepper buzzes, swap phases in Haltech NSP or swap pin pairs at D5.
+- Route D5 cable alongside D1 in the LEFT trunk — both terminate in the same area (driver side upper engine bay).
+
+---
+
 ## +5V Sensor Supply Bus
 
 All Lowdoller sensor +5V (red wires) and the TPS +5V share a single supply from Haltech 34-pin pin 9 (O wire, 100 mA max).
@@ -365,6 +388,7 @@ All harnesses pass through a single center firewall grommet, then split into 3 t
 **LEFT TRUNK (Driver Side):**
 - D1 engine sensor cable (12 wires, includes shielded pairs for crank/cam)
 - D3 Bank 2 rear cable (8 wires + 16 AWG ground) — short run, rear bank is near firewall on driver side
+- D5 IACV stepper cable (4 wires) — routes to throttle body area near D1
 - HP1 starter cable (10 AWG heavy, to bell housing)
 
 **RIGHT TRUNK (Passenger Side):**
@@ -391,7 +415,7 @@ All harnesses pass through a single center firewall grommet, then split into 3 t
 
 | Trunk | Approx Wire Count | Suggested Loom |
 |-------|--------------------|----------------|
-| LEFT | ~22 wires + HP1 heavy + D3 ground | 1" split loom or braided sleeve |
+| LEFT | ~26 wires + HP1 heavy + D3 ground | 1" split loom or braided sleeve |
 | RIGHT | ~18 wires + HB1 heavy + D2 ground + O2 cable | 1" split loom or braided sleeve |
 | CENTER | ~14 wires + HP3 heavy | 3/4" split loom |
 
@@ -402,6 +426,7 @@ All harnesses pass through a single center firewall grommet, then split into 3 t
 1. **Lowdoller sensor pigtails** — crimp Deutsch DT pins onto each sensor's bare wires. Tie red wires together → pin 7, tie black+white wires together → pin 8. Do on bench before installing sensors.
 2. **D4 chassis side** — run 8 wires from Haltech AVI pins through firewall to D4 location. Terminate with 8-pin Deutsch.
 3. **D1 engine sensor harness** — build chassis-side cable (12 wires from Haltech 26-pin/34-pin through firewall). Build engine-side pigtails to cam, crank, knock, IAT, MAP, TPS. Terminate both sides with 12-pin Deutsch.
+3a. **D5 IACV stepper harness** — build chassis-side cable (4 wires from Haltech 34-pin pins 31–34 through firewall). Build engine-side pigtail to IACV connector (35150-33010). Terminate with 4-pin Deutsch. Route alongside D1 in LEFT trunk.
 4. **D2 Bank 1 front harness** — build chassis-side cable (3× IGN + 3× INJ from Haltech + MP2 coil power branch + MP1 injector power branch). Build engine-side pigtails to 3× coil connectors (cyl 1,3,5) + 3× injector connectors (cyl 1,3,5). Build ground splice (3× coil Pin A → 16 AWG → ring terminal). Terminate signal/power with 8-pin Deutsch. Bundle ground wire alongside but terminate separately at front head bolt.
 5. **D3 Bank 2 rear harness** — identical to D2 but for cylinders 2,4,6. Shorter wire run (rear bank near firewall). Ground ring terminal → rear head bolt.
 6. **MP1/MP2 splice** — on engine bay side of firewall, splice MP1 into 3-way (D2 pin 8 + D3 pin 8 + Haltech pin 26 sense) and MP2 into 2-way (D2 pin 7 + D3 pin 7). Solder + heat shrink or Posi-Tap.
@@ -409,7 +434,7 @@ All harnesses pass through a single center firewall grommet, then split into 3 t
 
 **Phase 1 note:** D2 and D3 are built but NOT plugged in. Ground ring terminals NOT bolted (stock coils ground through OE harness). MP1/MP2 go to OE relay spades. Stock ECU drives coils/injectors through OE harness. Horn (MP3) and headlights (MP6) are not connected — BCM controls them.
 
-**Phase 2 switchover:** Disconnect stock coil/injector connectors on both banks. Plug in D2 (front bank) + D3 (rear bank). Bolt both ground ring terminals to respective head bolts. Pull MP1/MP2 spades from OE relay socket — splices route power to both Deutsch connectors automatically. Add horn button (Ch12) and headlight toggle (Ch04). Wire MP3 → horn, MP6 → headlights. No Race Studio config change. See `guides/pdm-build-guide.md` → "Phase 2 — Transition Procedure".
+**Phase 2 switchover:** Disconnect stock coil/injector connectors on both banks. Disconnect stock IACV connector. Plug in D2 (front bank) + D3 (rear bank) + D5 (IACV). Bolt both ground ring terminals to respective head bolts. Pull MP1/MP2 spades from OE relay socket — splices route power to both Deutsch connectors automatically. Add horn button (Ch12) and headlight toggle (Ch04). Wire MP3 → horn, MP6 → headlights. No Race Studio config change. See `guides/pdm-build-guide.md` → "Phase 2 — Transition Procedure".
 
 **Wiper wiring (when needed):** MP9 (G4) → motor Green wire (low), MP10 (G5) → motor Yellow wire (high), LP9 (G3) → motor Brown wire (park sweep). Motor Black → chassis ground. No external relay — PDM WIPER_PARKING math channel handles park positioning. See `guides/pdm-build-guide.md` → "Wiper — Relay-Less Park Design".
 
