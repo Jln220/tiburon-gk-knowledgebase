@@ -125,7 +125,7 @@ See `cars/cop-ignition.md` for full coil pinout (A/B/C/D), wiring diagram, and p
 | Signal | Source | Haltech Pin | Notes |
 |--------|--------|-------------|-------|
 | ECU 13.8V supply | PDM output / fuse block | **26-pin pin 11** | R/W wire |
-| ECU ignition input | Ignition switch / PDM | **34-pin pin 13** | P (purple). 12V when IGN on + cranking |
+| ECU ignition input | Kill switch → IGN toggle → splice | **34-pin pin 13** | P (purple). 12V when kill switch ON + IGN toggle ON. Splice from IGN toggle output — same source as PDM Grey B23. |
 | Battery ground | Battery negative | **34-pin pins 10, 11** | B (black) — two pins to chassis/batt GND |
 | +5V sensor supply | Internal (output) | **34-pin pin 9** | O (orange) — 100mA max. For Lowdoller sensors |
 | +8V sensor supply | Internal (output) | **34-pin pin 12** | O/W (orange/white) — 1A max. For MAP sensor, OEM-type sensors |
@@ -238,7 +238,7 @@ All driver controls use a physical switch panel — no CAN keypad in this build.
 
 | PDM Pin | Function | Type | Notes |
 |---------|----------|------|-------|
-| **Grey Connector G23** (Ignition) | Ignition toggle switch | Latching, 12V when ON | Master PDM power state; source for `SafeIgnition`. Also spliced to Haltech 34-pin pin 13 (P, purple) — ECU IGN enable. Engine off without cutting battery. ✅ |
+| **Grey Connector G23** (Ignition) | Ignition toggle switch | Latching, 12V when ON | 12V from kill switch output → IGN toggle → B23 + splice to Haltech 34-pin pin 13 (P). Master PDM power state; source for `SafeIgnition`. Kill switch = ultimate disconnect, IGN = car on/off. ✅ |
 | **Ch01 — G26** | Start button | Momentary, active = GND | Crank engine — gated by ignition and RPM interlock 🔲 |
 | **Ch02 — G27** | Fan Low override toggle | Latching, 12V when ON | Manual fan low speed override 🔲 |
 | **Ch03 — G28** | Fan High override toggle | Latching, 12V when ON | Manual fan high speed override 🔲 |

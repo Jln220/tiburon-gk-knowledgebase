@@ -309,6 +309,96 @@ These connect to chassis-mounted loads — no engine swap disconnect needed.
 
 ---
 
+## Switch Panel Harness (Center Console)
+
+**Location:** Custom panel on the center tunnel between seats. Short wire run to PDM in passenger footwell.
+**Switches:** 10 switches on panel + 1 brake switch at pedal (separate run).
+**Ground bus:** All "Close to GND" switches share a common ground bus — one wire per switch to PDM, one common ground wire to chassis.
+
+### Power Chain
+
+```
+Battery (+) ── Kill switch ── 12V hot (kill switch output)
+                                  │
+                                  └── IGN toggle (center console)
+                                         │
+                                         ├── PDM Grey B23 (Ignition input)
+                                         │
+                                         └── splice → Haltech 34-pin pin 13 (P, purple)
+```
+
+The kill switch is the ultimate master disconnect. IGN toggle is the "car on" switch that enables `SafeIgnition` in the PDM. Both must be ON for any PDM output to function.
+
+### Panel Layout — 10 Switches
+
+| Position | Switch | Type | Ch / Pin | Connector | Signal Mode | Notes |
+|----------|--------|------|----------|-----------|-------------|-------|
+| 1 | **Ignition** | Latching toggle | IGN / B23 | Grey | Close to VBatt | 12V from kill switch. Master enable. |
+| 2 | **Start** | Momentary pushbutton | Ch01 / B26 | Grey | Close to GND | Hold to crank. Gated by IGN + RPM interlock. |
+| 3 | **Fan Low** | Latching toggle | Ch02 / B27 | Grey | Close to GND | Manual override — forces ~50% PWM |
+| 4 | **Fan High** | Latching toggle | Ch03 / B28 | Grey | Close to GND | Manual override — forces ~98% PWM |
+| 5 | **Headlights** | Latching toggle | Ch04 / B29 | Grey | Close to GND | Gated by SafeIgnition |
+| 6 | **Wiper Low** | Latching toggle | Ch05 / B30 | Grey | Close to GND | Future — install when wipers needed |
+| 7 | **Wiper High** | Latching toggle | Ch06 / B31 | Grey | Close to GND | Future — overrides low |
+| 8 | **Coolsuit** | Latching toggle | Ch10 / B22 | Grey | Close to GND | Gated by SafeIgnition |
+| 9 | **Defogger** | Latching toggle | Ch11 / A26 | **Black** | Close to GND | Gated by SafeIgnition |
+| 10 | **Horn** | Momentary pushbutton | Ch12 / A27 | **Black** | Close to GND | Always active when IGN on |
+
+### Brake Switch (NOT on Panel)
+
+| Switch | Type | Ch / Pin | Connector | Signal Mode | Location |
+|--------|------|----------|-----------|-------------|----------|
+| **Brake** | OEM momentary | Ch09 / B21 | Grey | Close to VBatt | Brake pedal, driver's footwell |
+
+OEM brake light switch provides 12V on pedal press. Separate wire run from driver's footwell across under dash to PDM Grey connector in passenger footwell.
+
+### Wire Routing
+
+```
+CENTER CONSOLE PANEL (10 switches)
+    │
+    ├── 8 wires (Ch01–06 + Ch10 + IGN) ──── PDM Grey (B) pins
+    │       B23, B26, B27, B28, B29,
+    │       B30, B31, B22
+    │
+    ├── 2 wires (Ch11 + Ch12) ───────────── PDM Black (A) pins
+    │       A26, A27
+    │
+    ├── 1 ground bus wire ───────────────── Chassis ground point
+    │       (shared by all 9 "Close to GND" switches)
+    │
+    └── 1 power feed (kill switch 12V) ──── IGN toggle input
+            (12V hot when kill switch is ON)
+
+BRAKE PEDAL (driver's footwell)
+    │
+    └── 1 wire ──────── under dash ──────── PDM Grey B21
+            (OEM brake switch, Close to VBatt, no ground needed)
+
+IGN SPLICE (at panel or inline)
+    │
+    └── IGN toggle output ── splice ──┬── PDM Grey B23
+                                      └── Haltech 34-pin pin 13 (P)
+```
+
+### Wire Count — Panel Harness
+
+| Bundle | Wires | Gauge | Destination |
+|--------|-------|-------|-------------|
+| Panel → PDM Grey | 8 | 18 AWG | Switch signals |
+| Panel → PDM Black | 2 | 18 AWG | Ch11 + Ch12 signals |
+| Panel → chassis GND | 1 | 16 AWG | Common ground bus |
+| Kill switch → panel IGN | 1 | 14 AWG | 12V hot (carries IGN + Haltech sense current) |
+| Panel IGN → Haltech | 1 | 18 AWG | Splice to 34-pin pin 13 (P) |
+| **Panel total** | **13 wires** | | |
+| Brake pedal → PDM Grey | 1 | 18 AWG | Separate run under dash |
+
+> **Connector grouping note:** 8 of 10 panel wires go to the Grey connector. Only Ch11 (defogger) and Ch12 (horn) go to Black. Since the PDM Black and Grey connectors are right next to each other in the passenger footwell, this split doesn't require a separate cable — all 10 signal wires can run in the same bundle from the panel, then fan out to their respective connector pins at the PDM end.
+
+> **Panel ground bus:** Run one 16 AWG wire from a panel-mounted ground bus bar to the nearest chassis ground point (e.g., passenger footwell bolt). All 9 "Close to GND" switches connect their ground terminal to this bus. The IGN switch is the exception — it's "Close to VBatt" and doesn't need the ground bus (it switches 12V from kill switch to B23).
+
+---
+
 ## Fuse Box Spade Connections (Phase 1 — Temporary)
 
 > Phase 1A (Saturday): Main relay + fuel pump + starter only. Fan added in Phase 1B (Sunday after CAN verified).
