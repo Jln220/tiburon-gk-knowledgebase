@@ -19,10 +19,17 @@ Compatible with Holley, FuelTech, Haltech, and similar ECUs.
 
 **Notes:**
 - 8.5 ft flying leads — cut to length and add Deutsch DTM connectors (recommended by Lowdoller)
-- Each sensor uses **2 Haltech AVI channels** (one for pressure, one for temp)
+- Each sensor uses **2 analog input channels** (one for pressure, one for temp)
 - Pressure is ratiometric voltage (0.5–4.5V). All Haltech AVI inputs accept 0–5V (20V max tolerant).
 - Temp is resistive — use AVI with temp sensor mode and 1K pull-up enabled in NSP
 - Already tested and configured in Haltech NSP
+
+**PDM connection (standalone / no Haltech):**
+- Red wire → PDM G16 (+5V Vref)
+- Black + White wires → PDM G18 (GND)
+- Yellow wire → PDM analog channel input (0–5V mode, no pull-up)
+- Green wire → PDM analog channel input (0–5V mode, ✅ 10kΩ internal pull-up for PTC)
+- See `builds/white-tiburon/guides/pdm-sensor-wiring-weekend.md` for full channel map
 
 **Haltech Elite 2500 Sensor Supply Pins (34-pin connector):**
 - **Pin 9 (O, orange): +5V DC** — 100mA max. Use this for all Lowdoller sensors.

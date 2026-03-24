@@ -48,19 +48,21 @@
 | 04 | G29 | `HeadlightSW` | Ground | ✅ 10kΩ | Latching toggle | G29 → switch → GND |
 | 05 | G30 | `WiperLoSW` | Ground | ✅ 10kΩ | Latching toggle | G30 → switch → GND (future) |
 | 06 | G31 | `WiperHiSW` | Ground | ✅ 10kΩ | Latching toggle | G31 → switch → GND (future) |
-| 07 | G32 | **SPARE** | — | — | — | Available for analog sensor (0–5V) |
-| 08 | G33 | **SPARE** | — | — | — | Available for analog sensor (0–5V) |
+| 07 | G32 | **SPARE** | — | — | — | Available for analog sensor (0–5V). Weekend config: `CrankcasePressure` |
+| 08 | G33 | **SPARE** | — | — | — | Available for analog sensor (0–5V). Weekend config: `TireTemp` |
 | 09 | G21 | `BrakeSW` | VBatt | No | OEM brake switch | 12V → OEM switch → G21 |
 | 10 | G22 | `CoolsuitSW` | Ground | ✅ 10kΩ | Latching toggle | G22 → switch → GND |
 | 11 | B26 | `DefoggerSW` | Ground | ✅ 10kΩ | Latching toggle | B26 → switch → GND |
 | 12 | B27 | `HornSW` | Ground | ✅ 10kΩ | Momentary button | B27 → switch → GND |
 | Spd1 | G20 | **SPARE** | — | — | — | Speed input — available for wheel speed |
 | Spd2 | G19 | **SPARE** | — | — | — | Speed input — available |
-| Vref | G16 | *(sensor supply)* | — | — | — | +5V for future ratiometric sensors |
+| Vref | G16 | *(sensor supply)* | — | — | — | +5V for ratiometric sensors. Weekend config: powers all combo sensors + crankcase + IR pyrometer |
 
 > **Close to Ground** = switch shorts pin to chassis ground when ON. Internal 10kΩ pull-up holds pin high (~5V) when switch is open. All custom panel switches use this — one wire to PDM, one wire to common ground bus. Simple.
 >
 > **Close to VBatt** = switch provides 12V to pin when ON. No pull-up needed. Used for OEM brake switch (provides 12V on pedal press) and IGN input (toggle feeds 12V).
+>
+> **Weekend sensor config:** For PDM-standalone weekends (no Haltech), Ch01–Ch08 can be reconfigured as analog sensor inputs. Switches move to Ch09–Ch12 (digital-only). See `pdm-sensor-wiring-weekend.md` for the temporary channel map, wiring, and Race Studio changes.
 
 #### Race Studio Channel Settings
 
