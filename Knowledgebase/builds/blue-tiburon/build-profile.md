@@ -126,8 +126,7 @@
 ## Interior & Safety
 
 ### Seating
-- **Momo Daytona** containment seat
-- Seat back brace
+- **Sparco Sprint L** seat (non-containment)
 - 16 gauge steel plate welded over driver's side floor
 - Exhaust tunnel cut to lower seat height (improved seating position relative to cage)
 - **Crow Safety 6-point Enduro harness**
@@ -254,6 +253,6 @@
 ---
 
 ## Known Issues & Ongoing Work
-- **Seat height relative to cage** — resolved in blue car (steel plate + exhaust tunnel cut), still needs solution in white car
+- **Seat height relative to cage** — floor drop resolved in both cars; white car now has Momo Daytona, blue car now has Sparco Sprint L
 - **25mm wheel spacers** — monitoring for wheel bearing wear; 3 races + 8 track days so far, no issues
 - **Amazon fuel pressure regulator** — cheap/temporary; white car getting Radium upgrade

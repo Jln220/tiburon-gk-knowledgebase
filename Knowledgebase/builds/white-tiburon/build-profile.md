@@ -155,9 +155,8 @@ All combo sensors: 0.5–4.5V pressure + PTC resistive temp (5-wire: red/black/y
 ## Interior & Safety
 
 ### Seating
-- **Sparco Sprint L** seat (currently installed — non-containment)
-  - **KNOWN ISSUE:** Floor has NOT been dropped (unlike blue car); seat height relative to cage remains unresolved
-  - **Goal:** Replace with full containment seat once floor is modified
+- **Momo Daytona** containment seat on **Sparco adjustable bracket**
+- Floor has been dropped (steel plate + exhaust tunnel cut to lower seat height)
 
 ### Fire Suppression
 - **Lifeline 2020** fire suppression system
@@ -183,7 +182,7 @@ All combo sensors: 0.5–4.5V pressure + PTC resistive temp (5-wire: red/black/y
 ---
 
 ## Known Issues & Ongoing Work
-- **Seat height relative to cage** — NOT YET RESOLVED (needs floor drop like blue car, then full containment seat)
+- **Seat height relative to cage** — RESOLVED (floor dropped, Momo Daytona on Sparco adjustable bracket installed)
 - **Heim pin fitment for custom control arms** — no off-the-shelf pin fits Tiburon knuckle; current pins reamed to fit; need to find/make correct size
 - **Rear bank header bend** — problematic bend, want to straighten or replace eventually
 - **REM-less Haltech build** — repurposing REM harness without the REM unit
