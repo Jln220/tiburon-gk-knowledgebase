@@ -2,7 +2,7 @@
 ## 2003 Hyundai Tiburon GK | 24 Hours of Lemons
 
 **Role:** Primary race car — all best equipment goes here
-**Engine:** 2.7L V6 Delta (G6BA)
+**Engine:** 2.7L V6 Delta (G6BA) — original Hyundai V6, no motor swap
 
 ---
 
@@ -110,10 +110,12 @@ All combo sensors: 0.5–4.5V pressure + PTC resistive temp (5-wire: red/black/y
 
 ## Suspension, Steering & Chassis
 
+### Bushings
+- **All polyurethane bushings** throughout suspension
+
 ### Front Suspension
-- **Custom tubular control arms** (in development)
+- **Adjustable chromoly tube front control arms** with heim joints
   - Build thread: https://www.newtiburon.com/threads/big-strong-arms-front-lower-control-arms-for-the-lemons-tiburons.484870/
-  - Use heim joints at knuckle end
   - **KNOWN ISSUE: heim pin fitment** — cannot find heim pins that fit the Tiburon knuckle; had to ream current pins. Tried Pinto pins and several other vehicles, none fit. Finding correct pins is a future project.
   - Will eventually use heim joints for tie rod ends as well
 - **ARP studs** (strut-to-knuckle)
@@ -122,6 +124,11 @@ All combo sensors: 0.5–4.5V pressure + PTC resistive temp (5-wire: red/black/y
 - **Ingalls Engineering adjustable rear control arms**
 - **SuperPro bushings** in rear trailing arms (shared mod with blue car)
 
+### Sway Bars & Links
+- **Adjustable sway bar links** front and rear
+- **23mm rear sway bar**
+- **Front sway bar:** Switch between 22mm and 26mm depending on track/driver lineup
+
 ### Strut Bars
 - **Front strut bar** installed (blue car does not have)
 - **Rear strut bar** installed (blue car does not have)
@@ -129,7 +136,16 @@ All combo sensors: 0.5–4.5V pressure + PTC resistive temp (5-wire: red/black/y
 ### Wheels & Tires
 - **Enkei RPF01** 17x7 wheels
 - **No wheel spacers** (unlike blue car's 25mm spacers)
-- *(Tire size/brand TBD)*
+- Tire size: 225/45/17
+- Tire options:
+  - Hankook RS4 (performance/grip)
+  - Continental ExtremeContact Force (endurance/longevity)
+
+### Vehicle Weight
+- **Corner weights** (with OE struts & cheap lowering springs):
+  - Front left: 881 lbs | Front right: 820 lbs
+  - Rear left: 524 lbs | Rear right: 504 lbs
+  - **Total: 2,729 lbs**
 
 ### Steering
 - **Sparco detachable steering wheel** (quick release)

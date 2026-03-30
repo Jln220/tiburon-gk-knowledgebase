@@ -99,6 +99,10 @@
 - **SuperPro bushings** in rear trailing arms (shared with white car)
 - Rear wheel bearings replaced **Fall 2024**
 
+### Sway Bars & Links
+- **Adjustable sway bar links** front and rear
+- **Stock sway bars** front and rear
+
 ### Axles
 - **GSP axles** with **Timken axle seals**
 
@@ -242,7 +246,7 @@
 | Date | Work Performed | Notes |
 |------|---------------|-------|
 | ~2024 | Engine installed | Junkyard V6, unknown miles |
-| Recent | ClutchMasters FX500 + Fidanza flywheel | New clutch/flywheel combo |
+| Jul 2025 | ClutchMasters FX500 + Fidanza flywheel | New clutch/flywheel combo |
 | Recent | Gates timing belt kit | Full timing belt service |
 | Fall 2024 | Front & rear wheel bearings replaced | |
 | Sep 2024 | Lifeline 2020 bottle | New fire suppression bottle |

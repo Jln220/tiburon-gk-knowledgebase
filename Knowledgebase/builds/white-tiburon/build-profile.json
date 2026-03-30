@@ -142,7 +142,18 @@
     "ignition": ["COP conversion — Toyota 90919-A2005 ×6 sequential (replaces OEM wasted spark 3-coil system)"],
     "intake": [],
     "exhaust": [],
-    "suspension": [],
+    "suspension": [
+      "All polyurethane bushings",
+      "Adjustable chromoly tube front control arms with heim joints",
+      "ARP studs (strut-to-knuckle)",
+      "Ingalls Engineering adjustable rear control arms",
+      "SuperPro rear trailing arm bushings",
+      "Adjustable sway bar links front and rear",
+      "23mm rear sway bar",
+      "Front sway bar: 22mm or 26mm (swapped depending on track/driver lineup)",
+      "Front strut bar",
+      "Rear strut bar"
+    ],
     "safety": ["roll cage (Lemons spec)"],
     "other": ["AIM 10-inch dash", "AIM CAN Keypad 12", "AIM PDM 32 replaces OEM fuse/relay box"]
   },
