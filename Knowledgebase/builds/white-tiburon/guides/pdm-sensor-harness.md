@@ -1,6 +1,14 @@
 # PDM Sensor Harness — Current Race Config (PDM Only, No ECU)
 ## White Tiburon — AIM PDM 32 reading sensors directly, stock ECU runs the engine
 
+**Purpose: clean, working gauges for next weekend's race — not a permanent
+architecture decision.** Stock ECU keeps running the car exactly as it does today;
+this is just getting the Lowdoller/tire/trans sensors off temporary Wago splices
+and onto a real PDM-read harness so the dash shows good data. The full Haltech
+takeover (Phase 2/3 in the older docs) is explicitly deferred, not abandoned —
+this doc and the finalized Deutsch harness below are meant to be easy to build on
+top of when that happens, not something that has to be undone first.
+
 **Status: this is the active plan for the upcoming race.** It supersedes the combined
 PDM + Haltech architecture described in `harness-design.md`, `pdm-build-guide.md`,
 `signal-routing.md`, and `hardware/sensors/lowdoller-sensors.md` — those documents
