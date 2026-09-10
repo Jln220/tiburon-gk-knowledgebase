@@ -129,6 +129,103 @@ expansion (a 6-pin leaves room to add something else on this side later).
 
 ---
 
+## Race Studio Configuration
+
+Since the PDM is doing sensor readout only — no switch panel, no power output
+logic — none of the layered logic in `pdm-configuration-guide.md` (Status
+Variables → Trigger Commands → Power Outputs) applies here. The only thing to
+configure is the 7 Channel Inputs as analog sensors, plus making sure they
+actually reach the dash/logger over CAN.
+
+> **Field names below follow the pattern used for the old Digital Status channel
+> configs in `pdm-build-guide.md`, adapted for Analog mode.** Exact field labels
+> for a Race Studio "Custom Sensor" analog channel haven't been screenshot-verified
+> in this KB yet (everything documented previously was Digital Status for
+> switches) — confirm against the live UI or the PDM32 user guide's channel-input
+> section on first setup, and correct this doc from what you actually see.
+
+### Step 0 — Strip Out What No Longer Applies
+
+- [ ] **Disable/remove the ECU Stream (CAN1) config** — no Haltech, nothing to receive on that bus
+- [ ] **Leave CAN2 disabled** — no keypad
+- [ ] **Delete or disable any Status Variables / Trigger Commands / Power Output configs** left over from the old switch-panel plan — nothing in this build drives an output off PDM logic
+- [ ] Keep **CAN0 (CAN AiM, 1 Mbps)** active — this is how these channels reach the dash, SmartyCam, and Podium
+
+### Ch01 — `FuelPress`
+
+| Field | Value |
+|---|---|
+| Name | `FuelPress` |
+| Mode | Analog |
+| Input range | 0–5V |
+| Calibration | Linear, 2-point: 0.5V = 0 PSI, 4.5V = 150 PSI |
+| Units | PSI |
+| Sampling Frequency | 10 Hz |
+| Log values | ✅ Yes |
+
+### Ch02 — `FuelTemp`
+
+| Field | Value |
+|---|---|
+| Name | `FuelTemp` |
+| Mode | Analog |
+| Calibration | Custom resistance table — PTC curve from `hardware/sensors/lowdoller-sensors.md` (84.27Ω @ −40°F → 197.71Ω @ 500°F) |
+| Units | °F |
+| Sampling Frequency | 2 Hz |
+| Log values | ✅ Yes |
+
+> Confirm what bias/pull-up Race Studio applies for a channel in this mode —
+> the digital-input 10kΩ pull-up used for switches would be far too high a
+> reference for an ~84–198Ω element and would flatten the signal to a few tens
+> of millivolts across the whole range. See Open Items.
+
+### Ch03 — `OilPress`
+
+Same as Ch01 (`FuelPress`): 0.5V = 0 PSI, 4.5V = 150 PSI, 10 Hz, log ✅.
+
+### Ch04 — `OilTemp`
+
+Same as Ch02 (`FuelTemp`): PTC custom table, 2 Hz, log ✅.
+
+### Ch05 — `TransPress`
+
+Same as Ch01 (`FuelPress`): 0.5V = 0 PSI, 4.5V = 150 PSI, 10 Hz, log ✅.
+
+### Ch06 — `TransTemp`
+
+Same as Ch02 (`FuelTemp`): PTC custom table, 2 Hz, log ✅.
+
+### Ch07 — `TireTempFL`
+
+| Field | Value |
+|---|---|
+| Name | `TireTempFL` |
+| Mode | Analog |
+| Input range | 0–5V |
+| Calibration | **Unknown — sensor's voltage-to-temperature transfer function not yet in this KB.** The pinout gives supply/ground/signal wiring only, no scaling curve. |
+| Units | TBD |
+| Sampling Frequency | 5 Hz |
+| Log values | ✅ Yes |
+
+> Until the transfer function is known, log this channel as a raw 0–5V value
+> (no calibration applied) so the data isn't lost — just won't read in actual
+> degrees on the dash until the curve is entered. Check the sensor's datasheet/
+> listing for a linear range (e.g. "0–5V = X–Y °F") or a table like the PTC one.
+
+### Ch08 — Spare
+
+Leave unconfigured.
+
+### Getting Channels to the Dash
+
+Configuring the channel isn't enough by itself — confirm each one is included in
+whatever CAN0 broadcast/display list feeds the AIM dash (same mechanism already
+used for SmartyCam overlay channels in `hardware/aim/aim-smartycam/aim-smartycam.md`),
+and add them to a dash page so they're actually visible to the driver, not just
+logged.
+
+---
+
 ## Bypass Loop Disposition (Coolant)
 
 Both the throttle-body coolant feed and the heater-core loop are being **capped
@@ -149,6 +246,13 @@ up the Ch08 headroom.
 - **PTC resistive sensor reading on PDM channel inputs** — confirmed to be handled
   via custom sensor calibration in Race Studio (per build decision). Worth a bench
   check with one sensor before committing all four temp channels to this scheme.
+- **Tire temp voltage-to-temperature curve unknown** — need the sensor's datasheet
+  scaling to calibrate Ch07 in Race Studio. Wire it and log raw volts in the
+  meantime rather than waiting on this.
+- **Exact Race Studio field names for Analog/Custom Sensor channel config
+  unverified** — everything previously documented in this KB was Digital Status
+  mode (switches). Confirm against the live UI on first setup and correct the
+  per-channel tables above if the actual fields differ.
 - Trans sensor confirmed as Lowdoller 899404 combo (same as fuel/oil).
 
 ---
