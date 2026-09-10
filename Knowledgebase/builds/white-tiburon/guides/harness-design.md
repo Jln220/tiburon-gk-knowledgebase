@@ -1,6 +1,12 @@
 # Harness Design — White Tiburon
 ## Deutsch Connector Architecture for Engine Swap + Serviceability
 
+> **SUPERSEDED for the current race build.** This describes the shelved combined
+> PDM+Haltech architecture (Haltech running the engine, PDM as full power
+> distribution). Current plan is PDM-only sensor monitoring, stock ECU runs the
+> engine — see `guides/pdm-sensor-harness.md`. Revisit this doc if the Haltech
+> switchover is picked back up later.
+
 **Car:** White 2003 Tiburon GK | Haltech Elite 2500 + AIM PDM 32
 **Goal:** Every engine-mounted connection unplugs with a Deutsch connector. Pull 4 connectors + 2 ground ring terminals + unbolt starter = engine is free.
 

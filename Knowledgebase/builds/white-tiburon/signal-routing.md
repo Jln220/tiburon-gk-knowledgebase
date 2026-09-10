@@ -1,6 +1,10 @@
 # Signal Routing — White Tiburon (Haltech + AIM PDM)
 ## End-to-End Signal Trace Reference
 
+> **SUPERSEDED for the current race build.** This describes the shelved Haltech
+> AVI sensor assignments. Current plan routes sensors directly to PDM channel
+> inputs, no Haltech in the path — see `guides/pdm-sensor-harness.md`.
+
 **Car:** White 2003 Hyundai Tiburon GK — Haltech Elite 2500 + AIM PDM 32
 **Confidence key:** ✅ Verified from factory/Haltech PDF | ⚠️ Forum/wiki sourced, needs NSP confirmation | 🔲 Planned, not yet wired
 

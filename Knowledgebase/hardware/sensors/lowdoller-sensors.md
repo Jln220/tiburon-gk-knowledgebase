@@ -1,6 +1,11 @@
 # Lowdoller Motorsports Combo Sensors — White Tiburon
 ## Pressure + Temperature in One Sensor
 
+> **Note:** the "Haltech AVI Channel Assignment Plan" section below describes the
+> shelved PDM+Haltech architecture. Sensor specs and the PTC calibration table are
+> still accurate and reused as-is; for the current PDM-only channel assignments
+> see `builds/white-tiburon/guides/pdm-sensor-harness.md`.
+
 All sensors share the same temp element (PTC thermistor) and same wiring scheme.
 All are Haltech-compatible with 0.5–4.5V pressure output and resistive temp output.
 Compatible with Holley, FuelTech, Haltech, and similar ECUs.

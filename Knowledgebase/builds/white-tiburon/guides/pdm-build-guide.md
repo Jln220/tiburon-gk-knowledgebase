@@ -1,6 +1,12 @@
 # PDM Build Guide — White Tiburon (Consolidated)
 ## AIM PDM 32 | Haltech Elite 2500 | Physical Switch Panel
 
+> **SUPERSEDED for the current race build.** This describes the shelved combined
+> PDM+Haltech architecture (full power distribution, switch panel, phased Haltech
+> takeover). Current plan is PDM-only sensor monitoring, stock ECU + stock relay
+> box run the car — see `guides/pdm-sensor-harness.md`. Revisit this doc if the
+> Haltech switchover is picked back up later.
+
 **Car:** White 2003 Tiburon GK (2.7L V6 Delta / G6BA)
 **Race series:** 24 Hours of Lemons
 
